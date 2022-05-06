@@ -24,11 +24,11 @@ public class Player {
     }
 
     public void loadImage(){
-        ImageIcon ii= new ImageIcon("/Users/samuele/IdeaProjects/progettoGioco/src/main/resources/images/SpaceShipRed.png");
+        ImageIcon ii= new ImageIcon("GameG/src/main/resources/images/SpaceShipRed.png");
         image=ii.getImage().getScaledInstance(60,60,1);  //ridimensiona
-        ImageIcon ii2=new ImageIcon("/Users/samuele/IdeaProjects/progettoGioco/src/main/resources/images/world.jpg");
+        ImageIcon ii2=new ImageIcon("GameG/src/main/resources/images/world.jpg");
         background= ii2.getImage().getScaledInstance(1920,1202,1);
-        ImageIcon ii3=new ImageIcon("/Users/samuele/IdeaProjects/progettoGioco/src/main/resources/images/missile.png");
+        ImageIcon ii3=new ImageIcon("GameG/src/main/resources/images/missile.png");
         missile= ii3.getImage().getScaledInstance(5,2,1);
 
 
