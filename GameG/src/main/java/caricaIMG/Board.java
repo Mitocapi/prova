@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
+    //modifica
+
     private Timer timer;
     private Player player;
     private final int DELAY=10;
