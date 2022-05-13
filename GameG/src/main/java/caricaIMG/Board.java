@@ -8,25 +8,36 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
-//questo
 
     private Timer timer;
     private Player player;
     private final int DELAY=10;
+
+    /* provo ad aggiungere la modalità di pausa  cercando di
+    * farla poi diventare un menù iniziale */
+
+    public enum STATE {
+        PAUSA, PLAY
+    };
+    private STATE statoAttuale = STATE.PLAY;
+
+    // ha due stati, play e pausa...
 
 
     public Board(){
         initUI();
     }
 
-    public void initUI(){
+    public void initUI() {
         addKeyListener(new Adapt());
         setBackground(Color.black);
         setFocusable(true);
-        player=new Player();
-
-        timer=new Timer(DELAY,this);
-        timer.start();
+        player = new Player();
+        //fa cose solo se non è in pausa
+        if (statoAttuale == STATE.PLAY) {
+            timer = new Timer(DELAY, this);
+            timer.start();
+        }
     }
 
     public void paintComponent(Graphics g){
@@ -74,8 +85,14 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        move();
-        repaint(player.getX()-1, player.getY()-1,player.getW()+2,player.getH()+2);
+        statoAttuale=player.cambiaStato();
+
+        //fa cose solo se non è in pausa
+        if (statoAttuale == STATE.PLAY) {
+            move();
+            repaint(player.getX() - 1, player.getY() - 1, player.getW() + 2, player.getH() + 2);
+        }
 
     }
 }
+

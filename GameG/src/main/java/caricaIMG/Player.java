@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player {
+
+    private Board.STATE statoAttuale= Board.STATE.PAUSA;
     private int dx;
     private int dy;
     protected boolean shoot=false;
@@ -55,6 +57,7 @@ public class Player {
     public Image getImage(){
         return image;
     }
+    public Board.STATE cambiaStato() {return statoAttuale;}; //funzione per passare da pausa a play e viceversa
 
     public void KeyPressed(KeyEvent e){
        int key= e.getKeyCode();
@@ -88,6 +91,12 @@ public class Player {
         }
         if(key==KeyEvent.VK_UP   || key==KeyEvent.VK_W){
             dy=0;
+        }
+        if (key==KeyEvent.VK_ESCAPE){
+            if ( statoAttuale == Board.STATE.PLAY ){
+                statoAttuale = Board.STATE.PAUSA;
+            }
+            else statoAttuale = Board.STATE.PLAY;
         }
 
     }
