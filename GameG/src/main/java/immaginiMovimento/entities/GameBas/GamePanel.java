@@ -1,7 +1,8 @@
 package immaginiMovimento.entities.GameBas;
 
-import inputs.KeyboardInputs;
-import inputs.MouseInputs;
+import immaginiMovimento.entities.inputs.KeyboardInputs;
+import immaginiMovimento.entities.inputs.MouseInputs;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,8 +11,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static utilz.Constants.Directions.*;
-import static utilz.Constants.PlayerConstants.*;
+import static immaginiMovimento.entities.utilz.Constants.Directions.*;
+import static immaginiMovimento.entities.utilz.Constants.PlayerConstants.*;
+
 
 public class GamePanel extends JPanel {
 
