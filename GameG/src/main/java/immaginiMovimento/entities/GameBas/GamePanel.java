@@ -58,7 +58,7 @@ public class GamePanel extends JPanel {
     private void importIMG() {
 
         try {
-            img = ImageIO.read(new File("/Users/samuele/IdeaProjects/GiocoFinale/src/main/resources/image/player_sprites.png"));
+            img = ImageIO.read(new File("GameG/src/main/resources/images/player_sprites.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
