@@ -20,7 +20,7 @@ public class Player {
     private int imgW;
     private int imgH;
 
-
+ // questo è un commento
     public Player(){
         loadImage();
     }
