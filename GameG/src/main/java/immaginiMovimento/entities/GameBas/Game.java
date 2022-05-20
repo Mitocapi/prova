@@ -60,6 +60,7 @@ public class Game implements Runnable{
                 lastCheck=System.currentTimeMillis();
                 System.out.println("FPS:"+frames+" | UPS:"+updates);
                 frames=0;
+                updates=0;
             }
         }
 
