@@ -16,13 +16,18 @@ public class Table extends JPanel {
     public final int BOARD_HEIGHT=800;
     int size_const=4;
     int f=100;    //fattore per aumentare o diminuire grandezza bordi
-    final int standard_width=240; //standard dimension of billiard board
-    final int standard_height=140;
+    final int standard_width=190; //standard dimension of billiard board
+    final int standard_height=110;
 
     int x_board=(BOARD_WIDTH/2) - (standard_width*size_const)/2; //per centrare
     int y_board=(BOARD_HEIGHT/2) - (standard_height*size_const)/2;
     final int oval_dim=10;
 
+    Point[] pit=new Point[2];
+
+
+
+    BufferedImage background;
     Image table;
     Image whiteDot;
     BufferedImage wood;
@@ -32,10 +37,21 @@ public class Table extends JPanel {
 
         setVisible(true);
         loadImage();
+        setPit(pit);
         setTable();
         initBoard();
         //new game();
     }
+
+    private void setPit(Point[] pit) {
+        pit[0]=(new Point(90,90));
+        pit[1]=(new Point(BOARD_WIDTH/2 -30,90));
+        //pit[2]=(new Point(40,40));
+        //pit[3]=(new Point(50,50));
+        //pit[4]=(new Point(80,80));
+        //pit[5]=(new Point(90,90));
+    }
+
     public void initBoard(){
         //stato iniziale del tavolo -> disposizione palline etc
     }
@@ -49,19 +65,20 @@ public class Table extends JPanel {
 
     }
     public void loadImage() {
-        ImageIcon ii=new ImageIcon("GameG/src/main/resources/images/TavoloFinale2.png");
-        table=ii.getImage();
-        ImageIcon ii2 = new ImageIcon("GameG/src/main/resources/images/Wdot.png");
-        whiteDot=ii2.getImage().getScaledInstance(10,10,0);
-
 
         try {
-            wood=ImageIO.read(new File("GameG/src/main/resources/images/textureLegnoS.jpg"));
+            background=ImageIO.read(new File("GameG/src/main/resources/images/backgroundB.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            wood=ImageIO.read(new File("GameG/src/main/resources/images/darkWoodT.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            field=ImageIO.read(new File("GameG/src/main/resources/images/biliardoTexture.jpg"));
+            field=ImageIO.read(new File("GameG/src/main/resources/images/GreenTfinal.jpg"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,6 +92,11 @@ public class Table extends JPanel {
 
         Graphics2D g2d=(Graphics2D) g;
 
+        TexturePaint tpb=new TexturePaint(background,new Rectangle(200,200));
+        g2d.setPaint(tpb);
+        g2d.fillRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
+
+
         TexturePaint tp=new TexturePaint(wood,new Rectangle(50,50));
         g2d.setPaint(tp);
         g2d.fillRoundRect(x_board-f/2,y_board-f/2,standard_width*size_const+f,standard_height*size_const+f,50,50);
@@ -86,6 +108,12 @@ public class Table extends JPanel {
         g.setColor(Color.white);
         g2d.drawImage(whiteDot,BOARD_WIDTH/2 -oval_dim/2,BOARD_HEIGHT/2 -oval_dim/2,this);
 
+        g2d.setColor(Color.black);
+
+        for (Point point : pit) {
+            //g2d.fillOval(point.x, point.y, 60, 60);
+        }
+
 
 
 
@@ -93,8 +121,8 @@ public class Table extends JPanel {
 
 
         //da eliminare
-        g.setColor(Color.black);
-        g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
-        g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
+        //g.setColor(Color.black);
+        //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
+        //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
     }
 }
