@@ -15,7 +15,7 @@ public class Table extends JPanel {
     public final int BOARD_WIDTH=1200;
     public final int BOARD_HEIGHT=800;
     int size_const=4;
-    int f=60;    //fattore per aumentare o diminuire grandezza bordi
+    int f=100;    //fattore per aumentare o diminuire grandezza bordi
     final int standard_width=240; //standard dimension of billiard board
     final int standard_height=140;
 
