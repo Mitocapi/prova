@@ -1,5 +1,7 @@
 package Biliardo;
 
+import bili.Position;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -42,10 +44,14 @@ public class Table extends JPanel {
         setPakage(pack);
         loadImage();
         setPit(pit);
-
         setTable();
         initBoard();
+        addArea();
+
         //new game();
+    }
+
+    private void addArea() {
     }
 
     private void setPakage(String[][] pack) {
@@ -126,6 +132,12 @@ public class Table extends JPanel {
 
         g.setColor(Color.white);
         g2d.drawImage(whiteDot,BOARD_WIDTH/2 -oval_dim/2,BOARD_HEIGHT/2 -oval_dim/2,this);
+
+
+
+        g2d.setColor(Color.darkGray);
+        g2d.fillRect(x_board,y_board+20,10,400);
+        g2d.fillRect(BOARD_WIDTH-x_board-10,y_board+20,10,400);
 
         g2d.setColor(Color.black);
 
