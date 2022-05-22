@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Table extends JPanel {
     final Color table_color= new Color(50,70,20); //colore campo
@@ -23,7 +22,11 @@ public class Table extends JPanel {
     int y_board=(BOARD_HEIGHT/2) - (standard_height*size_const)/2;
     final int oval_dim=10;
 
-    Point[] pit=new Point[2];
+    Point[] pit=new Point[6]; //array per le buche
+
+    String[][] pack=new String[1][3];
+
+
 
 
 
@@ -36,11 +39,21 @@ public class Table extends JPanel {
     Table(){
 
         setVisible(true);
+        setPakage(pack);
         loadImage();
         setPit(pit);
+
         setTable();
         initBoard();
         //new game();
+    }
+
+    private void setPakage(String[][] pack) {
+        //pacchetti grafici -> 0->background  1->cornice 2->campo 3-buche (da mettere!) 4->spondine (da mettere forse)
+        pack[0][0]="GameG/src/main/resources/images/background4.jpg";
+        pack[0][1]="GameG/src/main/resources/images/wood2.jpg";
+        pack[0][2]="GameG/src/main/resources/images/campo2.jpg";
+
     }
 
     private void setPit(Point[] pit) {
@@ -69,7 +82,7 @@ public class Table extends JPanel {
         try {
             //background=ImageIO.read(new File("GameG/src/main/resources/images/backgroundB.jpg"));
             //background=ImageIO.read(new File("GameG/src/main/resources/images/tilesB.jpg"));
-            background=ImageIO.read(new File("GameG/src/main/resources/images/background4.jpg"));
+            background=ImageIO.read(new File(pack[0][0]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,13 +90,13 @@ public class Table extends JPanel {
         try {
             //wood=ImageIO.read(new File("GameG/src/main/resources/images/darkWoodT.jpg"));
             //wood=ImageIO.read(new File("GameG/src/main/resources/images/metalTexture.jpg"));ù
-            wood=ImageIO.read(new File("GameG/src/main/resources/images/wood2.jpg"));
+            wood=ImageIO.read(new File(pack[0][1]));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             //field=ImageIO.read(new File("GameG/src/main/resources/images/GreenTfinal.jpg"));
-            field=ImageIO.read(new File("GameG/src/main/resources/images/campo2.jpg"));
+            field=ImageIO.read(new File(pack[0][2]));
 
         } catch (IOException e) {
             e.printStackTrace();
