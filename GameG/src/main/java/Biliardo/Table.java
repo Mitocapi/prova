@@ -67,18 +67,23 @@ public class Table extends JPanel {
     public void loadImage() {
 
         try {
-            background=ImageIO.read(new File("GameG/src/main/resources/images/backgroundB.jpg"));
+            //background=ImageIO.read(new File("GameG/src/main/resources/images/backgroundB.jpg"));
+            //background=ImageIO.read(new File("GameG/src/main/resources/images/tilesB.jpg"));
+            background=ImageIO.read(new File("GameG/src/main/resources/images/background4.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            wood=ImageIO.read(new File("GameG/src/main/resources/images/darkWoodT.jpg"));
+            //wood=ImageIO.read(new File("GameG/src/main/resources/images/darkWoodT.jpg"));
+            //wood=ImageIO.read(new File("GameG/src/main/resources/images/metalTexture.jpg"));ù
+            wood=ImageIO.read(new File("GameG/src/main/resources/images/wood2.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            field=ImageIO.read(new File("GameG/src/main/resources/images/GreenTfinal.jpg"));
+            //field=ImageIO.read(new File("GameG/src/main/resources/images/GreenTfinal.jpg"));
+            field=ImageIO.read(new File("GameG/src/main/resources/images/campo2.jpg"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,11 +101,12 @@ public class Table extends JPanel {
         g2d.setPaint(tpb);
         g2d.fillRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
 
-
-        TexturePaint tp=new TexturePaint(wood,new Rectangle(50,50));
+        //cornice
+        TexturePaint tp=new TexturePaint(wood,new Rectangle(100,100));
         g2d.setPaint(tp);
         g2d.fillRoundRect(x_board-f/2,y_board-f/2,standard_width*size_const+f,standard_height*size_const+f,50,50);
 
+        //campo
         TexturePaint tp2=new TexturePaint(field,new Rectangle(300,200));
         g2d.setPaint(tp2);
         g2d.fillRoundRect(x_board,y_board,standard_width*size_const,standard_height*size_const,50,50);
