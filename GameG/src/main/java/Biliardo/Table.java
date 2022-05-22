@@ -30,8 +30,8 @@ public class Table extends JPanel {
 
     }
     public void loadImage(){
-        ImageIcon ii=new ImageIcon("GameG/src/main/resources/images/CampP.png");
-        table=ii.getImage().getScaledInstance(standard_width*4,standard_height*4,0);
+        ImageIcon ii=new ImageIcon("GameG/src/main/resources/images/TavoloFinale2.png");
+        table=ii.getImage();
         ImageIcon ii2 = new ImageIcon("GameG/src/main/resources/images/Wdot.png");
         whiteDot=ii2.getImage().getScaledInstance(10,10,0);
 
@@ -47,7 +47,7 @@ public class Table extends JPanel {
         g.setColor(Color.white);
         //g2d.fillOval((BOARD_WIDTH/2)-oval_dim/2,(BOARD_HEIGHT/2)-oval_dim/2,oval_dim,oval_dim);
         g2d.drawImage(whiteDot,BOARD_WIDTH/2 -oval_dim/2,BOARD_HEIGHT/2 -oval_dim/2,this);
-        //g2d.drawImage(table,10,10,this);
+        g2d.drawImage(table,10,10,this);
 
 
         //da eliminare
