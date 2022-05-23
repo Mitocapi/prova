@@ -24,17 +24,17 @@ public class Table extends JPanel {
     int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
     final int oval_dim = 10;
 
-    Point[] pit = new Point[6]; //array per le buche
+    Point[] pit = new Point[2]; //array per le buche
 
     String[][] pack = new String[2][3];
 
 
     BufferedImage background;
     Image table;
-    Image whiteDot;
+
     BufferedImage wood;
     BufferedImage field;
-
+    BufferedImage whiteDot;
     Table() {
 
         setVisible(true);
@@ -52,7 +52,12 @@ public class Table extends JPanel {
     }
 
     private void setPakage(String[][] pack) {
-        //pacchetti grafici -> 0->background  1->cornice 2->campo 3-buche (da mettere!) 4->spondine (da mettere forse)
+        /*pacchetti grafici
+        0->background
+        1->cornice
+        2->campo
+        3-buche (da mettere!)
+        4->spondine (da mettere forse)*/
         pack[0][0] = "GameG/src/main/resources/images/backgroundA.jpg";
         pack[0][1] = "GameG/src/main/resources/images/woodA.jpg";
         pack[0][2] = "GameG/src/main/resources/images/campo2.jpg";
@@ -95,15 +100,18 @@ public class Table extends JPanel {
         }
 
         try {
-            //wood=ImageIO.read(new File("GameG/src/main/resources/images/darkWoodT.jpg"));
-            //wood=ImageIO.read(new File("GameG/src/main/resources/images/metalTexture.jpg"));ù
             wood = ImageIO.read(new File(pack[0][1]));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            //field=ImageIO.read(new File("GameG/src/main/resources/images/GreenTfinal.jpg"));
             field = ImageIO.read(new File(pack[0][2]));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            whiteDot = ImageIO.read(new File("GameG/src/main/resources/images/white.jpg"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,22 +139,24 @@ public class Table extends JPanel {
         g2d.setPaint(tp2);
         g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
 
-        g.setColor(Color.white);
-        g2d.drawImage(whiteDot, BOARD_WIDTH / 2 - oval_dim / 2, BOARD_HEIGHT / 2 - oval_dim / 2, this);
+
 
 
         g2d.setColor(Color.darkGray);
         g2d.fillRect(x_board, y_board + 20, 10, 400);
         g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
 
-        g2d.setColor(Color.black);
+        TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
+        g2d.setPaint(tp3);
+        g2d.fillOval(BOARD_WIDTH/2 -5,BOARD_HEIGHT/2 -5,10,10);
 
+        g2d.setColor(Color.black);
         for (Point point : pit) {
             //g2d.fillOval(point.x, point.y, 60, 60);
         }
         //da eliminare
-        //g.setColor(Color.black);
-        //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
-        //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
+        g.setColor(Color.black);
+        g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
+        g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
     }
 }
