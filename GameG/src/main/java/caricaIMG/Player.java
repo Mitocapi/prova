@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 public class Player {
 
+
     private Board.STATE statoAttuale= Board.STATE.PAUSA;
     private int dx;
     private int dy;

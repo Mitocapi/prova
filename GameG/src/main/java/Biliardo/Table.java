@@ -5,47 +5,73 @@ import bili.Position;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
-public class Table extends JPanel {
+public class Table extends JPanel implements ActionListener {
+    private Timer timer;
+    private PoolCue poolCue;
     final Color table_color = new Color(50, 70, 20); //colore campo
     //final Color edge_color=new Color(170,90,80);
 
     public final int BOARD_WIDTH = 1200;
     public final int BOARD_HEIGHT = 800;
+    public final int DELAY=1;
     int size_const = 4;
+
     int f = 100;    //fattore per aumentare o diminuire grandezza bordi
     final int standard_width = 190; //standard dimension of billiard board
     final int standard_height = 110;
 
     int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
     int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
-    final int oval_dim = 10;
+    final int pit_dim = 40;
+    boolean coin=false;
+    int x_cue=x_board/2;
+    int y_cue=y_board/2;
+    int cue_width=4;
+    int cue_length=12;
 
-    Point[] pit = new Point[2]; //array per le buche
+    boolean state=true;
+
+    Point[] pit = new Point[3]; //array per le buche
 
     String[][] pack = new String[2][3];
 
 
     BufferedImage background;
     Image table;
+    Random rnd;
 
     BufferedImage wood;
     BufferedImage field;
     BufferedImage whiteDot;
-    Table() {
+
+    public Table() {
+        initBoard();
+    }
+    public void initBoard() {
+        addMouseMotionListener(new Adapt());;
+        poolCue=new PoolCue();
 
         setVisible(true);
         setPakage(pack);
         loadImage();
         setPit(pit);
         setTable();
-        initBoard();
         addArea();
+        moveCue();
 
-        //new game();
+        timer = new Timer(DELAY, this);
+        timer.start();
+    }
+    private void moveCue(){
+        poolCue.move();
+        repaint();
+
     }
 
     private void addArea() {
@@ -67,17 +93,15 @@ public class Table extends JPanel {
     }
 
     private void setPit(Point[] pit) {
-        pit[0] = (new Point(90, 90));
-        pit[1] = (new Point(BOARD_WIDTH / 2 - 30, 90));
-        //pit[2]=(new Point(40,40));
+        pit[0] = (new Point(x_board-pit_dim/3, y_board-pit_dim/3));
+        pit[1] = (new Point(BOARD_WIDTH/2 -pit_dim/3,y_board -pit_dim/3 ));
+        pit[2]=(new Point(BOARD_WIDTH -x_board,y_board -pit_dim/3));
         //pit[3]=(new Point(50,50));
         //pit[4]=(new Point(80,80));
         //pit[5]=(new Point(90,90));
     }
 
-    public void initBoard() {
-        //stato iniziale del tavolo -> disposizione palline etc
-    }
+
 
     public void setTable() {
 
@@ -89,6 +113,17 @@ public class Table extends JPanel {
 
     public void checkCollision() {
 
+        //coin collision (white ball -> coin)
+
+    }
+    public void generateCoin(){
+        //da chiamare dopo ogni tiro, 50% possibilità spawn casuale moneta sul campo
+        int r;
+        r=rnd.nextInt(0,1);
+        if(r==1){
+            coin=true;
+        }
+        coin=false;
     }
 
     public void loadImage() {
@@ -124,39 +159,73 @@ public class Table extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        //floor
-        TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
-        g2d.setPaint(tpb);
-        g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
-        //cornice
-        TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
-        g2d.setPaint(tp);
-        g2d.fillRoundRect(x_board - f / 2, y_board - f / 2, standard_width * size_const + f, standard_height * size_const + f, 50, 50);
+            //floor
+            TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
+            g2d.setPaint(tpb);
+            g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
-        //campo
-        TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
-        g2d.setPaint(tp2);
-        g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+            //cornice
+            TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
+            g2d.setPaint(tp);
+            g2d.fillRoundRect(x_board - f / 2, y_board - f / 2, standard_width * size_const + f, standard_height * size_const + f, 50, 50);
+
+            //campo
+            TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
+            g2d.setPaint(tp2);
+            g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+
+
+            g2d.setColor(Color.darkGray);
+            g2d.fillRect(x_board, y_board + 20, 10, 400);
+            g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
+
+            TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
+            g2d.setPaint(tp3);
+            g2d.fillOval(BOARD_WIDTH/2 -5,BOARD_HEIGHT/2 -5,10,10);
+
+            //coin
+            if(coin==true){
+                //disegna coin
+            }
+            coin=false;
+
+            g2d.setColor(Color.darkGray);
+            for (Point point : pit) {
+                g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
+            }
+            //da eliminare
+            g.setColor(Color.black);
+            g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
+            g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
 
 
 
 
-        g2d.setColor(Color.darkGray);
-        g2d.fillRect(x_board, y_board + 20, 10, 400);
-        g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
+        g2d.drawImage(poolCue.getImage(),poolCue.getX(),poolCue.getY(),this);
 
-        TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
-        g2d.setPaint(tp3);
-        g2d.fillOval(BOARD_WIDTH/2 -5,BOARD_HEIGHT/2 -5,10,10);
 
-        g2d.setColor(Color.black);
-        for (Point point : pit) {
-            //g2d.fillOval(point.x, point.y, 60, 60);
+    }
+
+
+    private class Adapt implements MouseMotionListener {
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            poolCue.mouseDragged(e);
+
+
         }
-        //da eliminare
-        g.setColor(Color.black);
-        g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
-        g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            //poolCue.mouseMoved(e);
+
+        }
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        moveCue();
+
     }
 }
