@@ -43,6 +43,7 @@ public class Table extends JPanel implements ActionListener {
 
 
     BufferedImage background;
+    BufferedImage prov;
     Image table;
     Random rnd;
 
@@ -66,6 +67,7 @@ public class Table extends JPanel implements ActionListener {
         setTable();
         addArea();
         moveCue();
+
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -131,6 +133,11 @@ public class Table extends JPanel implements ActionListener {
     public void loadImage() {
 
         try {
+            prov = ImageIO.read(new File("GameG/src/main/resources/images/campoInter.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
             background = ImageIO.read(new File(pack[0][0]));
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,11 +168,11 @@ public class Table extends JPanel implements ActionListener {
 
         Graphics2D g2d = (Graphics2D) g;
 
-
+        /*
             //floor
-            TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
-            g2d.setPaint(tpb);
-            g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+           TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
+           g2d.setPaint(tpb);
+           g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
             //cornice
             TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
@@ -182,8 +189,9 @@ public class Table extends JPanel implements ActionListener {
             g2d.fillRect(x_board, y_board + 20, 10, 400);
             g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
 
-            TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
-            g2d.setPaint(tp3);
+            //TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
+            //g2d.setPaint(tp3);
+            g2d.setColor(Color.white);
             g2d.fillOval(BOARD_WIDTH/2 -5,BOARD_HEIGHT/2 -5,10,10);
 
             //coin
@@ -198,8 +206,12 @@ public class Table extends JPanel implements ActionListener {
             }
             //da eliminare
             g.setColor(Color.black);
-            g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
-            g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
+            //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
+            //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
+    */
+
+        g2d.drawImage(prov,0,0,BOARD_WIDTH,BOARD_HEIGHT,this);
+
 
 
 
