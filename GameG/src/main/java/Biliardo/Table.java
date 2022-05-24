@@ -54,7 +54,9 @@ public class Table extends JPanel implements ActionListener {
         initBoard();
     }
     public void initBoard() {
-        addMouseMotionListener(new Adapt());;
+        addMouseMotionListener(new Adapt());
+
+
         poolCue=new PoolCue();
 
         setVisible(true);
@@ -202,7 +204,13 @@ public class Table extends JPanel implements ActionListener {
 
 
 
-        g2d.drawImage(poolCue.getImage(),poolCue.getX(),poolCue.getY(),this);
+        //g2d.drawImage(poolCue.getImage(),poolCue.getX(),poolCue.getY(),this);
+        g2d.fillRect(poolCue.getX(),poolCue.getY(),4,300);
+
+
+
+
+
 
 
     }
