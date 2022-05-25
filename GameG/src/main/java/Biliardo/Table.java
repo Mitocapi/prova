@@ -176,6 +176,7 @@ public class Table extends JPanel implements ActionListener {
         g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
 
 
+
         g2d.setColor(Color.darkGray);
         g2d.fillRect(x_board, y_board + 20, 10, 400);
         g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
@@ -197,11 +198,14 @@ public class Table extends JPanel implements ActionListener {
         }
 
 
+
     }
 
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+
         setTable(g2d);
+
         //da eliminare
         g.setColor(Color.black);
         //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
