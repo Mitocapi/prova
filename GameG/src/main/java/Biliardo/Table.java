@@ -35,7 +35,7 @@ public class Table extends JPanel implements ActionListener {
     int cue_width=4;
     int cue_length=12;
 
-    boolean state=true;
+    boolean state=true; //true solo a inizio per primo ciclo di immagini
 
     Point[] pit = new Point[3]; //array per le buche
 
@@ -44,6 +44,7 @@ public class Table extends JPanel implements ActionListener {
 
     BufferedImage background;
     BufferedImage prov;
+    Image pan;
     Image table;
     Random rnd;
 
@@ -64,7 +65,6 @@ public class Table extends JPanel implements ActionListener {
         setPakage(pack);
         loadImage();
         setPit(pit);
-        setTable();
         addArea();
         moveCue();
 
@@ -105,11 +105,6 @@ public class Table extends JPanel implements ActionListener {
         //pit[5]=(new Point(90,90));
     }
 
-
-
-    public void setTable() {
-
-    }
 
     public void paintTable(Graphics g) {
 
@@ -163,67 +158,55 @@ public class Table extends JPanel implements ActionListener {
 
 
     }
+    public void setTable(Graphics2D g2d){
+
+        //floor
+        TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
+        g2d.setPaint(tpb);
+        g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+
+        //cornice
+        TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
+        g2d.setPaint(tp);
+        g2d.fillRoundRect(x_board - f / 2, y_board - f / 2, standard_width * size_const + f, standard_height * size_const + f, 50, 50);
+
+        //campo
+        TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
+        g2d.setPaint(tp2);
+        g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+
+
+        g2d.setColor(Color.darkGray);
+        g2d.fillRect(x_board, y_board + 20, 10, 400);
+        g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
+
+        //TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
+        //g2d.setPaint(tp3);
+        g2d.setColor(Color.white);
+        g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
+
+        //coin
+        if (coin == true) {
+            //disegna coin
+        }
+        coin = false;
+
+        g2d.setColor(Color.darkGray);
+        for (Point point : pit) {
+            g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
+        }
+
+
+    }
 
     public void paintComponent(Graphics g) {
-
         Graphics2D g2d = (Graphics2D) g;
-
-        /*
-            //floor
-           TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
-           g2d.setPaint(tpb);
-           g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
-
-            //cornice
-            TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
-            g2d.setPaint(tp);
-            g2d.fillRoundRect(x_board - f / 2, y_board - f / 2, standard_width * size_const + f, standard_height * size_const + f, 50, 50);
-
-            //campo
-            TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
-            g2d.setPaint(tp2);
-            g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
-
-
-            g2d.setColor(Color.darkGray);
-            g2d.fillRect(x_board, y_board + 20, 10, 400);
-            g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 400);
-
-            //TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
-            //g2d.setPaint(tp3);
-            g2d.setColor(Color.white);
-            g2d.fillOval(BOARD_WIDTH/2 -5,BOARD_HEIGHT/2 -5,10,10);
-
-            //coin
-            if(coin==true){
-                //disegna coin
-            }
-            coin=false;
-
-            g2d.setColor(Color.darkGray);
-            for (Point point : pit) {
-                g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
-            }
-            //da eliminare
-            g.setColor(Color.black);
-            //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
-            //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
-    */
-
-        g2d.drawImage(prov,0,0,BOARD_WIDTH,BOARD_HEIGHT,this);
-
-
-
-
-
-        //g2d.drawImage(poolCue.getImage(),poolCue.getX(),poolCue.getY(),this);
-        g2d.fillRect(poolCue.getX(),poolCue.getY(),4,300);
-
-
-
-
-
-
+        setTable(g2d);
+        //da eliminare
+        g.setColor(Color.black);
+        //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
+        //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
+        g2d.fillRect(poolCue.getX(), poolCue.getY(), 4, 300);
 
     }
 
