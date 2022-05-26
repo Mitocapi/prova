@@ -7,7 +7,7 @@ public class RunGame extends JFrame {
     RunGame(){
         setTitle("biliardo");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(1200,800);
+        setSize(800,700);
         add(new Table());
         setLocationRelativeTo(null); //per centrare finestra nello schermo
         setVisible(true);
