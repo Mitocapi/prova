@@ -164,13 +164,14 @@ public class Table extends JPanel implements ActionListener {
         TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
         g2d.setPaint(tpb);
         g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
-        //g2d.setStroke(new BasicStroke(341.0f));
-        //g2d.drawRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
+       //g2d.setStroke(new BasicStroke(130.0f));
+       //g2d.drawRect(60,60,BOARD_WIDTH-100,BOARD_HEIGHT-140);
 
         //cornice
         TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
         g2d.setPaint(tp);
-        g2d.fillRoundRect(x_board - f / 2, y_board - f / 2, standard_width * size_const + f, standard_height * size_const + f, 50, 50);
+        g2d.setStroke(new BasicStroke(110.0f));
+        g2d.drawRoundRect(x_board , y_board , standard_width * size_const , standard_height * size_const , 1, 1);
 
         //campo
         TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
