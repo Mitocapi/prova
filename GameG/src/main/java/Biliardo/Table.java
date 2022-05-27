@@ -15,11 +15,9 @@ public class Table extends JPanel implements ActionListener {
     private Timer timer;
     private PoolCue poolCue;
     public Palla palladiprova;
-    final Color table_color = new Color(50, 70, 20); //colore campo
-    //final Color edge_color=new Color(170,90,80);
 
-    public final int BOARD_WIDTH = 800; //ottimale 1200x800 ma poi è troppo lento
-    public final int BOARD_HEIGHT = 700;
+    public final int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
+    public final int BOARD_HEIGHT = 800;
     public final int DELAY=1;
     int size_const = 3;
 
@@ -114,8 +112,6 @@ public class Table extends JPanel implements ActionListener {
 
     public void checkCollision() {
 
-        //coin collision (white ball -> coin)
-
     }
     public void generateCoin(){
         //da chiamare dopo ogni tiro, 50% possibilità spawn casuale moneta sul campo
@@ -207,14 +203,23 @@ public class Table extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-            setTable(g2d);
-        palladiprova.paintComponents(g);
+
+        /*********************************************************************
+         * se palline sono in movimento fai repaint solo di palle e campo verde
+         * se no troppo pesante il repaint e rallenta movimento */
+        setTable(g2d);
+
         //da eliminare
         g.setColor(Color.black);
         //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
         //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
 
-        //stecca, oggetto in movimento
+
+        palladiprova.paintComponents(g2d);
+
+        /**
+         * la stecca eventualmente si può togliere
+         */
         g2d.fill3DRect(poolCue.getX(),poolCue.getY(),5,100,false);
 
 
