@@ -14,6 +14,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 public class Table extends JPanel implements ActionListener {
     private Timer timer;
     private PoolCue poolCue;
+    public Palla palladiprova;
     final Color table_color = new Color(50, 70, 20); //colore campo
     //final Color edge_color=new Color(170,90,80);
 
@@ -57,8 +58,10 @@ public class Table extends JPanel implements ActionListener {
         initBoard();
     }
     public void initBoard() {
+
         addMouseMotionListener(new Adapt());
 
+        palladiprova = new Palla(400,400);
 
         poolCue=new PoolCue();
 
@@ -68,7 +71,6 @@ public class Table extends JPanel implements ActionListener {
         setPit(pit);
         addArea();
         moveCue();
-
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -206,7 +208,7 @@ public class Table extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
             setTable(g2d);
-
+        palladiprova.paintComponents(g);
         //da eliminare
         g.setColor(Color.black);
         //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
@@ -214,6 +216,7 @@ public class Table extends JPanel implements ActionListener {
 
         //stecca, oggetto in movimento
         g2d.fill3DRect(poolCue.getX(),poolCue.getY(),5,100,false);
+
 
 
     }
