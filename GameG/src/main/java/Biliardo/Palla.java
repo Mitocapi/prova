@@ -1,12 +1,10 @@
 package Biliardo;
 
-
 import java.awt.*;
-import javax.swing.*;
 
-public class Palla {
+public class Palla  {
     int raggio;
-    Color colore;
+    static Color colorepalla;
 
     /*
     opera d'arte, considero la velocità come "movimenti rimanenti"
@@ -26,11 +24,9 @@ public class Palla {
         this.raggio = raggio;
     }
     public Color getColore() {
-        return colore;
+        return colorepalla;
     }
-    public void setColore(Color colore) {
-        this.colore = colore;
-    }
+    public static void setColore(Color colore) { colorepalla= colore;}
     public int getMovimentoRimanenteY() {
         return movimentoRimanenteY;
     }
@@ -57,17 +53,19 @@ public class Palla {
     }
 
     public Palla(int posx,int posy) {
+        colorepalla = new Color(0,0,0);
         this.raggio = 10;
-        this.posizioneX = posx;
-        this.posizioneY=posy;
-        this.movimentoRimanenteX = 0;
-        this.movimentoRimanenteY = 0;
-        this.colore = new Color(0,0,0,255);
+        this.posizioneX = getPosizioneX()+400;
+        this.posizioneY=getPosizioneY()+150;
+        this.movimentoRimanenteX = getMovimentoRimanenteX();
+        this.movimentoRimanenteY = getMovimentoRimanenteY();
+        colorepalla= getColore();
     }
 
     public void paintComponents (Graphics g){
         g.setColor(getColore());
-        g.fillOval(posizioneX-5,posizioneY+5,raggio*2,raggio*2);
+        g.fillOval(posizioneX-5,posizioneY-5,raggio*2,raggio*2);
+
     }
 
     public void Muovi(){
@@ -90,7 +88,6 @@ public class Palla {
             }
         }
     }
-
 }
 
 
