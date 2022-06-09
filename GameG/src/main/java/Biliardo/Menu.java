@@ -13,7 +13,7 @@ public class Menu implements MouseListener {
     public static Color colorePalle;
 
     public void disegnaMenu(Graphics g){
-        colorePalle=Color.black;
+
         Graphics2D g2d = (Graphics2D) g;
 
         Color coloreSfondo = new Color(10,100,1);
@@ -101,6 +101,7 @@ public class Menu implements MouseListener {
                 }
                 else if (mouseY >= 390 && mouseY <= 440) {
                     colorePalle= Color.YELLOW;
+                    System.out.println("il colore é:"+ colorePalle);
                     RunGame.statoAttuale = RunGame.STATO.MENU;
                 }
             }

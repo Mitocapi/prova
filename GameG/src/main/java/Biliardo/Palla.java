@@ -59,7 +59,6 @@ public class Palla  {
         this.posizioneY=getPosizioneY()+150;
         this.movimentoRimanenteX = getMovimentoRimanenteX();
         this.movimentoRimanenteY = getMovimentoRimanenteY();
-        colorepalla= getColore();
     }
 
     public void paintComponents (Graphics g){

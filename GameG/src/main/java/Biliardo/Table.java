@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class Table extends JPanel implements ActionListener {
+    public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
     public static Palla palladiprova;
@@ -189,6 +190,7 @@ public class Table extends JPanel implements ActionListener {
         }
         else if(RunGame.statoAttuale== RunGame.STATO.COLORI){
             menuGioco.schermataColori(g);
+            coloreSelezionato=1;
         }
        else {
            menuGioco.cancellaMenu(g);
@@ -198,7 +200,12 @@ public class Table extends JPanel implements ActionListener {
              * se palline sono in movimento fai repaint solo di palle e campo verde
              * se no troppo pesante il repaint e rallenta movimento */
             setTable(g2d);
-            palladiprova.setColore(Menu.colorePalle);
+            if(coloreSelezionato==1) {
+                palladiprova.setColore(Menu.colorePalle);
+            }
+            else {
+            palladiprova.setColore(Color.black);
+            }
             palladiprova.paintComponents(g2d);
             //da eliminare
             g.setColor(Color.black);
