@@ -121,17 +121,13 @@ public class Table extends JPanel implements ActionListener {
     public void loadImage() {
             try {
                 prov = ImageIO.read(new File("GameG/src/main/resources/images/campoInter.png"));
-                System.out.println("crying");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("at the discoteque");
             }
             try {
                 background = ImageIO.read(new File(pack[0][0]));
-                System.out.println("yo back");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("back on track");
             }
             try {
                 wood = ImageIO.read(new File(pack[0][1]));
@@ -166,8 +162,13 @@ public class Table extends JPanel implements ActionListener {
             g2d.setPaint(tp2);
             g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
             g2d.setColor(Color.darkGray);
+
+            //check collision con i 4 rettagoli
+
             g2d.fillRect(x_board, y_board + 20, 10, 285);
             g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 285);
+            g2d.fillRect(x_board,y_board,560,10);
+            g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
             //TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
             //g2d.setPaint(tp3);
             g2d.setColor(Color.white);
@@ -196,9 +197,10 @@ public class Table extends JPanel implements ActionListener {
            menuGioco.cancellaMenu(g);
            removeMouseListener(menuGioco);
            // loadImage();
-            /*********************************************************************
-             * se palline sono in movimento fai repaint solo di palle e campo verde
+
+            /*se palline sono in movimento fai repaint solo di palle e campo verde
              * se no troppo pesante il repaint e rallenta movimento */
+
             setTable(g2d);
             if(coloreSelezionato==1) {
                 palladiprova.setColore(Menu.colorePalle);

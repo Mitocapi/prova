@@ -10,7 +10,7 @@ public class RunGame extends JFrame {
     public static STATO statoAttuale = STATO.MENU;
 
     RunGame(){
-        setTitle("biliardo");
+        setTitle("billiard");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1200,800);
         setLocationRelativeTo(null); //per centrare finestra nello schermo
