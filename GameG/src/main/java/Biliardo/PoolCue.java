@@ -22,8 +22,8 @@ public class PoolCue  {
 
     public void loadImage(){
         try {
-            poolCueImg = ImageIO.read(new File("GameG/src/main/resources/images/metalTexture.jpg"));
-            poolCueImg=poolCueImg.getScaledInstance(7,300,0);
+            poolCueImg = ImageIO.read(new File("GameG/src/main/resources/images/stecca.png"));
+            poolCueImg=poolCueImg.getScaledInstance(300,40,0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,6 +44,10 @@ public class PoolCue  {
     public void mouseDragged(MouseEvent e) {
         dx_cue=e.getX();
         dy_cue=e.getY();
+    }
+
+    public void mouseClicked(MouseEvent e){
+
     }
 
 

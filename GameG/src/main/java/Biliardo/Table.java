@@ -4,47 +4,46 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import java.awt.Graphics;
 
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
-
 public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
-    public static Palla palladiprova;
+    public static Ball palladiprova;
     public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
     public static int BOARD_HEIGHT = 800;
     public static int DELAY = 1;
     int size_const = 3;
-    int f = 100;    //fattore per aumentare o diminuire grandezza bordi
+    //int f = 100;    //fattore per aumentare o diminuire grandezza bordi
     final int standard_width = 190; //standard dimension of billiard board
     final int standard_height = 110;
     int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
     int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
     final int pit_dim = 40;
     boolean coin = false;
-    int x_cue = x_board / 2;
-    int y_cue = y_board / 2;
-    int cue_width = 4;
-    int cue_length = 12;
+    //int x_cue = x_board / 2;
+    //int y_cue = y_board / 2;
+    //int cue_width = 4;
+    //int cue_length = 12;
     BufferedImage bImage;
-    boolean state = true; //true solo a inizio per primo ciclo di immagini
-    Point[] pit = new Point[3]; //array per le buche
+    //boolean state = true; //true solo a inizio per primo ciclo di immagini
+    Point[] pit = new Point[6]; //array per le buche
     String[][] pack = new String[2][3];
     BufferedImage background;
     BufferedImage prov;
-    Image pan;
     Image table;
     Random rnd;
     BufferedImage wood;
     BufferedImage field;
     BufferedImage whiteDot;
+    double angle;
 
     public Table() {
         initBoard();
@@ -55,7 +54,7 @@ public class Table extends JPanel implements ActionListener {
        menuGioco = new Menu();
        this.addMouseListener(menuGioco);
        addMouseMotionListener(new Adapt());
-       palladiprova = new Palla(400, 400);
+       palladiprova = new Ball(400, 400);
        poolCue = new PoolCue();
        setVisible(true);
        addArea();
@@ -95,9 +94,9 @@ public class Table extends JPanel implements ActionListener {
         pit[0] = (new Point(x_board-pit_dim/3, y_board-pit_dim/3));
         pit[1] = (new Point(BOARD_WIDTH/2 -pit_dim/3,y_board -pit_dim/3 ));
         pit[2]=(new Point(BOARD_WIDTH -x_board,y_board -pit_dim/3));
-        //pit[3]=(new Point(50,50));
-        //pit[4]=(new Point(80,80));
-        //pit[5]=(new Point(90,90));
+        pit[3]=(new Point(BOARD_WIDTH-x_board,y_board));
+        pit[4]=(new Point(80,80));
+        pit[5]=(new Point(90,90));
     }
 
 
@@ -174,7 +173,7 @@ public class Table extends JPanel implements ActionListener {
             g2d.setColor(Color.white);
             g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
             //coin
-            if (coin == true) {
+            if (coin) {
                 //disegna coin
             }
             coin = false;
@@ -187,14 +186,14 @@ public class Table extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         if(RunGame.statoAttuale== RunGame.STATO.MENU) {
-            menuGioco.disegnaMenu(g);
+            menuGioco.drawMenu(g);
         }
         else if(RunGame.statoAttuale== RunGame.STATO.COLORI){
-            menuGioco.schermataColori(g);
+            menuGioco.optionColor(g);
             coloreSelezionato=1;
         }
        else {
-           menuGioco.cancellaMenu(g);
+           menuGioco.deleteMenu(g);
            removeMouseListener(menuGioco);
            // loadImage();
 
@@ -203,45 +202,74 @@ public class Table extends JPanel implements ActionListener {
 
             setTable(g2d);
             if(coloreSelezionato==1) {
-                palladiprova.setColore(Menu.colorePalle);
+                Ball.setColore(Menu.colorePalle);
             }
             else {
-            palladiprova.setColore(Color.black);
+            Ball.setColore(Color.black);
             }
             palladiprova.paintComponents(g2d);
             //da eliminare
             g.setColor(Color.black);
-            //g.drawLine(BOARD_WIDTH/2,BOARD_HEIGHT,BOARD_WIDTH/2,0);
-            //g.drawLine(0,BOARD_HEIGHT/2,BOARD_WIDTH,BOARD_HEIGHT/2);
 
-            /**
-             * la stecca eventualmente si può togliere
-             */
-            g2d.fill3DRect(poolCue.getX(), poolCue.getY(), 5, 100, false);
+           //stecca
+            angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(600,400));
+            System.out.println(angle);
+            g2d.rotate(angle, poolCue.getX(), poolCue.getY());
+            g2d.drawImage(poolCue.poolCueImg,poolCue.getX(),poolCue.getY(),this);
+
+
+            //g2d.fill3DRect(poolCue.getX(), poolCue.getY(), 5, 100, false);
         }
     }
 
-    private void takeScreenshot() {
-        bImage = new BufferedImage(getSize().width, getSize().height, TYPE_INT_RGB);
-        paint (bImage.createGraphics ());
-        try
-        {
-            File imageFile = new File ("/tmp/screener.png");
-            imageFile.createNewFile();
-            javax.imageio.ImageIO.write(bImage, "png", imageFile);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace ();
-        }
+    public double getAngle(Point p1,Point p2){
+        double dist=Math.sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y));
+        double dist2=Math.abs(p1.y-p2.y);
+        double an=Math.asin(dist2/dist);
+
+        if(p1.x<p2.x && p1.y<p2.y)
+            return an;
+        if(p1.x>p2.x && p1.y<p2.y)
+            return Math.PI-an;
+        if(p1.x<p2.x && p1.y>p2.y)
+            return -an;
+        else
+            return -(Math.PI-an);
+
+
     }
 
-
-    private class Adapt implements MouseMotionListener {
+    private class Adapt implements MouseMotionListener,MouseListener {
         @Override
         public void mouseDragged(MouseEvent e) {
             poolCue.mouseDragged(e);
 
+
+        }
+         @Override
+         public void mouseClicked(MouseEvent e){
+            angle+=1;
+            System.out.println(angle);
+         }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            angle+=1;
+            System.out.println(angle);
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
 
         }
 

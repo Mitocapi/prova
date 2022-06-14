@@ -12,7 +12,7 @@ public class Menu implements MouseListener {
     public Rectangle bottoneAltro = new Rectangle(Table.BOARD_WIDTH/4+150,390,300,50);
     public static Color colorePalle;
 
-    public void disegnaMenu(Graphics g){
+    public void drawMenu(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -43,12 +43,12 @@ public class Menu implements MouseListener {
 
     }
 
-    public void cancellaMenu(Graphics g){
+    public void deleteMenu(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g.clearRect(0,0,Table.BOARD_WIDTH,Table.BOARD_HEIGHT);
 
     }
-    public void schermataColori(Graphics g){
+    public void optionColor(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
 
         Color coloreSfondo = new Color(10,100,1);

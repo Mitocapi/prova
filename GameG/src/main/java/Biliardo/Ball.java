@@ -2,9 +2,9 @@ package Biliardo;
 
 import java.awt.*;
 
-public class Palla  {
-    int raggio;
-    static Color colorepalla;
+public class Ball {
+    int radius;
+    static Color ballColor;
 
     /*
     opera d'arte, considero la velocità come "movimenti rimanenti"
@@ -17,16 +17,16 @@ public class Palla  {
     int posizioneY;
 // get e set di fiducia
 
-    public int getRaggio() {
-        return raggio;
+    public int getRadius() {
+        return radius;
     }
-    public void setRaggio(int raggio) {
-        this.raggio = raggio;
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
-    public Color getColore() {
-        return colorepalla;
+    public Color getColor() {
+        return ballColor;
     }
-    public static void setColore(Color colore) { colorepalla= colore;}
+    public static void setColore(Color colore) { ballColor = colore;}
     public int getMovimentoRimanenteY() {
         return movimentoRimanenteY;
     }
@@ -39,50 +39,50 @@ public class Palla  {
     public void setMovimentoRimanenteX(int movimentoRimanenteX) {
         this.movimentoRimanenteX = movimentoRimanenteX;
     }
-    public int getPosizioneX() {
+    public int getXposition() {
         return posizioneX;
     }
-    public void setPosizioneX(int posizioneX) {
+    public void setXposition(int posizioneX) {
         this.posizioneX = posizioneX;
     }
-    public int getPosizioneY() {
+    public int getYposition() {
         return posizioneY;
     }
-    public void setPosizioneY(int posizioneY) {
+    public void setYposition(int posizioneY) {
         this.posizioneY = posizioneY;
     }
 
-    public Palla(int posx,int posy) {
-        colorepalla = new Color(0,0,0);
-        this.raggio = 10;
-        this.posizioneX = getPosizioneX()+400;
-        this.posizioneY=getPosizioneY()+150;
+    public Ball(int posx, int posy) {
+        ballColor = new Color(0,0,0);
+        this.radius = 10;
+        this.posizioneX = getXposition()+400;
+        this.posizioneY= getYposition()+150;
         this.movimentoRimanenteX = getMovimentoRimanenteX();
         this.movimentoRimanenteY = getMovimentoRimanenteY();
     }
 
     public void paintComponents (Graphics g){
-        g.setColor(getColore());
-        g.fillOval(posizioneX-5,posizioneY-5,raggio*2,raggio*2);
+        g.setColor(getColor());
+        g.fillOval(posizioneX-5,posizioneY-5, radius *2, radius *2);
 
     }
 
-    public void Muovi(){
+    public void MoveBall(){
         while(getMovimentoRimanenteX()!=0 && getMovimentoRimanenteY()!=0){
             if(getMovimentoRimanenteX()>0){
-                setPosizioneX(getPosizioneX()+1);
+                setXposition(getXposition()+1);
                 setMovimentoRimanenteX(getMovimentoRimanenteX()-1);
             }
             if(getMovimentoRimanenteX()<0){
-                setPosizioneX(getPosizioneX()-1);
+                setXposition(getXposition()-1);
                 setMovimentoRimanenteX(getMovimentoRimanenteX()+1);
             }
             if(getMovimentoRimanenteY()>0){
-                setPosizioneY(getPosizioneY()+1);
+                setYposition(getYposition()+1);
                 setMovimentoRimanenteY(getMovimentoRimanenteY()-1);
             }
             if(getMovimentoRimanenteY()<0){
-                setPosizioneY(getPosizioneY()-1);
+                setYposition(getYposition()-1);
                 setMovimentoRimanenteY(getMovimentoRimanenteY()+1);
             }
         }
