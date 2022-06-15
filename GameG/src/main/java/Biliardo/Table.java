@@ -93,16 +93,14 @@ public class Table extends JPanel implements ActionListener {
     private void setPit(Point[] pit) {
         pit[0] = (new Point(x_board-pit_dim/3, y_board-pit_dim/3));
         pit[1] = (new Point(BOARD_WIDTH/2 -pit_dim/3,y_board -pit_dim/3 ));
-        pit[2]=(new Point(BOARD_WIDTH -x_board,y_board -pit_dim/3));
-        pit[3]=(new Point(BOARD_WIDTH-x_board,y_board));
-        pit[4]=(new Point(80,80));
-        pit[5]=(new Point(90,90));
+        pit[2]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,y_board-pit_dim/3));
+        pit[3]=(new Point(x_board-pit_dim/3,BOARD_HEIGHT-y_board-pit_dim/2-7));
+        pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/3,BOARD_HEIGHT-y_board-pit_dim/2-7));
+        pit[5]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
     }
 
 
-    /*public void paintTable(Graphics g) {
 
-    }*/
 
     public void checkCollision() {
 
@@ -248,14 +246,13 @@ public class Table extends JPanel implements ActionListener {
         }
          @Override
          public void mouseClicked(MouseEvent e){
-            angle+=1;
-            System.out.println(angle);
+
+
          }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            angle+=1;
-            System.out.println(angle);
+
         }
 
         @Override

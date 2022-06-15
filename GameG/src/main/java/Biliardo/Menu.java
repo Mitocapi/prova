@@ -81,7 +81,7 @@ public class Menu implements MouseListener {
                     RunGame.statoAttuale = RunGame.STATO.GIOCO;
                     System.out.println(RunGame.statoAttuale);
                     tavolo = new Table();
-                    tavolo.initBoard();
+                    //tavolo.initBoard();
                 }
                 else if (mouseY >= 540 && mouseY <= 590) {
                     System.exit(1);
