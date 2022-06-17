@@ -5,28 +5,34 @@ import java.awt.*;
 public class Ball {
     int radius;
     static Color ballColor;
-
     /*
     opera d'arte, considero la velocità come "movimenti rimanenti"
     in base alla direzione
     */
+    int movimentoRimanente;
     int movimentoRimanenteY;
     int movimentoRimanenteX;
-
     int posizioneX;
     int posizioneY;
-// get e set di fiducia
+    int rapportoneX;
+    int rapportoneY;
+    // get e set di fiducia
 
     public int getRadius() {
         return radius;
     }
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public void setMovimentoRimanente(int movimentoRimanente){
+        this.movimentoRimanente=movimentoRimanente;
+    }
+    public int getMovimentoRimanente(){
+        return movimentoRimanente;
     }
     public Color getColor() {
         return ballColor;
     }
-    public static void setColore(Color colore) { ballColor = colore;}
+    public static void setColore(Color colore) {
+        ballColor = colore;
+    }
     public int getMovimentoRimanenteY() {
         return movimentoRimanenteY;
     }
@@ -51,43 +57,133 @@ public class Ball {
     public void setYposition(int posizioneY) {
         this.posizioneY = posizioneY;
     }
-
     public Ball(int posx, int posy) {
-        ballColor = new Color(0,0,0);
+        ballColor = new Color(0, 0, 0);
         this.radius = 10;
-        this.posizioneX = getXposition()+400;
-        this.posizioneY= getYposition()+150;
-        this.movimentoRimanenteX = getMovimentoRimanenteX();
-        this.movimentoRimanenteY = getMovimentoRimanenteY();
+        this.posizioneX = posx;
+        this.posizioneY = posy;
+        this.movimentoRimanenteX = 700;
+        this.movimentoRimanenteY = 300;
+        rapportoneX=0;
+        rapportoneY=0;
+        movimentoRimanente=0;
     }
 
-    public void paintComponents (Graphics g){
+    public void paintComponents(Graphics g) {
         g.setColor(getColor());
-        g.fillOval(posizioneX-5,posizioneY-5, radius *2, radius *2);
-
+        g.fillOval(posizioneX - 10, posizioneY - 10, radius * 2, radius * 2);
     }
 
-    public void MoveBall(){
-        while(getMovimentoRimanenteX()!=0 && getMovimentoRimanenteY()!=0){
-            if(getMovimentoRimanenteX()>0){
-                setXposition(getXposition()+1);
-                setMovimentoRimanenteX(getMovimentoRimanenteX()-1);
-            }
-            if(getMovimentoRimanenteX()<0){
-                setXposition(getXposition()-1);
-                setMovimentoRimanenteX(getMovimentoRimanenteX()+1);
-            }
-            if(getMovimentoRimanenteY()>0){
-                setYposition(getYposition()+1);
-                setMovimentoRimanenteY(getMovimentoRimanenteY()-1);
-            }
-            if(getMovimentoRimanenteY()<0){
-                setYposition(getYposition()-1);
-                setMovimentoRimanenteY(getMovimentoRimanenteY()+1);
-            }
+    public void hitAWall(int direzione) {
+        // 0=x 1=y
+        if (direzione == 0) {
+            setMovimentoRimanenteX(- getMovimentoRimanenteX());
+        } else {
+            setMovimentoRimanenteY(- getMovimentoRimanenteY());
         }
     }
-}
+
+    public void hitABall(Ball pallaInMovimento, Ball pallaColpita) {
+        if (pallaInMovimento.getXposition() > pallaColpita.getXposition()) {
+        }
+    }
+
+    public void MoveBall() {
+        if(rapportoneX==0&&rapportoneY==0) {
+            movimentoRimanente=Math.abs(getMovimentoRimanenteX())+Math.abs(getMovimentoRimanenteY());
+            if (getMovimentoRimanenteY() > getMovimentoRimanenteX()) {
+                if (movimentoRimanenteX != 0) {
+                    rapportoneY = Math.abs(getMovimentoRimanenteY() / getMovimentoRimanenteX());
+                    rapportoneX = 1;
+                } else
+                    rapportoneY = 1;
+            } else {
+                if (movimentoRimanenteY != 0) {
+                    rapportoneX = Math.abs(getMovimentoRimanenteX() / getMovimentoRimanenteY());
+                    rapportoneY = 1;
+                } else
+                    rapportoneX = 1;
+            }
+        } //rapporto tra i movimenti e direzione;
+
+        if (movimentoRimanente>200) {
+            if (getMovimentoRimanenteX() > 0) {
+                setXposition(getXposition() + rapportoneX * 2);
+                setMovimentoRimanente(getMovimentoRimanente() - 2);
+                if (movimentoRimanente > 0 && getXposition() + getRadius() >= 877) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(0);
+                }
+            }
+            if (getMovimentoRimanenteX() < 0) {
+                setXposition(getXposition() - rapportoneX * 2);
+                setMovimentoRimanente(getMovimentoRimanente() - 2);
+                if (movimentoRimanente >0 && getXposition() - getRadius() <= 322) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(0);
+                }
+            }
+            if (getMovimentoRimanenteY() > 0) {
+                setYposition(getYposition() + rapportoneY * 2);
+                setMovimentoRimanente(getMovimentoRimanente() - 2);
+                if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(1);
+                }
+            }
+            if (getMovimentoRimanenteY() < 0) {
+                setYposition(getYposition() - rapportoneY * 2);
+                setMovimentoRimanente(movimentoRimanente - 2);
+                if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(1);
+                }
+            }
+            // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
+        }
+        if (movimentoRimanente>0) {
+                if (getMovimentoRimanenteX() > 0) {
+                    setXposition(getXposition() + rapportoneX);
+                    setMovimentoRimanente(movimentoRimanente- 1);
+                    if (movimentoRimanente>0 && getXposition() + getRadius() >= 877) {
+                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                        hitAWall(0);
+                    }
+                }
+                if (getMovimentoRimanenteX() < 0) {
+                    setXposition(getXposition() - rapportoneX);
+                    setMovimentoRimanente(movimentoRimanente - 1);
+                    if (movimentoRimanente > 0 && getXposition() - getRadius() <= 322) {
+                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                        hitAWall(0);
+                    }
+                }
+                if (getMovimentoRimanenteY() > 0) {
+                    setYposition(getYposition() + rapportoneY);
+                    setMovimentoRimanente(movimentoRimanente - 1);
+                    if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
+                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                        hitAWall(1);
+                    }
+                }
+                if (getMovimentoRimanenteY() < 0) {
+                    setYposition(getYposition() -rapportoneY);
+                    setMovimentoRimanente(movimentoRimanente - 1);
+                    if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
+                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                        hitAWall(1);
+                    }
+                }
+                // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
+            }
+        else if (movimentoRimanenteX==0 && movimentoRimanenteY==0) {
+            rapportoneY=0;
+            rapportoneX=0;
+            movimentoRimanente=0;
+        }
+    }
+    }
+
 
 
 //arriva il copypaste del lavoro del prof

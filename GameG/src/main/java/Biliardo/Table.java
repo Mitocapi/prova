@@ -8,14 +8,17 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Graphics;
+import java.util.List;
 
 public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
     public static Ball palladiprova;
+    public List<Ball> palleInGioco;
     public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
     public static int BOARD_HEIGHT = 800;
@@ -54,7 +57,33 @@ public class Table extends JPanel implements ActionListener {
        menuGioco = new Menu();
        this.addMouseListener(menuGioco);
        addMouseMotionListener(new Adapt());
-       palladiprova = new Ball(400, 400);
+       palleInGioco = new ArrayList<>();
+       for (int i=0; i<5;i++){
+           if(i==0){
+              palleInGioco.add(new Ball(700, 395));
+           }
+           else if(i==1){
+               palleInGioco.add(new Ball(700 + 20, 395 - 10));
+               palleInGioco.add(new Ball(700 + 20, 395 + 10));
+           }
+           else if(i%2==0) {
+               int linee = 0;
+               while(2* linee < i+1) {
+                   palleInGioco.add(new Ball(700 + i * 20, 395 + linee * 20));
+                   palleInGioco.add(new Ball(700 + i * 20, 395 - linee * 20));
+                   linee++;
+               }
+           }
+           else {
+               int linee = 0;
+               while(2* linee < i+1) {
+                   palleInGioco.add(new Ball(700 + i * 20, 395 +10+ linee * 20));
+                   palleInGioco.add(new Ball(700 + i * 20, 395 -10- linee * 20));
+                   linee++;
+               }
+           }
+       } //EVOCA LE CABBO DI PALLINE
+       palladiprova = new Ball(600, 395);
        poolCue = new PoolCue();
        setVisible(true);
        addArea();
@@ -69,6 +98,7 @@ public class Table extends JPanel implements ActionListener {
 
     private void moveCue(){
         poolCue.move();
+        palladiprova.MoveBall();
         repaint();
 
     }
@@ -206,6 +236,9 @@ public class Table extends JPanel implements ActionListener {
             Ball.setColore(Color.black);
             }
             palladiprova.paintComponents(g2d);
+            for ( Ball bilie : palleInGioco){
+                bilie.paintComponents(g);
+            }
             //da eliminare
             g.setColor(Color.black);
 
