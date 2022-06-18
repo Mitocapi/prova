@@ -24,29 +24,24 @@ public class Table extends JPanel implements ActionListener {
     public static int BOARD_HEIGHT = 800;
     public static int DELAY = 1;
     int size_const = 3;
-    //int f = 100;    //fattore per aumentare o diminuire grandezza bordi
+
     final int standard_width = 190; //standard dimension of billiard board
     final int standard_height = 110;
     int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
     int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
     final int pit_dim = 40;
     boolean coin = false;
-    //int x_cue = x_board / 2;
-    //int y_cue = y_board / 2;
-    //int cue_width = 4;
-    //int cue_length = 12;
-    BufferedImage bImage;
-    //boolean state = true; //true solo a inizio per primo ciclo di immagini
+
     Point[] pit = new Point[6]; //array per le buche
     String[][] pack = new String[2][3];
     BufferedImage background;
     BufferedImage prov;
-    Image table;
     Random rnd;
     BufferedImage wood;
     BufferedImage field;
     BufferedImage whiteDot;
     double angle;
+    boolean ballClick=false;
 
     public Table() {
         initBoard();
@@ -57,6 +52,7 @@ public class Table extends JPanel implements ActionListener {
        menuGioco = new Menu();
        this.addMouseListener(menuGioco);
        addMouseMotionListener(new Adapt());
+
        palleInGioco = new ArrayList<>();
        for (int i=0; i<5;i++){
            if(i==0){
@@ -91,6 +87,7 @@ public class Table extends JPanel implements ActionListener {
        setPit(pit);
        loadImage();
        moveCue();
+       checkCollision();
 
        timer = new Timer(DELAY, this);
        timer.start();
@@ -133,6 +130,7 @@ public class Table extends JPanel implements ActionListener {
 
 
     public void checkCollision() {
+
 
     }
     public void generateCoin(){
@@ -229,6 +227,7 @@ public class Table extends JPanel implements ActionListener {
              * se no troppo pesante il repaint e rallenta movimento */
 
             setTable(g2d);
+
             if(coloreSelezionato==1) {
                 Ball.setColore(Menu.colorePalle);
             }
@@ -243,13 +242,14 @@ public class Table extends JPanel implements ActionListener {
             g.setColor(Color.black);
 
            //stecca
-            angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(600,400));
-            System.out.println(angle);
+            //g2d.setColor(Color.white);
+            //g2d.setStroke(new BasicStroke(2));
+            //g2d.drawLine(poolCue.getX(),poolCue.getY(),palladiprova.posizioneX,palladiprova.posizioneY);
+            angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(palladiprova.posizioneX,palladiprova.posizioneY));
             g2d.rotate(angle, poolCue.getX(), poolCue.getY());
-            g2d.drawImage(poolCue.poolCueImg,poolCue.getX(),poolCue.getY(),this);
+            g2d.drawImage(poolCue.poolCueImg, poolCue.getX(), poolCue.getY(),this);
 
 
-            //g2d.fill3DRect(poolCue.getX(), poolCue.getY(), 5, 100, false);
         }
     }
 
@@ -279,6 +279,7 @@ public class Table extends JPanel implements ActionListener {
         }
          @Override
          public void mouseClicked(MouseEvent e){
+            ballClick=true;
 
 
          }

@@ -57,8 +57,10 @@ public class Ball {
     public void setYposition(int posizioneY) {
         this.posizioneY = posizioneY;
     }
+
     public Ball(int posx, int posy) {
         ballColor = new Color(0, 0, 0);
+
         this.radius = 10;
         this.posizioneX = posx;
         this.posizioneY = posy;
@@ -89,6 +91,7 @@ public class Ball {
     }
 
     public void MoveBall() {
+
         if(rapportoneX==0&&rapportoneY==0) {
             movimentoRimanente=Math.abs(getMovimentoRimanenteX())+Math.abs(getMovimentoRimanenteY());
             if (getMovimentoRimanenteY() > getMovimentoRimanenteX()) {
