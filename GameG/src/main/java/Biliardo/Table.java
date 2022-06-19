@@ -42,6 +42,8 @@ public class Table extends JPanel implements ActionListener {
     double angle;
     boolean ballClick=false;
 
+    Point initialPos=new Point(x_board+50,BOARD_HEIGHT/2);
+
     int control=0;
 
     public Table() {
@@ -121,11 +123,11 @@ public class Table extends JPanel implements ActionListener {
 
 
     private void setPit(Point[] pit) {
-        pit[0] = (new Point(x_board-pit_dim/3, y_board-pit_dim/3));
-        pit[1] = (new Point(BOARD_WIDTH/2 -pit_dim/3,y_board -pit_dim/3 ));
-        pit[2]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,y_board-pit_dim/3));
-        pit[3]=(new Point(x_board-pit_dim/3,BOARD_HEIGHT-y_board-pit_dim/2-7));
-        pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/3,BOARD_HEIGHT-y_board-pit_dim/2-7));
+        pit[0] = (new Point(x_board-pit_dim/2, y_board-pit_dim/2));
+        pit[1] = (new Point(BOARD_WIDTH/2 -pit_dim/2,y_board -pit_dim/2 ));
+        pit[2]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,y_board-pit_dim/2));
+        pit[3]=(new Point(x_board-pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
+        pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
         pit[5]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
     }
 
@@ -134,6 +136,17 @@ public class Table extends JPanel implements ActionListener {
 
     public void checkCollision() {
 
+        for(int i=0;i<pit.length;i++){
+            if(whiteBall.getXposition()<=10+pit[i].x && whiteBall.getXposition()>=pit[i].x-10){
+                if(whiteBall.getYposition()<=10+pit[i].y && whiteBall.getYposition()>=pit[i].y-10){
+                    whiteBall.movimentoRimanente=0;
+                    whiteBall.posizioneX=initialPos.x;
+                    whiteBall.posizioneY=initialPos.y;
+                }
+            }
+
+        }
+        whiteBall.hitABall(whiteBall,palleInGioco);
 
     }
     public void generateCoin(){
@@ -255,6 +268,8 @@ public class Table extends JPanel implements ActionListener {
                 g2d.rotate(angle, poolCue.getX(), poolCue.getY());
                 g2d.drawImage(poolCue.poolCueImg, poolCue.getX()-150, poolCue.getY()-15,this);
             }
+
+            checkCollision();
 
 
 

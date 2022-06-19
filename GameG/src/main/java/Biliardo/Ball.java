@@ -1,6 +1,7 @@
 package Biliardo;
 
 import java.awt.*;
+import java.util.List;
 
 public class Ball {
     int radius;
@@ -85,8 +86,9 @@ public class Ball {
         }
     }
 
-    public void hitABall(Ball pallaInMovimento, Ball pallaColpita) {
-        if (pallaInMovimento.getXposition() > pallaColpita.getXposition()) {
+    public void hitABall(Ball whiteB, List<Ball> pallaColpita) {
+        for (Ball ball : pallaColpita) {
+
         }
     }
 
