@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
-    public static Ball palladiprova;
+    public static Ball whiteBall; //palla bianca che il giocatore colpisce
     public List<Ball> palleInGioco;
     public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
@@ -43,6 +42,8 @@ public class Table extends JPanel implements ActionListener {
     double angle;
     boolean ballClick=false;
 
+    int control=0;
+
     public Table() {
         initBoard();
     }
@@ -52,6 +53,7 @@ public class Table extends JPanel implements ActionListener {
        menuGioco = new Menu();
        this.addMouseListener(menuGioco);
        addMouseMotionListener(new Adapt());
+       addMouseListener(new Adapt());
 
        palleInGioco = new ArrayList<>();
        for (int i=0; i<5;i++){
@@ -79,7 +81,8 @@ public class Table extends JPanel implements ActionListener {
                }
            }
        } //EVOCA LE CABBO DI PALLINE
-       palladiprova = new Ball(600, 395);
+       whiteBall = new Ball(600, 395);
+
        poolCue = new PoolCue();
        setVisible(true);
        addArea();
@@ -95,7 +98,7 @@ public class Table extends JPanel implements ActionListener {
 
     private void moveCue(){
         poolCue.move();
-        palladiprova.MoveBall();
+        whiteBall.MoveBall();
         repaint();
 
     }
@@ -174,39 +177,22 @@ public class Table extends JPanel implements ActionListener {
             //floor
             TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
             g2d.setPaint(tpb);
+
             g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
-            //g2d.setStroke(new BasicStroke(130.0f));
-            //g2d.drawRect(60,60,BOARD_WIDTH-100,BOARD_HEIGHT-140);
-            //cornice
+
             TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
             g2d.setPaint(tp);
             g2d.setStroke(new BasicStroke(110.0f));
             g2d.drawRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 1, 1);
-            //campo
-            TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
-            g2d.setPaint(tp2);
-            g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+
             g2d.setColor(Color.darkGray);
 
-            //check collision con i 4 rettagoli
-
-            g2d.fillRect(x_board, y_board + 20, 10, 285);
-            g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 285);
-            g2d.fillRect(x_board,y_board,560,10);
-            g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
-            //TexturePaint tp3 = new TexturePaint(whiteDot, new Rectangle(300, 200));
-            //g2d.setPaint(tp3);
-            g2d.setColor(Color.white);
-            g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
             //coin
             if (coin) {
                 //disegna coin
             }
             coin = false;
             g2d.setColor(Color.darkGray);
-            for (Point point : pit) {
-                g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
-            }
     }
 
     public void paintComponent(Graphics g) {
@@ -219,14 +205,38 @@ public class Table extends JPanel implements ActionListener {
             coloreSelezionato=1;
         }
        else {
-           menuGioco.deleteMenu(g);
+           //menuGioco.deleteMenu(g);
            removeMouseListener(menuGioco);
            // loadImage();
 
             /*se palline sono in movimento fai repaint solo di palle e campo verde
              * se no troppo pesante il repaint e rallenta movimento */
 
-            setTable(g2d);
+
+            if(whiteBall.movimentoRimanente<=0) {
+                setTable(g2d);
+            }
+            if(control==1){
+                setTable(g2d);
+                control=0;
+            }
+
+            TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
+            g2d.setPaint(tp2);
+            g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+
+            //check collision con i 4 rettagoli
+            g2d.setPaint(Color.darkGray);
+            g2d.fillRect(x_board, y_board + 20, 10, 285);
+            g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 285);
+            g2d.fillRect(x_board,y_board,560,10);
+            g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
+            //buche
+            for (Point point : pit) {
+                g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
+            }
+            g2d.setColor(Color.white);
+            g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
 
             if(coloreSelezionato==1) {
                 Ball.setColore(Menu.colorePalle);
@@ -234,20 +244,18 @@ public class Table extends JPanel implements ActionListener {
             else {
             Ball.setColore(Color.black);
             }
-            palladiprova.paintComponents(g2d);
             for ( Ball bilie : palleInGioco){
                 bilie.paintComponents(g);
             }
-            //da eliminare
-            g.setColor(Color.black);
+            Ball.setColore(Color.white);
+            whiteBall.paintComponents(g2d);
 
-           //stecca
-            //g2d.setColor(Color.white);
-            //g2d.setStroke(new BasicStroke(2));
-            //g2d.drawLine(poolCue.getX(),poolCue.getY(),palladiprova.posizioneX,palladiprova.posizioneY);
-            angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(palladiprova.posizioneX,palladiprova.posizioneY));
-            g2d.rotate(angle, poolCue.getX(), poolCue.getY());
-            g2d.drawImage(poolCue.poolCueImg, poolCue.getX(), poolCue.getY(),this);
+            if(whiteBall.movimentoRimanente<=0){
+                angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(whiteBall.posizioneX, whiteBall.posizioneY));
+                g2d.rotate(angle, poolCue.getX(), poolCue.getY());
+                g2d.drawImage(poolCue.poolCueImg, poolCue.getX()-150, poolCue.getY()-15,this);
+            }
+
 
 
         }
@@ -270,18 +278,26 @@ public class Table extends JPanel implements ActionListener {
 
     }
 
+    public void shoot(){
+
+        if(whiteBall.movimentoRimanente<=0){
+            System.out.println("entrato");
+            whiteBall.movimentoRimanente=1500;
+            whiteBall.MoveBall();
+        }
+
+    }
+
+
     private class Adapt implements MouseMotionListener,MouseListener {
         @Override
         public void mouseDragged(MouseEvent e) {
-            poolCue.mouseDragged(e);
-
-
+            //poolCue.mouseDragged(e);
         }
          @Override
          public void mouseClicked(MouseEvent e){
-            ballClick=true;
-
-
+            control=1;
+            shoot();
          }
 
         @Override
@@ -306,10 +322,11 @@ public class Table extends JPanel implements ActionListener {
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            //poolCue.mouseMoved(e);
+            poolCue.mouseMoved(e);
 
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         moveCue();
