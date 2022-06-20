@@ -64,8 +64,8 @@ public class Ball {
         this.radius = 10;
         this.posizioneX = posx;
         this.posizioneY = posy;
-        this.movimentoRimanenteX = 700;
-        this.movimentoRimanenteY = 300;
+        this.movimentoRimanenteX = 0;
+        this.movimentoRimanenteY = 0;
         rapportoneX=0;
         rapportoneY=0;
         movimentoRimanente=0;
@@ -85,19 +85,20 @@ public class Ball {
         }
     }
 
-    public void hitABall(Ball pallaInMovimento, Ball pallaColpita) {
-        pallaInMovimento.setMovimentoRimanente(pallaInMovimento.getMovimentoRimanente()+pallaColpita.getMovimentoRimanente());
-        pallaColpita.setMovimentoRimanente(pallaInMovimento.getMovimentoRimanente()+pallaColpita.getMovimentoRimanente());
-        int medioX= pallaColpita.getMovimentoRimanenteX();
-        int medioY= pallaColpita.getMovimentoRimanenteY();
-        pallaColpita.setMovimentoRimanenteX(-pallaInMovimento.getMovimentoRimanenteX());
-        pallaColpita.setMovimentoRimanenteY(-pallaInMovimento.getMovimentoRimanenteY());
-        pallaInMovimento.setMovimentoRimanenteY(-medioY);
-        pallaInMovimento.setMovimentoRimanenteX(-medioX);
-        pallaColpita.rapportoneY=0;
-        pallaColpita.rapportoneX=0;
-        pallaInMovimento.rapportoneY=0;
-        pallaInMovimento.rapportoneX=0;
+    public void hitABall(Ball uno, Ball dos) {
+        uno.setMovimentoRimanente(Math.abs((uno.getMovimentoRimanente()-dos.getMovimentoRimanente())));
+        dos.setMovimentoRimanente(uno.getMovimentoRimanente());
+        int medioX= dos.getMovimentoRimanenteX();
+        int medioY= dos.getMovimentoRimanenteY();
+        dos.setMovimentoRimanenteX(-uno.getMovimentoRimanenteX());
+        dos.setMovimentoRimanenteY(-uno.getMovimentoRimanenteY());
+        uno.setMovimentoRimanenteY(-medioY);
+        uno.setMovimentoRimanenteX(-medioX);
+
+        dos.rapportoneY=0;
+        dos.rapportoneX=0;
+        uno.rapportoneY=0;
+        uno.rapportoneX=0;
     }
 
     public void MoveBall() {

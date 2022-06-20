@@ -101,6 +101,10 @@ public class Table extends JPanel implements ActionListener {
     private void moveCue(){
         poolCue.move();
         whiteBall.MoveBall();
+      /*  for(Ball bilie:palleInGioco){
+            bilie.MoveBall();
+        }*/  //questo coso servirebbe a far muovere tutte le altre palle ma al momento le uniche palle che si muovono
+        // sono le mie e la sua funzione è quella di regalare del lag ai passanti... provo a risolvere...
         repaint();
 
     }
@@ -146,9 +150,29 @@ public class Table extends JPanel implements ActionListener {
             }
 
         }
-        //whiteBall.hitABall(whiteBall,palleInGioco);
+        for(Ball uno : palleInGioco){
+            for(Ball dos : palleInGioco){
+                if(uno.getYposition()!=dos.getYposition()||uno.getXposition()!=dos.getXposition()){
+                    int distanzax = uno.getXposition()-dos.getXposition();
+                    int distanzay = uno.getYposition()-dos.getYposition();
+                    if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))>=uno.getRadius()){
+                        uno.hitABall(uno,dos);
+                    }
+                }
+            }
+        }
 
+        for(Ball dos : palleInGioco){
+                int distanzax = whiteBall.getXposition()-dos.getXposition();
+                int distanzay = whiteBall.getYposition()-dos.getYposition();
+                if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=whiteBall.getRadius()){
+                    whiteBall.hitABall(whiteBall,dos);
+
+            }
+        }
     }
+
+
     public void generateCoin(){
         //da chiamare dopo ogni tiro, 50% possibilità spawn casuale moneta sul campo
         int r;
@@ -297,8 +321,8 @@ public class Table extends JPanel implements ActionListener {
 
         if(whiteBall.movimentoRimanente<=0){
 
-            whiteBall.rapportoneX=1;
-            whiteBall.rapportoneY=3;
+            whiteBall.setMovimentoRimanenteX((whiteBall.getXposition()- poolCue.getX())*500);
+            whiteBall.setMovimentoRimanenteY((whiteBall.getYposition()- poolCue.getY())*500);
             System.out.println("entrato");
             whiteBall.movimentoRimanente=1000;
             whiteBall.MoveBall();
