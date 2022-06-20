@@ -24,7 +24,7 @@ public class Menu implements MouseListener {
         Font fontTitoloMenu = new Font ("titolo",Font.BOLD, 60);
         g.setFont(fontTitoloMenu);
         g.setColor(Color.RED);
-        g.drawString("TITOLO COOL",400,100);
+        g.drawString("pool",400,100);
 
         g.setColor(Color.darkGray);
         g2d.draw(bottonePlay);

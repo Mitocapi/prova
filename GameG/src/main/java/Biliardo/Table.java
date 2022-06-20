@@ -99,17 +99,6 @@ public class Table extends JPanel implements ActionListener {
     private void moveCue(){
         poolCue.move();
         palladiprova.MoveBall();
-        for (Ball palle : palleInGioco){
-            palle.MoveBall();
-        }
-        for ( Ball biliaInCorso : palleInGioco){
-            for(Ball tocca: palleInGioco){
-                if(tocca.getYposition()!= biliaInCorso.getYposition()&&tocca.getXposition()!= biliaInCorso.getXposition()){
-                    hitABall(tocca,biliaInCorso);
-                }
-            }
-
-        }
         repaint();
 
     }
@@ -279,23 +268,6 @@ public class Table extends JPanel implements ActionListener {
             return -(Math.PI-an);
 
 
-    }
-    public void hitABall(Ball pallaInMovimento, Ball pallaColpita) {
-        if(Math.sqrt(Math.pow(pallaInMovimento.getXposition()- pallaColpita.getXposition(),2)+Math.pow(pallaInMovimento.getYposition()- pallaColpita.getYposition(),2))<=pallaColpita.getRadius() ) {
-            pallaInMovimento.setMovimentoRimanente(pallaInMovimento.getMovimentoRimanente() + pallaColpita.getMovimentoRimanente()/2);
-            pallaColpita.setMovimentoRimanente(pallaInMovimento.getMovimentoRimanente());
-            int medioX = pallaColpita.getMovimentoRimanenteX();
-            int medioY = pallaColpita.getMovimentoRimanenteY();
-            int medio = pallaColpita.getMovimentoRimanente();
-            pallaColpita.setMovimentoRimanenteX(-pallaInMovimento.getMovimentoRimanenteX());
-            pallaColpita.setMovimentoRimanenteY(-pallaInMovimento.getMovimentoRimanenteY());
-            pallaInMovimento.setMovimentoRimanenteY(-medioY);
-            pallaInMovimento.setMovimentoRimanenteX(-medioX);
-            pallaColpita.rapportoneY = 0;
-            pallaColpita.rapportoneX = 0;
-            pallaInMovimento.rapportoneY = 0;
-            pallaInMovimento.rapportoneX = 0;
-        }
     }
 
     private class Adapt implements MouseMotionListener,MouseListener {
