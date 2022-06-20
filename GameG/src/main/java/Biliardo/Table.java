@@ -17,7 +17,7 @@ public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
-    public static Ball palladiprova;
+    public static PallaBianca palladiprova;
     public List<Ball> palleInGioco;
     public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
@@ -83,7 +83,8 @@ public class Table extends JPanel implements ActionListener {
                }
            }
        } //EVOCA LE CABBO DI PALLINE
-       palladiprova = new Ball(600, 395);
+       palladiprova = new PallaBianca(600, 395);
+       palladiprova.setColore(Color.white);
        poolCue = new PoolCue();
        setVisible(true);
        addArea();
@@ -235,10 +236,11 @@ public class Table extends JPanel implements ActionListener {
             else {
             Ball.setColore(Color.black);
             }
-            palladiprova.paintComponents(g2d);
             for ( Ball bilie : palleInGioco){
                 bilie.paintComponents(g);
             }
+            palladiprova.setColore(Color.white);
+            palladiprova.paintComponents(g2d);
             //da eliminare
             g.setColor(Color.black);
 
