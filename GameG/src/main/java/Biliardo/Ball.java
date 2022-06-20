@@ -1,7 +1,6 @@
 package Biliardo;
 
 import java.awt.*;
-import java.util.List;
 
 public class Ball {
     int radius;
@@ -122,7 +121,7 @@ public class Ball {
 
         if (movimentoRimanente>200) {
             if (getMovimentoRimanenteX() > 0) {
-                setXposition(getXposition() + rapportoneX * 2);
+                setXposition( (getXposition() + rapportoneX * 2));
                 setMovimentoRimanente(getMovimentoRimanente() - 2);
                 if (movimentoRimanente > 0 && getXposition() + getRadius() >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO

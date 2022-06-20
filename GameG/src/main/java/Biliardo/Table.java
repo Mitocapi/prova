@@ -296,8 +296,11 @@ public class Table extends JPanel implements ActionListener {
     public void shoot(){
 
         if(whiteBall.movimentoRimanente<=0){
+
+            whiteBall.rapportoneX=1;
+            whiteBall.rapportoneY=3;
             System.out.println("entrato");
-            whiteBall.movimentoRimanente=1500;
+            whiteBall.movimentoRimanente=1000;
             whiteBall.MoveBall();
         }
 
@@ -312,6 +315,7 @@ public class Table extends JPanel implements ActionListener {
         @Override
         public void mouseClicked(MouseEvent e){
             control=1;
+
             shoot();
         }
 
