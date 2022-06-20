@@ -1,6 +1,7 @@
 package Biliardo;
 
 import java.awt.*;
+import java.util.List;
 
 public class Ball {
     int radius;
@@ -57,13 +58,15 @@ public class Ball {
     public void setYposition(int posizioneY) {
         this.posizioneY = posizioneY;
     }
+
     public Ball(int posx, int posy) {
         ballColor = new Color(0, 0, 0);
+
         this.radius = 10;
         this.posizioneX = posx;
         this.posizioneY = posy;
-        this.movimentoRimanenteX = 0;
-        this.movimentoRimanenteY = 0;
+        this.movimentoRimanenteX = 700;
+        this.movimentoRimanenteY = 300;
         rapportoneX=0;
         rapportoneY=0;
         movimentoRimanente=0;
@@ -96,10 +99,10 @@ public class Ball {
         pallaColpita.rapportoneX=0;
         pallaInMovimento.rapportoneY=0;
         pallaInMovimento.rapportoneX=0;
-
     }
 
     public void MoveBall() {
+
         if(rapportoneX==0&&rapportoneY==0) {
             movimentoRimanente=Math.abs(getMovimentoRimanenteX())+Math.abs(getMovimentoRimanenteY());
             if (getMovimentoRimanenteY() > getMovimentoRimanenteX()) {
@@ -153,46 +156,47 @@ public class Ball {
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
         }
         if (movimentoRimanente>0) {
-                if (getMovimentoRimanenteX() > 0) {
-                    setXposition(getXposition() + rapportoneX);
-                    setMovimentoRimanente(movimentoRimanente- 1);
-                    if (movimentoRimanente>0 && getXposition() + getRadius() >= 877) {
-                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                        hitAWall(0);
-                    }
-                }
-                if (getMovimentoRimanenteX() < 0) {
-                    setXposition(getXposition() - rapportoneX);
-                    setMovimentoRimanente(movimentoRimanente - 1);
-                    if (movimentoRimanente > 0 && getXposition() - getRadius() <= 322) {
-                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                        hitAWall(0);
-                    }
-                }
-                if (getMovimentoRimanenteY() > 0) {
-                    setYposition(getYposition() + rapportoneY);
-                    setMovimentoRimanente(movimentoRimanente - 1);
-                    if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
-                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                        hitAWall(1);
-                    }
-                }
-                if (getMovimentoRimanenteY() < 0) {
-                    setYposition(getYposition() -rapportoneY);
-                    setMovimentoRimanente(movimentoRimanente - 1);
-                    if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
-                        //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                        hitAWall(1);
-                    }
+            if (getMovimentoRimanenteX() > 0) {
+                setXposition(getXposition() + rapportoneX);
+                setMovimentoRimanente(movimentoRimanente- 1);
+                if (movimentoRimanente>0 && getXposition() + getRadius() >= 877) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(0);
                 }
             }
+            if (getMovimentoRimanenteX() < 0) {
+                setXposition(getXposition() - rapportoneX);
+                setMovimentoRimanente(movimentoRimanente - 1);
+                if (movimentoRimanente > 0 && getXposition() - getRadius() <= 322) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(0);
+                }
+            }
+            if (getMovimentoRimanenteY() > 0) {
+                setYposition(getYposition() + rapportoneY);
+                setMovimentoRimanente(movimentoRimanente - 1);
+                if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(1);
+                }
+            }
+            if (getMovimentoRimanenteY() < 0) {
+                setYposition(getYposition() -rapportoneY);
+                setMovimentoRimanente(movimentoRimanente - 1);
+                if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
+                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
+                    hitAWall(1);
+                }
+            }
+            // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
+        }
         else if (movimentoRimanenteX==0 && movimentoRimanenteY==0) {
             rapportoneY=0;
             rapportoneX=0;
             movimentoRimanente=0;
         }
     }
-    }
+}
 
 
 
@@ -212,55 +216,43 @@ public class Ball {
                 (int) scale(radius, width/50, width/20, 0, 255),
                 0,
                 0);
-
     }
-
     public Ball(Vector2D position, Vector2D velocity, double radius, Color color) {
         this.position = position;
         this.velocity = velocity;
         this.radius = radius;
         this.color = color;
     }
-
     public static double scale(final double valueIn, final double baseMin, final double baseMax, final double limitMin, final double limitMax) {
         return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin;
     }
-
     public void move() {
         position.x += velocity.x;
         position.y += velocity.y;
     }
-
     public boolean collideHorizontalWall(Dimension d) {
         return position.y - radius < 0 || position.y + radius > d.height;
     }
-
     public boolean collideVerticalWall(Dimension d) {
         return position.x - radius < 0 || position.x + radius > d.width;
     }
-
     public boolean collideBall(Ball other) {
         Vector2D d = position.sub(other.position);
         return d.length() <= radius + other.radius;
     }
-
     public void revolve(Ball other) {
         // get the mtd
         Vector2D delta = position.sub(other.position);
         double d = delta.length();
-
         // minimum translation distance to push balls apart after intersecting
         Vector2D mtd = delta.multiply(((radius + other.radius) - d) / d);
-
         // resolve intersection --
         // inverse mass quantities
         double im1 = 1 / radius;
         double im2 = 1 / other.radius;
-
         // push-pull them apart based off their mass
         position = position.add(mtd.multiply(im1 / (im1 + im2)));
         other.position = other.position.sub(mtd.multiply(im2 / (im1 + im2)));
-
         //velocity = velocity.dot(delta);
         double projVel = velocity.dot(delta) / delta.length();
         Vector2D a = new Vector2D(delta);
@@ -268,7 +260,6 @@ public class Ball {
         a.multiply(projVel);
         velocity = velocity.add(a).normalize();
     }
-
     public void paintComponent(Graphics g) {
         g.setColor(color);
         g.fillOval((int) (position.x - radius), (int) (position.y - radius), (int) (radius * 2), (int) (radius * 2));
