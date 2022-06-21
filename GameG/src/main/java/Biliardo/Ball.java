@@ -1,6 +1,7 @@
 package Biliardo;
 
 import java.awt.*;
+import java.util.List;
 
 public class Ball {
     int radius;
@@ -83,20 +84,30 @@ public class Ball {
         } else {
             setMovimentoRimanenteY(- getMovimentoRimanenteY());
         }
+
     }
 
-    public void hitABall(Ball uno, Ball dos) {
-        uno.setMovimentoRimanente(Math.abs((uno.getMovimentoRimanente()-dos.getMovimentoRimanente())));
-        dos.setMovimentoRimanente(uno.getMovimentoRimanente());
-        int medioX= dos.getMovimentoRimanenteX();
-        int medioY= dos.getMovimentoRimanenteY();
-        dos.setMovimentoRimanenteX(-uno.getMovimentoRimanenteX());
-        dos.setMovimentoRimanenteY(-uno.getMovimentoRimanenteY());
-        uno.setMovimentoRimanenteY(-medioY);
-        uno.setMovimentoRimanenteX(-medioX);
+    public void checkHitBall (List<Ball> lista){
+        for(Ball scorriLista : lista){
+            if(getXposition()!=scorriLista.getXposition()||getYposition()!= scorriLista.getYposition()){
+            int distanzax=getXposition()- scorriLista.getXposition();
+            int distanzay=getYposition()- scorriLista.getYposition();
+            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=getRadius()){
+                hitABall(scorriLista);
+            }
+            }
+        }
+    }
+    public void hitABall(Ball uno) {
+        uno.setMovimentoRimanente((Math.abs(uno.getMovimentoRimanente())+Math.abs(getMovimentoRimanente()))/2);
+        setMovimentoRimanente(uno.getMovimentoRimanente());
+        setMovimentoRimanenteX(getMovimentoRimanenteX()+uno.getMovimentoRimanenteX());
+        setMovimentoRimanenteY(getMovimentoRimanenteY()+uno.getMovimentoRimanenteY());
+        uno.setMovimentoRimanenteY(-getMovimentoRimanenteY());
+        uno.setMovimentoRimanenteX(-getMovimentoRimanenteX());
 
-        dos.rapportoneY=0;
-        dos.rapportoneX=0;
+        rapportoneY=0;
+        rapportoneX=0;
         uno.rapportoneY=0;
         uno.rapportoneX=0;
     }
@@ -196,6 +207,7 @@ public class Ball {
             movimentoRimanente=0;
         }
     }
+
 }
 
 
