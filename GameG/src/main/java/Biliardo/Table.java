@@ -16,6 +16,7 @@ public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
+    private Coin coin;
     public static PallaBianca whiteBall; //palla bianca che il giocatore colpisce
     public List<Ball> palleInGioco;
     public Menu menuGioco;
@@ -29,13 +30,13 @@ public class Table extends JPanel implements ActionListener {
     int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
     int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
     final int pit_dim = 40;
-    boolean coin = false;
+
 
     Point[] pit = new Point[6]; //array per le buche
     String[][] pack = new String[2][3];
     BufferedImage background;
     BufferedImage prov;
-    Random rnd;
+
     BufferedImage wood;
     BufferedImage field;
     BufferedImage whiteDot;
@@ -45,6 +46,7 @@ public class Table extends JPanel implements ActionListener {
     Point initialPos=new Point(x_board+50,BOARD_HEIGHT/2);
 
     int control=0;
+    int coin_trigger=0;
 
     public Table() {
         initBoard();
@@ -86,6 +88,7 @@ public class Table extends JPanel implements ActionListener {
         whiteBall = new PallaBianca(600, 395);
 
         poolCue = new PoolCue();
+        coin=new Coin();
         setVisible(true);
         addArea();
         setPakage(pack);
@@ -165,17 +168,6 @@ public class Table extends JPanel implements ActionListener {
         }
     }
 
-
-    public void generateCoin(){
-        //da chiamare dopo ogni tiro, 50% possibilità spawn casuale moneta sul campo
-        int r;
-        r=rnd.nextInt(0,1);
-        if(r==1){
-            coin=true;
-        }
-        coin=false;
-    }
-
     public void loadImage() {
         try {
             prov = ImageIO.read(new File("GameG/src/main/resources/images/campoInter.png"));
@@ -217,16 +209,14 @@ public class Table extends JPanel implements ActionListener {
 
         g2d.setColor(Color.darkGray);
 
-        //coin
-        if (coin) {
-            //disegna coin
-        }
-        coin = false;
+
         g2d.setColor(Color.darkGray);
     }
 
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+
+
         if(RunGame.statoAttuale== RunGame.STATO.MENU) {
             menuGioco.drawMenu(g);
         }
@@ -248,6 +238,7 @@ public class Table extends JPanel implements ActionListener {
             }
             if(control==1){
                 setTable(g2d);
+
                 control=0;
             }
 
@@ -268,6 +259,8 @@ public class Table extends JPanel implements ActionListener {
             g2d.setColor(Color.white);
             g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
 
+
+
             if(coloreSelezionato==1) {
                 Ball.setColore(Menu.colorePalle);
             }
@@ -287,6 +280,16 @@ public class Table extends JPanel implements ActionListener {
             }
 
             checkCollision();
+
+           //spawn moneta
+           if(coin_trigger==1){
+               if(coin.spawnCoin()){
+
+                   g2d.drawImage(coin.getImage(),coin.whereCoinX(),coin.whereCoinY(),this);
+               }
+               coin_trigger=0;
+           }
+
 
 
 
@@ -333,6 +336,7 @@ public class Table extends JPanel implements ActionListener {
         @Override
         public void mouseClicked(MouseEvent e){
             control=1;
+            coin_trigger=1;
 
             shoot();
         }

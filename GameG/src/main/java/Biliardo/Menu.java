@@ -1,11 +1,12 @@
 package Biliardo;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Graphics;
 
-public class Menu implements MouseListener {
+public class Menu extends JPanel implements MouseListener {
     public Table tavolo;
     public Rectangle bottonePlay = new Rectangle(Table.BOARD_WIDTH/4+150,240,300,50);
     public Rectangle bottoneChiudi = new Rectangle(Table.BOARD_WIDTH/4+150,540,300,50);

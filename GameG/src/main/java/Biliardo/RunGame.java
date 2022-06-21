@@ -1,6 +1,7 @@
 package Biliardo;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class RunGame extends JFrame {
 
@@ -16,7 +17,6 @@ public class RunGame extends JFrame {
         setLocationRelativeTo(null); //per centrare finestra nello schermo
         setVisible(true);
         add(new Table());
-
     }
 
 
