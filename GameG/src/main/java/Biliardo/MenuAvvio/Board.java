@@ -9,26 +9,26 @@ import java.util.Random;
 
 public class Board extends JPanel implements Runnable {
 
-    private final int BOARD_WIDTH=1000;
-    private final int BOARD_HEIGHT=800;
+    private final int BOARD_WIDTH=500;
+    private final int BOARD_HEIGHT=400;
     private final int INITIAL_X=0;
     private final int INITIAL_Y=100;
-    private final int DELAY=10;
+    private final int DELAY=1;
 
-    private final int IMGW=161;
-    private final int IMGH=185;
+    private final int IMGW=70;
+    private final int IMGH=70;
     private JButton start_button=new JButton();
-    private JButton option;
+    private JButton option=new JButton();
     private JButton colour=new JButton();
 
 
-    private int vely=1;
-    private int velx=1;
+    private int vely=10;
+    private int velx=10;
 
     Random random;
 
-    private Image star;
-    private Image rareCandy;
+    private Image wball;
+    private Image bball;
     private Thread animator;
     private int x,y;
 
@@ -72,8 +72,9 @@ public class Board extends JPanel implements Runnable {
     private void loadImage() {
 
 
-        ImageIcon ii = new ImageIcon("GameG/src/main/resources/images/8ball2r.png");
-        star = ii.getImage();
+        ImageIcon ii = new ImageIcon("GameG/src/main/resources/images/whiteBallr.png");
+        wball = ii.getImage();
+
 
     }
     public void addNotify(){
@@ -87,7 +88,7 @@ public class Board extends JPanel implements Runnable {
         drawStar(g);
     }
     private void drawStar(Graphics g){
-        g.drawImage(star,x,y,this);
+        g.drawImage(wball,x,y,this);
         Toolkit.getDefaultToolkit().sync();
     }
 
