@@ -99,8 +99,9 @@ public class Ball {
         }
     }
     public void hitABall(Ball uno) {
-        uno.setMovimentoRimanente((Math.abs(uno.getMovimentoRimanente())+Math.abs(getMovimentoRimanente()))/2);
-        setMovimentoRimanente(uno.getMovimentoRimanente());
+        int movimentodimezzo= uno.getMovimentoRimanente();
+        uno.setMovimentoRimanente(getMovimentoRimanente());
+        setMovimentoRimanente(movimentodimezzo);
         setMovimentoRimanenteX(getMovimentoRimanenteX()+uno.getMovimentoRimanenteX());
         setMovimentoRimanenteY(getMovimentoRimanenteY()+uno.getMovimentoRimanenteY());
         uno.setMovimentoRimanenteY(-getMovimentoRimanenteY());
