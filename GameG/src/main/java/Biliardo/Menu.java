@@ -11,7 +11,7 @@ public class Menu extends JPanel implements MouseListener {
     public Rectangle bottonePlay = new Rectangle(Table.BOARD_WIDTH/4+150,240,300,50);
     public Rectangle bottoneChiudi = new Rectangle(Table.BOARD_WIDTH/4+150,540,300,50);
     public Rectangle bottoneAltro = new Rectangle(Table.BOARD_WIDTH/4+150,390,300,50);
-    public static Color colorePalle;
+    public static Color colorPalle;
 
     public void drawMenu(Graphics g){
 
@@ -93,16 +93,16 @@ public class Menu extends JPanel implements MouseListener {
             }
             else {
                 if (mouseY >= 240 && mouseY <= 290) {
-                    colorePalle = Color.orange;
+                    colorPalle = Color.orange;
                     RunGame.statoAttuale = RunGame.STATO.MENU;
                 }
                 else if (mouseY >= 540 && mouseY <= 590) {
-                    colorePalle= Color.black;
+                    colorPalle = Color.black;
                     RunGame.statoAttuale = RunGame.STATO.MENU;
                 }
                 else if (mouseY >= 390 && mouseY <= 440) {
-                    colorePalle= Color.YELLOW;
-                    System.out.println("il colore é:"+ colorePalle);
+                    colorPalle = Color.YELLOW;
+                    System.out.println("il colore é:"+ colorPalle);
                     RunGame.statoAttuale = RunGame.STATO.MENU;
                 }
             }

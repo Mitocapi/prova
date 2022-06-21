@@ -1,5 +1,7 @@
 package Biliardo;
 
+import Biliardo.MenuAvvio.ColorChooser;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.awt.Graphics;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Table extends JPanel implements ActionListener {
     private Coin coin;
     public static PallaBianca whiteBall; //palla bianca che il giocatore colpisce
     public List<Ball> palleInGioco;
-    public Menu menuGioco;
+    //public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
     public static int BOARD_HEIGHT = 800;
     public static int DELAY = 1;
@@ -54,8 +55,8 @@ public class Table extends JPanel implements ActionListener {
 
     public void initBoard() {
 
-        menuGioco = new Menu();
-        this.addMouseListener(menuGioco);
+        //menuGioco = new Menu();
+        //this.addMouseListener(menuGioco);
         addMouseMotionListener(new Adapt());
         addMouseListener(new Adapt());
 
@@ -217,16 +218,16 @@ public class Table extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
 
 
-        if(RunGame.statoAttuale== RunGame.STATO.MENU) {
-            menuGioco.drawMenu(g);
-        }
-        else if(RunGame.statoAttuale== RunGame.STATO.COLORI){
-            menuGioco.optionColor(g);
-            coloreSelezionato=1;
-        }
-        else {
-            //menuGioco.deleteMenu(g);
-            removeMouseListener(menuGioco);
+       // if(RunGame.statoAttuale== RunGame.STATO.MENU) {
+       //     menuGioco.drawMenu(g);
+       // }
+       // else if(RunGame.statoAttuale== RunGame.STATO.COLORI){
+       //     menuGioco.optionColor(g);
+       //     coloreSelezionato=1;
+       // }
+       // else {
+       //     //menuGioco.deleteMenu(g);
+       //     removeMouseListener(menuGioco);
             // loadImage();
 
             /*se palline sono in movimento fai repaint solo di palle e campo verde
@@ -261,8 +262,8 @@ public class Table extends JPanel implements ActionListener {
 
 
 
-            if(coloreSelezionato==1) {
-                Ball.setColore(Menu.colorePalle);
+            if(ColorChooser.selected==1) {
+                Ball.setColore(ColorChooser.colorePalle);
             }
             else {
                 Ball.setColore(Color.black);
@@ -293,7 +294,7 @@ public class Table extends JPanel implements ActionListener {
 
 
 
-        }
+
     }
 
     public double getAngle(Point p1,Point p2){
