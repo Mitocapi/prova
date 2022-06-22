@@ -1,22 +1,18 @@
 package Biliardo;
 
 import java.awt.*;
-import java.util.List;
 
 public class Ball {
     int radius;
     static Color ballColor;
-    /*
-    opera d'arte, considero la velocità come "movimenti rimanenti"
-    in base alla direzione
-    */
+
     int movimentoRimanente;
-    int movimentoRimanenteY;
-    int movimentoRimanenteX;
+    int componenteVelocitaY;
+    int componenteVelocitaX;
     int posizioneX;
     int posizioneY;
-    int rapportoneX;
-    int rapportoneY;
+    int rapportoVXVY; //quanto si muove sull'asse x rispetto a y
+    int rapportoVYVX; //quanto si muove sull'asse y rispetto a x
     // get e set di fiducia
 
     public int getRadius() {
@@ -34,17 +30,17 @@ public class Ball {
     public static void setColore(Color colore) {
         ballColor = colore;
     }
-    public int getMovimentoRimanenteY() {
-        return movimentoRimanenteY;
+    public int getComponenteVelocitaY() {
+        return componenteVelocitaY;
     }
-    public void setMovimentoRimanenteY(int movimentoRimanenteY) {
-        this.movimentoRimanenteY = movimentoRimanenteY;
+    public void setComponenteVelocitaY(int componenteVelocitaY) {
+        this.componenteVelocitaY = componenteVelocitaY;
     }
-    public int getMovimentoRimanenteX() {
-        return movimentoRimanenteX;
+    public int getComponenteVelocitaX() {
+        return componenteVelocitaX;
     }
-    public void setMovimentoRimanenteX(int movimentoRimanenteX) {
-        this.movimentoRimanenteX = movimentoRimanenteX;
+    public void setComponenteVelocitaX(int componenteVelocitaX) {
+        this.componenteVelocitaX = componenteVelocitaX;
     }
     public int getXposition() {
         return posizioneX;
@@ -65,10 +61,10 @@ public class Ball {
         this.radius = 10;
         this.posizioneX = posx;
         this.posizioneY = posy;
-        this.movimentoRimanenteX = 0;
-        this.movimentoRimanenteY = 0;
-        rapportoneX=0;
-        rapportoneY=0;
+        this.componenteVelocitaX = 0;
+        this.componenteVelocitaY = 0;
+        rapportoVXVY =0;
+        rapportoVYVX =0;
         movimentoRimanente=0;
     }
 
@@ -80,9 +76,9 @@ public class Ball {
     public void hitAWall(int direzione) {
         // 0=x 1=y
         if (direzione == 0) {
-            setMovimentoRimanenteX(- getMovimentoRimanenteX());
+            setComponenteVelocitaX(- getComponenteVelocitaX());
         } else {
-            setMovimentoRimanenteY(- getMovimentoRimanenteY());
+            setComponenteVelocitaY(- getComponenteVelocitaY());
         }
 
     }
@@ -92,53 +88,53 @@ public class Ball {
            // if(getXposition()!=altraPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
             int distanzax=getXposition()- altraPalla.getXposition();
             int distanzay=getYposition()- altraPalla.getYposition();
-            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=getRadius()+5){
+            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()+5){
                 hitABall(altraPalla);
             //}
             }
     }
     public void hitABall(Ball uno) {
-        setMovimentoRimanenteX(- getMovimentoRimanenteX()); //provo a dargli un movimento minimo per vedere di
-        setMovimentoRimanenteY(- getMovimentoRimanenteY()); //non farle fondere..
+        setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
+        setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
         MoveBall();
         MoveBall();
         MoveBall();
-        setMovimentoRimanenteX(- getMovimentoRimanenteX());
-        setMovimentoRimanenteY(- getMovimentoRimanenteY());
+        setComponenteVelocitaX(- getComponenteVelocitaX());
+        setComponenteVelocitaY(- getComponenteVelocitaY());
 
         int movimentodimezzo= uno.getMovimentoRimanente();
         uno.setMovimentoRimanente(getMovimentoRimanente());
         setMovimentoRimanente(movimentodimezzo);
-        setMovimentoRimanenteX(getMovimentoRimanenteX()+uno.getMovimentoRimanenteX());
-        setMovimentoRimanenteY(getMovimentoRimanenteY()+uno.getMovimentoRimanenteY());
-        uno.setMovimentoRimanenteY(-getMovimentoRimanenteY());
-        uno.setMovimentoRimanenteX(-getMovimentoRimanenteX());
+        setComponenteVelocitaX(getComponenteVelocitaX()+uno.getComponenteVelocitaX());
+        setComponenteVelocitaY(getComponenteVelocitaY()+uno.getComponenteVelocitaY());
+        uno.setComponenteVelocitaY(-getComponenteVelocitaY());
+        uno.setComponenteVelocitaX(-getComponenteVelocitaX());
 
-        rapportoneY=0;
-        rapportoneX=0;
-        uno.rapportoneY=0;
-        uno.rapportoneX=0;
+        rapportoVYVX =0;
+        rapportoVXVY =0;
+        uno.rapportoVYVX =0;
+        uno.rapportoVXVY =0;
     }
 
     public void MoveBall() {
 
-        if(rapportoneX==0&&rapportoneY==0) {
-            movimentoRimanente=Math.abs(getMovimentoRimanenteX())+Math.abs(getMovimentoRimanenteY());
-            if(movimentoRimanente>400){
+        if(rapportoVXVY ==0&& rapportoVYVX ==0) {
+            movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY());
+            /* if(movimentoRimanente>400){
                 movimentoRimanente=400; //forse mettere un cap alla velocità evita che esplodano
-            }
-            if (getMovimentoRimanenteY() > getMovimentoRimanenteX()) {
-                if (movimentoRimanenteX != 0) {
-                    rapportoneY = Math.abs(getMovimentoRimanenteY() / getMovimentoRimanenteX());
-                    rapportoneX = 1;
+            }*/
+            if (getComponenteVelocitaY() > getComponenteVelocitaX()) {
+                if (componenteVelocitaX != 0) {
+                    rapportoVYVX = Math.abs(getComponenteVelocitaY() / getComponenteVelocitaX());
+                    rapportoVXVY = 1;
                 } else
-                    rapportoneY = 1;
+                    rapportoVYVX = 1;
             } else {
-                if (movimentoRimanenteY != 0) {
-                    rapportoneX = Math.abs(getMovimentoRimanenteX() / getMovimentoRimanenteY());
-                    rapportoneY = 1;
+                if (componenteVelocitaY != 0) {
+                    rapportoVXVY = Math.abs(getComponenteVelocitaX() / getComponenteVelocitaY());
+                    rapportoVYVX = 1;
                 } else
-                    rapportoneX = 1;
+                    rapportoVXVY = 1;
             }
         } //rapporto tra i movimenti e direzione;
 
@@ -175,36 +171,36 @@ public class Ball {
                     hitAWall(1);
                 }
             }
-            // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
+            // HO COMMENTATO STA ROBA PERCHè è UGUALE A QUELLO SOTTO MA FA ANDARE LA PALLA PIù VELOCE
         }*/
         if (movimentoRimanente>0) {
-            if (getMovimentoRimanenteX() > 0) {
-                setXposition(getXposition() + rapportoneX);
-                setMovimentoRimanente(movimentoRimanente- 1);
+            if (getComponenteVelocitaX() > 0) {
+                setXposition(getXposition() + rapportoVXVY);
+                setMovimentoRimanente(movimentoRimanente- rapportoVXVY - rapportoVYVX);
                 if (movimentoRimanente>0 && getXposition() + getRadius() >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }
             }
-            if (getMovimentoRimanenteX() < 0) {
-                setXposition(getXposition() - rapportoneX);
-                setMovimentoRimanente(movimentoRimanente - 1);
+            if (getComponenteVelocitaX() < 0) {
+                setXposition(getXposition() - rapportoVXVY);
+                setMovimentoRimanente(movimentoRimanente - rapportoVXVY - rapportoVYVX);
                 if (movimentoRimanente > 0 && getXposition() - getRadius() <= 322) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }
             }
-            if (getMovimentoRimanenteY() > 0) {
-                setYposition(getYposition() + rapportoneY);
-                setMovimentoRimanente(movimentoRimanente - 1);
+            if (getComponenteVelocitaY() > 0) {
+                setYposition(getYposition() + rapportoVYVX);
+                setMovimentoRimanente(movimentoRimanente - rapportoVXVY - rapportoVYVX);
                 if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(1);
                 }
             }
-            if (getMovimentoRimanenteY() < 0) {
-                setYposition(getYposition() -rapportoneY);
-                setMovimentoRimanente(movimentoRimanente - 1);
+            if (getComponenteVelocitaY() < 0) {
+                setYposition(getYposition() - rapportoVYVX);
+                setMovimentoRimanente(movimentoRimanente - rapportoVXVY - rapportoVYVX);
                 if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(1);
@@ -212,9 +208,9 @@ public class Ball {
             }
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
         }
-        else if (movimentoRimanenteX==0 && movimentoRimanenteY==0) {
-            rapportoneY=0;
-            rapportoneX=0;
+        else if (componenteVelocitaX ==0 && componenteVelocitaY ==0) {
+            rapportoVYVX =0;
+            rapportoVXVY =0;
             movimentoRimanente=0;
         }
     }

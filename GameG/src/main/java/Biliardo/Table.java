@@ -164,7 +164,7 @@ public class Table extends JPanel implements ActionListener {
         for(Ball dos : palleInGioco){
                 int distanzax = whiteBall.getXposition()-dos.getXposition();
                 int distanzay = whiteBall.getYposition()-dos.getYposition();
-                if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=whiteBall.getRadius()+3){
+                if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double)whiteBall.getRadius()+5){
                     whiteBall.hitABall(dos);
 
             }
@@ -318,10 +318,10 @@ public class Table extends JPanel implements ActionListener {
 
     public void shoot() {
         if (whiteBall.movimentoRimanente <= 0) {
-            whiteBall.setMovimentoRimanenteX((whiteBall.getXposition() - poolCue.getX()) * 25);
-            whiteBall.setMovimentoRimanenteY((whiteBall.getYposition() - poolCue.getY()) * 25);
-            whiteBall.rapportoneX = 0;
-            whiteBall.rapportoneY = 0;
+            whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 25);
+            whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 25);
+            whiteBall.rapportoVXVY = 0;
+            whiteBall.rapportoVYVX = 0;
             System.out.println("entrato");
             whiteBall.MoveBall();
         }
