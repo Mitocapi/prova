@@ -87,18 +87,25 @@ public class Ball {
 
     }
 
-    public void checkHitBall (List<Ball> lista){
-        for(Ball scorriLista : lista){
-            if(getXposition()!=scorriLista.getXposition()||getYposition()!= scorriLista.getYposition()){
-            int distanzax=getXposition()- scorriLista.getXposition();
-            int distanzay=getYposition()- scorriLista.getYposition();
-            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=getRadius()){
-                hitABall(scorriLista);
+    public void checkHitBall (Ball altraPalla){
+
+           // if(getXposition()!=altraPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
+            int distanzax=getXposition()- altraPalla.getXposition();
+            int distanzay=getYposition()- altraPalla.getYposition();
+            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=getRadius()+5){
+                hitABall(altraPalla);
+            //}
             }
-            }
-        }
     }
     public void hitABall(Ball uno) {
+        setMovimentoRimanenteX(- getMovimentoRimanenteX()); //provo a dargli un movimento minimo per vedere di
+        setMovimentoRimanenteY(- getMovimentoRimanenteY()); //non farle fondere..
+        MoveBall();
+        MoveBall();
+        MoveBall();
+        setMovimentoRimanenteX(- getMovimentoRimanenteX());
+        setMovimentoRimanenteY(- getMovimentoRimanenteY());
+
         int movimentodimezzo= uno.getMovimentoRimanente();
         uno.setMovimentoRimanente(getMovimentoRimanente());
         setMovimentoRimanente(movimentodimezzo);
@@ -117,6 +124,9 @@ public class Ball {
 
         if(rapportoneX==0&&rapportoneY==0) {
             movimentoRimanente=Math.abs(getMovimentoRimanenteX())+Math.abs(getMovimentoRimanenteY());
+            if(movimentoRimanente>400){
+                movimentoRimanente=400; //forse mettere un cap alla velocità evita che esplodano
+            }
             if (getMovimentoRimanenteY() > getMovimentoRimanenteX()) {
                 if (movimentoRimanenteX != 0) {
                     rapportoneY = Math.abs(getMovimentoRimanenteY() / getMovimentoRimanenteX());
@@ -132,7 +142,7 @@ public class Ball {
             }
         } //rapporto tra i movimenti e direzione;
 
-        if (movimentoRimanente>200) {
+        /*if (movimentoRimanente>200) {
             if (getMovimentoRimanenteX() > 0) {
                 setXposition( (getXposition() + rapportoneX * 2));
                 setMovimentoRimanente(getMovimentoRimanente() - 2);
@@ -166,7 +176,7 @@ public class Ball {
                 }
             }
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
-        }
+        }*/
         if (movimentoRimanente>0) {
             if (getMovimentoRimanenteX() > 0) {
                 setXposition(getXposition() + rapportoneX);

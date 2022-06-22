@@ -86,7 +86,7 @@ public class Table extends JPanel implements ActionListener {
                 }
             }
         } //EVOCA LE CABBO DI PALLINE
-        whiteBall = new PallaBianca(600, 395);
+        whiteBall = new PallaBianca(initialPos.x, initialPos.y);
 
         poolCue = new PoolCue();
         coin=new Coin();
@@ -97,7 +97,6 @@ public class Table extends JPanel implements ActionListener {
         loadImage();
         moveCue();
         checkCollision();
-        System.out.println(whiteBall.movimentoRimanente);
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -156,13 +155,16 @@ public class Table extends JPanel implements ActionListener {
 
         }
         for(Ball uno : palleInGioco){
-            uno.checkHitBall(palleInGioco);
+            uno.checkHitBall(whiteBall);
+            for(Ball dos:palleInGioco) {
+                uno.checkHitBall(dos);
+            }
         }
 
         for(Ball dos : palleInGioco){
                 int distanzax = whiteBall.getXposition()-dos.getXposition();
                 int distanzay = whiteBall.getYposition()-dos.getYposition();
-                if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=whiteBall.getRadius()){
+                if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=whiteBall.getRadius()+3){
                     whiteBall.hitABall(dos);
 
             }
@@ -314,18 +316,15 @@ public class Table extends JPanel implements ActionListener {
 
     }
 
-    public void shoot(){
-
-        if(whiteBall.movimentoRimanente<=0){
-
-            whiteBall.setMovimentoRimanenteX((whiteBall.getXposition()- poolCue.getX())*25);
-            whiteBall.setMovimentoRimanenteY((whiteBall.getYposition()- poolCue.getY())*25);
-            whiteBall.rapportoneX=0;
-            whiteBall.rapportoneY=0;
+    public void shoot() {
+        if (whiteBall.movimentoRimanente <= 0) {
+            whiteBall.setMovimentoRimanenteX((whiteBall.getXposition() - poolCue.getX()) * 25);
+            whiteBall.setMovimentoRimanenteY((whiteBall.getYposition() - poolCue.getY()) * 25);
+            whiteBall.rapportoneX = 0;
+            whiteBall.rapportoneY = 0;
             System.out.println("entrato");
             whiteBall.MoveBall();
         }
-
     }
 
 
