@@ -13,7 +13,7 @@ public class Ball {
     int posizioneY;
     int rapportoVXVY; //quanto si muove sull'asse x rispetto a y
     int rapportoVYVX; //quanto si muove sull'asse y rispetto a x
-    // get e set di fiducia
+
 
     public int getRadius() {
         return radius;
@@ -88,12 +88,14 @@ public class Ball {
            // if(getXposition()!=altraPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
             int distanzax=getXposition()- altraPalla.getXposition();
             int distanzay=getYposition()- altraPalla.getYposition();
-            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()+5){
+            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()*2){
                 hitABall(altraPalla);
             //}
             }
     }
+
     public void hitABall(Ball uno) {
+
         setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
         setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
         MoveBall();
@@ -102,6 +104,7 @@ public class Ball {
         setComponenteVelocitaX(- getComponenteVelocitaX());
         setComponenteVelocitaY(- getComponenteVelocitaY());
 
+
         int movimentodimezzo= uno.getMovimentoRimanente();
         uno.setMovimentoRimanente(getMovimentoRimanente());
         setMovimentoRimanente(movimentodimezzo);
@@ -109,6 +112,7 @@ public class Ball {
         setComponenteVelocitaY(getComponenteVelocitaY()+uno.getComponenteVelocitaY());
         uno.setComponenteVelocitaY(-getComponenteVelocitaY());
         uno.setComponenteVelocitaX(-getComponenteVelocitaX());
+
 
         rapportoVYVX =0;
         rapportoVXVY =0;

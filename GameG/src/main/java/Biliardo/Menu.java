@@ -11,9 +11,10 @@ public class Menu extends JPanel implements MouseListener {
     public Rectangle bottonePlay = new Rectangle(Table.BOARD_WIDTH/4+150,240,300,50);
     public Rectangle bottoneChiudi = new Rectangle(Table.BOARD_WIDTH/4+150,540,300,50);
     public Rectangle bottoneAltro = new Rectangle(Table.BOARD_WIDTH/4+150,390,300,50);
+    public static Rectangle scoreNoBottone = new Rectangle(5,10,250,5);
     public static Color colorPalle;
 
-    public void drawMenu(Graphics g){
+    /*public void drawMenu(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -41,6 +42,17 @@ public class Menu extends JPanel implements MouseListener {
         g.drawString("Gioca", bottonePlay.x+110, bottonePlay.y+35);
         g.drawString("Chiudi", bottoneChiudi.x+110, bottoneChiudi.y+35 );
         g.drawString("Seleziona Colore", bottoneAltro.x+25, bottoneAltro.y+35 );
+
+    }*/ //OBSOLETO
+
+    public static void score(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g.setColor(new Color(10,100,1));
+        g2d.draw(scoreNoBottone);
+        Font fontScore = new Font("arial", Font.ITALIC, 25);
+        g.setFont(fontScore);
+        g.setColor(Color.black);
+        g.drawString("Palle messe in buca: " + "0", 15,40 );
 
     }
 

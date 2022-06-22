@@ -109,6 +109,7 @@ public class Table extends JPanel implements ActionListener {
             bilie.MoveBall();
         }  //questo coso servirebbe a far muovere tutte le altre palle ma al momento le uniche palle che si muovono
         // sono le mie e la sua funzione è quella di regalare del lag ai passanti... provo a risolvere...
+
         repaint();
 
     }
@@ -161,14 +162,14 @@ public class Table extends JPanel implements ActionListener {
             }
         }
 
-        for(Ball dos : palleInGioco){
+        /*for(Ball dos : palleInGioco){
                 int distanzax = whiteBall.getXposition()-dos.getXposition();
                 int distanzay = whiteBall.getYposition()-dos.getYposition();
                 if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double)whiteBall.getRadius()+5){
                     whiteBall.hitABall(dos);
 
             }
-        }
+        }*/
     }
 
     public void loadImage() {
@@ -275,7 +276,7 @@ public class Table extends JPanel implements ActionListener {
             }
             Ball.setColore(Color.white);
             whiteBall.paintComponents(g2d);
-
+            Menu.score(g);
             if(whiteBall.movimentoRimanente<=0){
                 angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(whiteBall.posizioneX, whiteBall.posizioneY));
                 g2d.rotate(angle, poolCue.getX(), poolCue.getY());
