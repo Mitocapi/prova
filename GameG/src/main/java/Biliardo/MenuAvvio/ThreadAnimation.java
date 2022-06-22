@@ -1,7 +1,7 @@
 package Biliardo.MenuAvvio;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class ThreadAnimation extends JFrame {
 
@@ -23,6 +23,7 @@ public class ThreadAnimation extends JFrame {
     }
 
     public static void main(String[] args) {
+
 
         EventQueue.invokeLater(() -> {
             JFrame ex = new ThreadAnimation();

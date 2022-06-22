@@ -6,11 +6,16 @@ public class Ball {
     int radius;
     static Color ballColor;
 
+    //prende distanza dal centro e moltiplica per 25
     int movimentoRimanente;
+
     int componenteVelocitaY;
     int componenteVelocitaX;
+
     int posizioneX;
     int posizioneY;
+
+    //inclinazione movimento
     int rapportoVXVY; //quanto si muove sull'asse x rispetto a y
     int rapportoVYVX; //quanto si muove sull'asse y rispetto a x
 
@@ -65,7 +70,7 @@ public class Ball {
         this.componenteVelocitaY = 0;
         rapportoVXVY =0;
         rapportoVYVX =0;
-        movimentoRimanente=0;
+        movimentoRimanente=1000;
     }
 
     public void paintComponents(Graphics g) {
@@ -85,9 +90,9 @@ public class Ball {
 
     public void checkHitBall (Ball altraPalla){
 
-           // if(getXposition()!=altraPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
-            int distanzax=getXposition()- altraPalla.getXposition();
-            int distanzay=getYposition()- altraPalla.getYposition();
+           // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
+            int distanzax=getXposition() - altraPalla.getXposition();
+            int distanzay=getYposition() - altraPalla.getYposition();
             if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()*2){
                 hitABall(altraPalla);
             //}
@@ -96,13 +101,13 @@ public class Ball {
 
     public void hitABall(Ball uno) {
 
-        setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
-        setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
+        setComponenteVelocitaX(+ getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
+        setComponenteVelocitaY(+ getComponenteVelocitaY()); //non farle fondere..
         MoveBall();
-        MoveBall();
-        MoveBall();
-        setComponenteVelocitaX(- getComponenteVelocitaX());
-        setComponenteVelocitaY(- getComponenteVelocitaY());
+        //MoveBall();
+        //MoveBall();
+        setComponenteVelocitaX( getComponenteVelocitaX());
+        setComponenteVelocitaY( getComponenteVelocitaY());
 
 
         int movimentodimezzo= uno.getMovimentoRimanente();
@@ -124,6 +129,7 @@ public class Ball {
 
         if(rapportoVXVY ==0&& rapportoVYVX ==0) {
             movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY());
+
             /* if(movimentoRimanente>400){
                 movimentoRimanente=400; //forse mettere un cap alla velocità evita che esplodano
             }*/

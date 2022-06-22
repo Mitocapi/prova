@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Board extends JPanel implements Runnable, MouseListener {
 
-    private final int BOARD_WIDTH=500;
-    private final int BOARD_HEIGHT=400;
+    private final int BOARD_WIDTH=800;
+    private final int BOARD_HEIGHT=600;
     private final int INITIAL_X=0;
     private final int INITIAL_Y=100;
     private final int DELAY=1;
@@ -51,23 +51,27 @@ public class Board extends JPanel implements Runnable, MouseListener {
         setBackground(new Color(40,70,40));
         addMouseListener(this);
 
-      /*  start_button.setText("start");
+      start_button.setText("start");
+        start_button.setLocation(100,100);
         start_button.setPreferredSize(new Dimension(80,20));
-        start_button.setLocation(245,200);
+
         start_button.addActionListener(e -> {
             new RunGame();
             setVisible(false);
         });
-        add(start_button); */
+        add(start_button);
 
-        /*
+
         colour.setText("color");
+        colour.setBackground(Color.blue);
         colour.setPreferredSize(new Dimension(80,20));
         colour.addActionListener(e -> {
             new ColorChooser();
         });
         add(colour);
-*/
+
+
+
 
 
 

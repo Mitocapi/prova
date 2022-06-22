@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -278,10 +279,23 @@ public class Table extends JPanel implements ActionListener {
             whiteBall.paintComponents(g2d);
             Menu.score(g);
             if(whiteBall.movimentoRimanente<=0){
+                AffineTransform old=g2d.getTransform();
                 angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(whiteBall.posizioneX, whiteBall.posizioneY));
                 g2d.rotate(angle, poolCue.getX(), poolCue.getY());
                 g2d.drawImage(poolCue.poolCueImg, poolCue.getX()-150, poolCue.getY()-15,this);
+                g2d.setTransform(old);
+
+                g2d.setColor(Color.white);
+                angle=Math.toDegrees(angle)+360;
+                angle=Math.toRadians(angle);
+                g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawLine(whiteBall.posizioneX,whiteBall.posizioneY,whiteBall.posizioneX+80,whiteBall.posizioneY+0);
+            }else{
+                whiteBall.movimentoRimanente--;
+
             }
+        System.out.println(whiteBall.movimentoRimanente);
 
             checkCollision();
 
@@ -319,8 +333,9 @@ public class Table extends JPanel implements ActionListener {
 
     public void shoot() {
         if (whiteBall.movimentoRimanente <= 0) {
-            whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 25);
-            whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 25);
+            whiteBall.movimentoRimanente=1000;
+            whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
+            whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
             whiteBall.rapportoVXVY = 0;
             whiteBall.rapportoVYVX = 0;
             System.out.println("entrato");
