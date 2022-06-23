@@ -20,12 +20,14 @@ public class Board extends JPanel implements Runnable, MouseListener {
     public Rectangle bottonePlay = new Rectangle(Table.BOARD_WIDTH/4 - 175,125,250,35);
     public Rectangle bottoneChiudi = new Rectangle(Table.BOARD_WIDTH/4 - 175,265,250,35);
     public Rectangle bottoneAltro = new Rectangle(Table.BOARD_WIDTH/4 - 175,195,250,35);
-    public static Color colorPalle;
+    public static Color colorBall1;
+    public static Color colorBall2;
     private final int IMGW=70;
     private final int IMGH=70;
     private JButton start_button=new JButton();
     private JButton option=new JButton();
     private JButton colour=new JButton();
+    private JButton colour2=new JButton();
 
 
     private int vely=10;
@@ -67,8 +69,18 @@ public class Board extends JPanel implements Runnable, MouseListener {
         colour.setPreferredSize(new Dimension(80,20));
         colour.addActionListener(e -> {
             new ColorChooser();
+            colorBall1=ColorChooser.colorePalle;
         });
         add(colour);
+
+        colour2.setText("color");
+        colour2.setBackground(Color.blue);
+        colour2.setPreferredSize(new Dimension(80,20));
+        colour2.addActionListener(e -> {
+            new ColorChooser();
+            colorBall2=ColorChooser.colorePalle;
+        });
+        add(colour2);
 
 
 
@@ -168,7 +180,7 @@ public class Board extends JPanel implements Runnable, MouseListener {
         Font fontTitoloMenu = new Font("titolo", Font.BOLD, 35);
         g.setFont(fontTitoloMenu);
         g.setColor(Color.RED);
-        g.drawString("P(retty) (C)ool", 125, 35);
+        g.drawString("title", 125, 35);
         g.setColor(Color.darkGray);
         g2d.draw(bottonePlay);
         g2d.draw(bottoneAltro);

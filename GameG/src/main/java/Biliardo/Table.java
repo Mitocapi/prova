@@ -1,6 +1,8 @@
 package Biliardo;
 
+import Biliardo.MenuAvvio.Board;
 import Biliardo.MenuAvvio.ColorChooser;
+import Biliardo.MenuAvvio.ThreadAnimation;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,13 +27,13 @@ public class Table extends JPanel implements ActionListener {
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
     public static int BOARD_HEIGHT = 800;
     public static int DELAY = 1;
-    int size_const = 3;
+    static int size_const = 3;
 
-    final int standard_width = 190; //standard dimension of billiard board
-    final int standard_height = 110;
-    int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
-    int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
-    final int pit_dim = 40;
+   public static final int standard_width = 190; //standard dimension of billiard board
+   public static final int standard_height = 110;
+   public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
+   public static int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
+   public final int pit_dim = 40;
 
 
     Point[] pit = new Point[6]; //array per le buche
@@ -44,6 +46,9 @@ public class Table extends JPanel implements ActionListener {
     BufferedImage whiteDot;
     double angle;
     boolean ballClick=false;
+    JButton restart=new JButton();
+    JLabel shoot_label=new JLabel();
+    int num=0;
 
     Point initialPos=new Point(x_board+50,BOARD_HEIGHT/2);
 
@@ -54,12 +59,26 @@ public class Table extends JPanel implements ActionListener {
         initBoard();
     }
 
+
     public void initBoard() {
 
         //menuGioco = new Menu();
         //this.addMouseListener(menuGioco);
         addMouseMotionListener(new Adapt());
         addMouseListener(new Adapt());
+
+        shoot_label.setText("total shoot "+num);
+        add(shoot_label);
+
+        restart.setText("restart");
+        restart.setLocation(new Point(500,100));
+        restart.addActionListener(e -> {
+            setVisible(false);
+            new RunGame();
+        });
+        add(restart);
+
+
 
         palleInGioco = new ArrayList<>();
         for (int i=0; i<5;i++){
@@ -149,6 +168,18 @@ public class Table extends JPanel implements ActionListener {
         for(int i=0;i<pit.length;i++){
             if(whiteBall.getXposition()<=10+pit[i].x && whiteBall.getXposition()>=pit[i].x-10){
                 if(whiteBall.getYposition()<=10+pit[i].y && whiteBall.getYposition()>=pit[i].y-10){
+                    JFrame f = new JFrame("game over");
+                    f.setSize(400,400);
+                    f.add(new JLabel("white ball in pit"));
+                    restart.setText("restart");
+                    restart.setPreferredSize(new Dimension(40,40));
+                    restart.addActionListener(e -> {
+                        f.setVisible(false);
+                        new RunGame();
+                    });
+                    f.setLocationRelativeTo(null);
+                    f.add(restart);
+                    f.setVisible(true);
                     whiteBall.movimentoRimanente=0;
                     whiteBall.posizioneX=initialPos.x;
                     whiteBall.posizioneY=initialPos.y;
@@ -156,12 +187,19 @@ public class Table extends JPanel implements ActionListener {
             }
 
         }
-        for(Ball uno : palleInGioco){
-            uno.checkHitBall(whiteBall);
-            for(Ball dos:palleInGioco) {
-                uno.checkHitBall(dos);
+
+        for(int i=0;i<palleInGioco.size();i++){
+
+            palleInGioco.get(i).checkHitBall(whiteBall);
+            for(int j=0;j<palleInGioco.size();j++){
+                if(i==j)
+                    continue;
+                else{
+                    palleInGioco.get(i).checkHitBall(palleInGioco.get(j));
+                }
             }
         }
+
 
         /*for(Ball dos : palleInGioco){
                 int distanzax = whiteBall.getXposition()-dos.getXposition();
@@ -220,6 +258,8 @@ public class Table extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        shoot_label.setText("total shoot: "+num);
+
 
 
        // if(RunGame.statoAttuale== RunGame.STATO.MENU) {
@@ -272,11 +312,17 @@ public class Table extends JPanel implements ActionListener {
             else {
                 Ball.setColore(Color.black);
             }
+            int i=0;
             for ( Ball bilie : palleInGioco){
-                bilie.paintComponents(g);
+                if(i%2==0){
+                bilie.paintComponents(g2d, Board.colorBall1);
+                }else {
+                    bilie.paintComponents(g2d,Board.colorBall2);
+                }
+                i++;
             }
             Ball.setColore(Color.white);
-            whiteBall.paintComponents(g2d);
+            whiteBall.paintComponents(g2d,Color.white);
             Menu.score(g);
             if(whiteBall.movimentoRimanente<=0){
                 AffineTransform old=g2d.getTransform();
@@ -285,12 +331,14 @@ public class Table extends JPanel implements ActionListener {
                 g2d.drawImage(poolCue.poolCueImg, poolCue.getX()-150, poolCue.getY()-15,this);
                 g2d.setTransform(old);
 
+                AffineTransform old2=g2d.getTransform();
                 g2d.setColor(Color.white);
                 angle=Math.toDegrees(angle)+360;
                 angle=Math.toRadians(angle);
                 g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
                 g2d.setStroke(new BasicStroke(2));
-                g2d.drawLine(whiteBall.posizioneX,whiteBall.posizioneY,whiteBall.posizioneX+80,whiteBall.posizioneY+0);
+                g2d.drawLine(whiteBall.posizioneX,whiteBall.posizioneY,whiteBall.posizioneX+80,whiteBall.posizioneY);
+                g2d.setTransform(old2);
             }else{
                 whiteBall.movimentoRimanente--;
 
@@ -333,11 +381,12 @@ public class Table extends JPanel implements ActionListener {
 
     public void shoot() {
         if (whiteBall.movimentoRimanente <= 0) {
+            num++;
             whiteBall.movimentoRimanente=1000;
             whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
             whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
-            whiteBall.rapportoVXVY = 0;
-            whiteBall.rapportoVYVX = 0;
+            whiteBall.dx = 0;
+            whiteBall.dy = 0;
             System.out.println("entrato");
             whiteBall.MoveBall();
         }

@@ -14,6 +14,7 @@ public class Menu extends JPanel implements MouseListener {
     public static Rectangle scoreNoBottone = new Rectangle(5,10,250,5);
     public static Color colorPalle;
 
+
     /*public void drawMenu(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
