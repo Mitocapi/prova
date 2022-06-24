@@ -2,7 +2,6 @@ package Biliardo;
 
 import Biliardo.MenuAvvio.Board;
 import Biliardo.MenuAvvio.ColorChooser;
-import Biliardo.MenuAvvio.ThreadAnimation;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -107,19 +106,21 @@ public class Table extends JPanel implements ActionListener {
             }
         } //EVOCA LE CABBO DI PALLINE
         whiteBall = new PallaBianca(initialPos.x, initialPos.y);
+        Ball.setBallStop(palleInGioco);
+        whiteBall.movimentoRimanente=0;
 
         poolCue = new PoolCue();
         coin=new Coin();
-        setVisible(true);
-        addArea();
+
         setPakage(pack);
         setPit(pit);
         loadImage();
-        moveCue();
-        checkCollision();
+        //moveCue();
+        //checkCollision();
 
         timer = new Timer(DELAY, this);
         timer.start();
+        setVisible(true);
     }
 
     private void moveCue(){
@@ -133,10 +134,6 @@ public class Table extends JPanel implements ActionListener {
         repaint();
 
     }
-
-    private void addArea() {
-    }
-
     private void setPakage(String[][] pack) {
         /*pacchetti grafici
         0->background
@@ -262,24 +259,9 @@ public class Table extends JPanel implements ActionListener {
 
 
 
-       // if(RunGame.statoAttuale== RunGame.STATO.MENU) {
-       //     menuGioco.drawMenu(g);
-       // }
-       // else if(RunGame.statoAttuale== RunGame.STATO.COLORI){
-       //     menuGioco.optionColor(g);
-       //     coloreSelezionato=1;
-       // }
-       // else {
-       //     //menuGioco.deleteMenu(g);
-       //     removeMouseListener(menuGioco);
-            // loadImage();
-
-            /*se palline sono in movimento fai repaint solo di palle e campo verde
-             * se no troppo pesante il repaint e rallenta movimento */
-
-
             if(whiteBall.movimentoRimanente<=0) {
-                setTable(g2d);
+                if(Ball.checkMove(palleInGioco))
+                        setTable(g2d);
             }
             if(control==1){
                 setTable(g2d);
@@ -324,26 +306,26 @@ public class Table extends JPanel implements ActionListener {
             Ball.setColore(Color.white);
             whiteBall.paintComponents(g2d,Color.white);
             Menu.score(g);
+
             if(whiteBall.movimentoRimanente<=0){
-                AffineTransform old=g2d.getTransform();
-                angle=getAngle(new Point(poolCue.getX(), poolCue.getY()),new Point(whiteBall.posizioneX, whiteBall.posizioneY));
-                g2d.rotate(angle, poolCue.getX(), poolCue.getY());
-                g2d.drawImage(poolCue.poolCueImg, poolCue.getX()-150, poolCue.getY()-15,this);
-                g2d.setTransform(old);
+                if (Ball.checkMove(palleInGioco)) {
+                    System.out.println("entrat");
+                    AffineTransform old = g2d.getTransform();
+                    angle = getAngle(new Point(poolCue.getX(), poolCue.getY()), new Point(whiteBall.posizioneX, whiteBall.posizioneY));
+                    g2d.rotate(angle, poolCue.getX(), poolCue.getY());
+                    g2d.drawImage(poolCue.poolCueImg, poolCue.getX() - 150, poolCue.getY() - 15, this);
+                    g2d.setTransform(old);
 
-                AffineTransform old2=g2d.getTransform();
-                g2d.setColor(Color.white);
-                angle=Math.toDegrees(angle)+360;
-                angle=Math.toRadians(angle);
-                g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
-                g2d.setStroke(new BasicStroke(2));
-                g2d.drawLine(whiteBall.posizioneX,whiteBall.posizioneY,whiteBall.posizioneX+80,whiteBall.posizioneY);
-                g2d.setTransform(old2);
-            }else{
-                whiteBall.movimentoRimanente--;
-
+                    AffineTransform old2 = g2d.getTransform();
+                    g2d.setColor(Color.white);
+                    angle = Math.toDegrees(angle) + 360;
+                    angle = Math.toRadians(angle);
+                    g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
+                    g2d.setStroke(new BasicStroke(2));
+                    g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80, whiteBall.posizioneY);
+                    g2d.setTransform(old2);
+                }
             }
-        System.out.println(whiteBall.movimentoRimanente);
 
             checkCollision();
 

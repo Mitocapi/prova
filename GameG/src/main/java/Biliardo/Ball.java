@@ -1,6 +1,7 @@
 package Biliardo;
 
 import java.awt.*;
+import java.util.List;
 
 public class Ball {
     int radius;
@@ -21,6 +22,14 @@ public class Ball {
     int dx; //quanto si muove sull'asse x rispetto a y
     int dy; //quanto si muove sull'asse y rispetto a x
     int v=3;
+
+    public static void setBallStop(List<Ball> palleInGioco) {
+        for(Ball b : palleInGioco){
+            b.movimentoRimanente=0;
+            b.dy=0;
+            b.dx=0;
+        }
+    }
 
 
     public int getRadius() {
@@ -133,12 +142,21 @@ public class Ball {
         uno.setComponenteVelocitaY(-getComponenteVelocitaY());
         uno.setComponenteVelocitaX(-getComponenteVelocitaX());
 
-        dy =0;
-        dx =0;
-        uno.dy =0;
-        uno.dx =0;
+        //dy =0;
+        //dx =0;
+        //uno.dy =0;
+        //uno.dx =0;
 
         MoveBall();
+        uno.MoveBall();
+    }
+    public static boolean checkMove(List<Ball> b){
+        for(Ball a : b){
+            if(a.movimentoRimanente>1){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void MoveBall() {
