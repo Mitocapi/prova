@@ -289,20 +289,23 @@ public class Table extends JPanel implements ActionListener {
 
 
             if(ColorChooser.selected==1) {
-                Ball.setColore(ColorChooser.colorePalle);
+                int i=0;
+                for ( Ball bilie : palleInGioco){
+                    if(i%2==0){
+                        bilie.paintComponents(g2d, Board.colorBall1);
+                    }else {
+                        bilie.paintComponents(g2d,Board.colorBall2);
+                    }
+                    i++;
+                }
             }
             else {
-                Ball.setColore(Color.black);
-            }
-            int i=0;
-            for ( Ball bilie : palleInGioco){
-                if(i%2==0){
-                bilie.paintComponents(g2d, Board.colorBall1);
-                }else {
-                    bilie.paintComponents(g2d,Board.colorBall2);
+                for ( Ball bilie : palleInGioco){
+                    bilie.paintComponents(g2d, Color.black);
                 }
-                i++;
+
             }
+
             Ball.setColore(Color.white);
             whiteBall.paintComponents(g2d,Color.white);
             Menu.score(g);

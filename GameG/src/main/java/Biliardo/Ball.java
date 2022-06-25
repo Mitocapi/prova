@@ -3,7 +3,9 @@ package Biliardo;
 import java.awt.*;
 import java.util.List;
 
+
 public class Ball {
+    private static final int MAX_VEL =3000 ;
     int radius;
     static Color ballColor;
     int x_wall_up=Table.x_board;
@@ -21,7 +23,7 @@ public class Ball {
     //inclinazione movimento
     int dx; //quanto si muove sull'asse x rispetto a y
     int dy; //quanto si muove sull'asse y rispetto a x
-    int v=3;
+    int v=10;
 
     public static void setBallStop(List<Ball> palleInGioco) {
         for(Ball b : palleInGioco){
@@ -125,20 +127,19 @@ public class Ball {
 
     public void hitABall(Ball uno) {
 
-        setComponenteVelocitaX(+ getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
-        setComponenteVelocitaY(+ getComponenteVelocitaY()); //non farle fondere..
-
+       //setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
+       //setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
         //MoveBall();
         //MoveBall();
-        setComponenteVelocitaX( getComponenteVelocitaX());
-        setComponenteVelocitaY( getComponenteVelocitaY());
+        //setComponenteVelocitaX( getComponenteVelocitaX());
+        //setComponenteVelocitaY( getComponenteVelocitaY());
 
 
         int movimentodimezzo= uno.getMovimentoRimanente();
         uno.setMovimentoRimanente(getMovimentoRimanente());
         setMovimentoRimanente(movimentodimezzo);
-        setComponenteVelocitaX(getComponenteVelocitaX()+uno.getComponenteVelocitaX());
-        setComponenteVelocitaY(getComponenteVelocitaY()+uno.getComponenteVelocitaY());
+        setComponenteVelocitaX(uno.getComponenteVelocitaX());
+        setComponenteVelocitaY(uno.getComponenteVelocitaY());
         uno.setComponenteVelocitaY(-getComponenteVelocitaY());
         uno.setComponenteVelocitaX(-getComponenteVelocitaX());
 
@@ -163,12 +164,9 @@ public class Ball {
 
         if(dx ==0&& dy ==0) {
             movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY());
-            if(movimentoRimanente>1500)
-                movimentoRimanente=1500;
-
-            /* if(movimentoRimanente>400){
-                movimentoRimanente=400; //forse mettere un cap alla velocità evita che esplodano
-            }*/
+            if(movimentoRimanente>MAX_VEL){
+                movimentoRimanente=MAX_VEL;
+            }
             if (getComponenteVelocitaY() > getComponenteVelocitaX()) {
                 if (componenteVelocitaX != 0) {
                     dy = v*Math.abs(getComponenteVelocitaY() / getComponenteVelocitaX());
@@ -223,7 +221,7 @@ public class Ball {
             if (getComponenteVelocitaX() > 0) {
                 setXposition(getXposition() + dx);
                 setMovimentoRimanente(movimentoRimanente- dx - dy);
-                if (movimentoRimanente>0 && getXposition() + getRadius() >= 877) {
+                if (getXposition() + getRadius() >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }
@@ -231,7 +229,7 @@ public class Ball {
             if (getComponenteVelocitaX() < 0) {
                 setXposition(getXposition() - dx);
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
-                if (movimentoRimanente > 0 && getXposition() - getRadius() <= 322) {
+                if (getXposition() - getRadius() <= 322) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }
@@ -239,7 +237,7 @@ public class Ball {
             if (getComponenteVelocitaY() > 0) {
                 setYposition(getYposition() + dy);
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
-                if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
+                if (getYposition() + getRadius() >= 567) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(1);
                 }
@@ -247,7 +245,7 @@ public class Ball {
             if (getComponenteVelocitaY() < 0) {
                 setYposition(getYposition() - dy);
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
-                if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
+                if (getYposition() - getRadius() <= 240) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(1);
                 }
