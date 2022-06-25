@@ -23,7 +23,7 @@ public class Ball {
     //inclinazione movimento
     int dx; //quanto si muove sull'asse x rispetto a y
     int dy; //quanto si muove sull'asse y rispetto a x
-    int v=10;
+    int v=4;
 
     public static void setBallStop(List<Ball> palleInGioco) {
         for(Ball b : palleInGioco){
@@ -116,19 +116,19 @@ public class Ball {
 
     public void checkHitBall (Ball altraPalla){
 
-           // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
-            int distanzax=getXposition() - altraPalla.getXposition();
-            int distanzay=getYposition() - altraPalla.getYposition();
-            if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()*2){
-                hitABall(altraPalla);
+        // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
+        int distanzax=getXposition() - altraPalla.getXposition();
+        int distanzay=getYposition() - altraPalla.getYposition();
+        if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()*2){
+            hitABall(altraPalla);
             //}
-            }
+        }
     }
 
     public void hitABall(Ball uno) {
 
-       //setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
-       //setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
+        //setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
+        //setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
         //MoveBall();
         //MoveBall();
         //setComponenteVelocitaX( getComponenteVelocitaX());

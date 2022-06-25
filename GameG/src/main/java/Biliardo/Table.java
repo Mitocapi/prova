@@ -28,11 +28,11 @@ public class Table extends JPanel implements ActionListener {
     public static int DELAY = 1;
     static int size_const = 3;
 
-   public static final int standard_width = 190; //standard dimension of billiard board
-   public static final int standard_height = 110;
-   public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
-   public static int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
-   public final int pit_dim = 40;
+    public static final int standard_width = 190; //standard dimension of billiard board
+    public static final int standard_height = 110;
+    public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
+    public static int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
+    public final int pit_dim = 40;
 
 
     Point[] pit = new Point[6]; //array per le buche
@@ -126,7 +126,7 @@ public class Table extends JPanel implements ActionListener {
     private void moveCue(){
         poolCue.move();
         whiteBall.MoveBall();
-       for(Ball bilie:palleInGioco){
+        for(Ball bilie:palleInGioco){
             bilie.MoveBall();
         }  //questo coso servirebbe a far muovere tutte le altre palle ma al momento le uniche palle che si muovono
         // sono le mie e la sua funzione è quella di regalare del lag ai passanti... provo a risolvere...
@@ -259,87 +259,87 @@ public class Table extends JPanel implements ActionListener {
 
 
 
-            if(whiteBall.movimentoRimanente<=0) {
-                if(Ball.checkMove(palleInGioco))
-                        setTable(g2d);
-            }
-            if(control==1){
+        if(whiteBall.movimentoRimanente<=0) {
+            if(Ball.checkMove(palleInGioco))
                 setTable(g2d);
+        }
+        if(control==1){
+            setTable(g2d);
 
-                control=0;
-            }
+            control=0;
+        }
 
-            TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
-            g2d.setPaint(tp2);
-            g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+        TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
+        g2d.setPaint(tp2);
+        g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
 
-            //check collision con i 4 rettagoli
-            g2d.setPaint(Color.darkGray);
-            g2d.fillRect(x_board, y_board + 20, 10, 285);
-            g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 285);
-            g2d.fillRect(x_board,y_board,560,10);
-            g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
-            //buche
-            for (Point point : pit) {
-                g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
-            }
-            g2d.setColor(Color.white);
-            g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
+        //check collision con i 4 rettagoli
+        g2d.setPaint(Color.darkGray);
+        g2d.fillRect(x_board, y_board + 20, 10, 285);
+        g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 285);
+        g2d.fillRect(x_board,y_board,560,10);
+        g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
+        //buche
+        for (Point point : pit) {
+            g2d.fillOval(point.x, point.y, pit_dim, pit_dim);
+        }
+        g2d.setColor(Color.white);
+        g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
 
 
 
-            if(ColorChooser.selected==1) {
-                int i=0;
-                for ( Ball bilie : palleInGioco){
-                    if(i%2==0){
-                        bilie.paintComponents(g2d, Board.colorBall1);
-                    }else {
-                        bilie.paintComponents(g2d,Board.colorBall2);
-                    }
-                    i++;
+        if(ColorChooser.selected==1) {
+            int i=0;
+            for ( Ball bilie : palleInGioco){
+                if(i%2==0){
+                    bilie.paintComponents(g2d, Board.colorBall1);
+                }else {
+                    bilie.paintComponents(g2d,Board.colorBall2);
                 }
+                i++;
             }
-            else {
-                for ( Ball bilie : palleInGioco){
-                    bilie.paintComponents(g2d, Color.black);
-                }
-
-            }
-
-            Ball.setColore(Color.white);
-            whiteBall.paintComponents(g2d,Color.white);
-            Menu.score(g);
-
-            if(whiteBall.movimentoRimanente<=0){
-                if (Ball.checkMove(palleInGioco)) {
-                    System.out.println("entrat");
-                    AffineTransform old = g2d.getTransform();
-                    angle = getAngle(new Point(poolCue.getX(), poolCue.getY()), new Point(whiteBall.posizioneX, whiteBall.posizioneY));
-                    g2d.rotate(angle, poolCue.getX(), poolCue.getY());
-                    g2d.drawImage(poolCue.poolCueImg, poolCue.getX() - 150, poolCue.getY() - 15, this);
-                    g2d.setTransform(old);
-
-                    AffineTransform old2 = g2d.getTransform();
-                    g2d.setColor(Color.white);
-                    angle = Math.toDegrees(angle) + 360;
-                    angle = Math.toRadians(angle);
-                    g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
-                    g2d.setStroke(new BasicStroke(2));
-                    g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80, whiteBall.posizioneY);
-                    g2d.setTransform(old2);
-                }
+        }
+        else {
+            for ( Ball bilie : palleInGioco){
+                bilie.paintComponents(g2d, Color.black);
             }
 
-            checkCollision();
+        }
 
-           //spawn moneta
-           if(coin_trigger==1){
-               if(coin.spawnCoin()){
+        Ball.setColore(Color.white);
+        whiteBall.paintComponents(g2d,Color.white);
+        Menu.score(g);
 
-                   g2d.drawImage(coin.getImage(),coin.whereCoinX(),coin.whereCoinY(),this);
-               }
-               coin_trigger=0;
-           }
+        if(whiteBall.movimentoRimanente<=0){
+            if (Ball.checkMove(palleInGioco)) {
+                System.out.println("entrat");
+                AffineTransform old = g2d.getTransform();
+                angle = getAngle(new Point(poolCue.getX(), poolCue.getY()), new Point(whiteBall.posizioneX, whiteBall.posizioneY));
+                g2d.rotate(angle, poolCue.getX(), poolCue.getY());
+                g2d.drawImage(poolCue.poolCueImg, poolCue.getX() - 150, poolCue.getY() - 15, this);
+                g2d.setTransform(old);
+
+                AffineTransform old2 = g2d.getTransform();
+                g2d.setColor(Color.white);
+                angle = Math.toDegrees(angle) + 360;
+                angle = Math.toRadians(angle);
+                g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80, whiteBall.posizioneY);
+                g2d.setTransform(old2);
+            }
+        }
+
+        checkCollision();
+
+        //spawn moneta
+        if(coin_trigger==1){
+            if(coin.spawnCoin()){
+
+                g2d.drawImage(coin.getImage(),coin.whereCoinX(),coin.whereCoinY(),this);
+            }
+            coin_trigger=0;
+        }
 
 
 
