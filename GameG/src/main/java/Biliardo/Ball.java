@@ -171,14 +171,18 @@ public class Ball {
                 if (componenteVelocitaX != 0) {
                     dy = v*Math.abs(getComponenteVelocitaY() / getComponenteVelocitaX());
                     dx = 1*v;
-                } else
-                    dy = 1*v;
+                } else {
+                    dy = 1 * v;
+                    dx=0;
+                }
             } else {
                 if (componenteVelocitaY != 0) {
                     dx = v*Math.abs(getComponenteVelocitaX() / getComponenteVelocitaY());
                     dy = 1*v;
-                } else
+                } else{
                     dx = 1*v;
+                    dy=0;
+                }
             }
         } //rapporto tra i movimenti e direzione;
 

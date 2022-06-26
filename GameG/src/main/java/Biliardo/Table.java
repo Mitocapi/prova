@@ -35,6 +35,7 @@ public class Table extends JPanel implements ActionListener {
     public final int pit_dim = 40;
 
 
+    Point p_shoot=new Point();
     Point[] pit = new Point[6]; //array per le buche
     String[][] pack = new String[2][3];
     BufferedImage background;
@@ -53,6 +54,7 @@ public class Table extends JPanel implements ActionListener {
 
     int control=0;
     int coin_trigger=0;
+    double angle_shoot;
 
     public Table() {
         initBoard();
@@ -312,7 +314,7 @@ public class Table extends JPanel implements ActionListener {
 
         if(whiteBall.movimentoRimanente<=0){
             if (Ball.checkMove(palleInGioco)) {
-                System.out.println("entrat");
+                //System.out.println("entrat");
                 AffineTransform old = g2d.getTransform();
                 angle = getAngle(new Point(poolCue.getX(), poolCue.getY()), new Point(whiteBall.posizioneX, whiteBall.posizioneY));
                 g2d.rotate(angle, poolCue.getX(), poolCue.getY());
@@ -321,8 +323,10 @@ public class Table extends JPanel implements ActionListener {
 
                 AffineTransform old2 = g2d.getTransform();
                 g2d.setColor(Color.white);
+
                 angle = Math.toDegrees(angle) + 360;
                 angle = Math.toRadians(angle);
+                angle_shoot=angle;
                 g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
                 g2d.setStroke(new BasicStroke(2));
                 g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80, whiteBall.posizioneY);
@@ -368,11 +372,29 @@ public class Table extends JPanel implements ActionListener {
         if (whiteBall.movimentoRimanente <= 0) {
             num++;
             whiteBall.movimentoRimanente=1000;
-            whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
-            whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
+            //whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
+            //whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
+            angle_shoot=Math.toDegrees(angle_shoot);
+            angle_shoot=-angle_shoot+360;
+            System.out.println(angle_shoot);
+
+            if(angle_shoot<=45 && angle_shoot>=-135) {
+                System.out.println("oke");
+                whiteBall.setComponenteVelocitaX((int) (600 * Math.cos(Math.toRadians(-angle_shoot))));
+                whiteBall.setComponenteVelocitaY((int) (600 * Math.sin(Math.toRadians(-angle_shoot))));
+            }else{
+                angle_shoot=Math.PI-Math.toRadians(angle_shoot);
+                //angle_shoot=Math.toRadians(angle_shoot);
+                //angle_shoot-=Math.PI;
+
+                System.out.println("les");
+                System.out.println(Math.toDegrees(angle_shoot));
+                whiteBall.setComponenteVelocitaX((int) (600 * Math.cos(angle_shoot)));
+                whiteBall.setComponenteVelocitaY((int) (600 * Math.sin(angle_shoot)));
+            }
             whiteBall.dx = 0;
             whiteBall.dy = 0;
-            System.out.println("entrato");
+            //System.out.println("entrato");
             whiteBall.MoveBall();
         }
     }
