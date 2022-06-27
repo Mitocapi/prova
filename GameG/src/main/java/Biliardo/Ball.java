@@ -114,15 +114,24 @@ public class Ball {
 
     }
 
-    public void checkHitBall (Ball altraPalla){
+    public void checkHitBall (Ball ball){
 
         // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
-        int distanzax=getXposition() - altraPalla.getXposition();
-        int distanzay=getYposition() - altraPalla.getYposition();
+        /*int distanzax=getXposition()+getRadius() - altraPalla.getXposition()-getRadius();
+        int distanzay=getYposition()+getRadius() - altraPalla.getYposition()-getRadius();
         if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()*2){
             hitABall(altraPalla);
             //}
+        }*/
+
+        double distX=getXposition()-ball.getXposition();
+        double distY=getYposition()- ball.getYposition();
+        double radSum=Math.pow(getRadius()*2,2);
+        double dist=(distX*distX)+(distY*distY);
+        if(dist<=radSum){
+            hitABall(ball);
         }
+
     }
 
     public void hitABall(Ball uno) {
@@ -162,7 +171,7 @@ public class Ball {
 
     public void MoveBall() {
 
-        if(dx ==0&& dy ==0) {
+        if(dx==0&& dy ==0) {
             movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY());
             if(movimentoRimanente>MAX_VEL){
                 movimentoRimanente=MAX_VEL;
@@ -170,6 +179,8 @@ public class Ball {
             if (getComponenteVelocitaY() > getComponenteVelocitaX()) {
                 if (componenteVelocitaX != 0) {
                     dy = v*Math.abs(getComponenteVelocitaY() / getComponenteVelocitaX());
+                    if(dy>30)
+                        dy=30;
                     dx = 1*v;
                 } else {
                     dy = 1 * v;
@@ -178,13 +189,16 @@ public class Ball {
             } else {
                 if (componenteVelocitaY != 0) {
                     dx = v*Math.abs(getComponenteVelocitaX() / getComponenteVelocitaY());
+                    if(dx>30)
+                        dx=30;
                     dy = 1*v;
                 } else{
                     dx = 1*v;
                     dy=0;
                 }
             }
-        } //rapporto tra i movimenti e direzione;
+        } //rapporto tra i movimenti e direzione;*/
+
 
         /*if (movimentoRimanente>200) {
             if (getMovimentoRimanenteX() > 0) {
@@ -225,7 +239,7 @@ public class Ball {
             if (getComponenteVelocitaX() > 0) {
                 setXposition(getXposition() + dx);
                 setMovimentoRimanente(movimentoRimanente- dx - dy);
-                if (getXposition() + getRadius() >= 877) {
+                if (getXposition() + getRadius()*2 >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }
@@ -233,7 +247,7 @@ public class Ball {
             if (getComponenteVelocitaX() < 0) {
                 setXposition(getXposition() - dx);
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
-                if (getXposition() - getRadius() <= 322) {
+                if (getXposition() - getRadius()*2 <= 322) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }
@@ -241,7 +255,7 @@ public class Ball {
             if (getComponenteVelocitaY() > 0) {
                 setYposition(getYposition() + dy);
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
-                if (getYposition() + getRadius() >= 567) {
+                if (getYposition() + getRadius()*2 >= 567) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(1);
                 }
@@ -249,7 +263,7 @@ public class Ball {
             if (getComponenteVelocitaY() < 0) {
                 setYposition(getYposition() - dy);
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
-                if (getYposition() - getRadius() <= 240) {
+                if (getYposition() - getRadius()*2 <= 240) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(1);
                 }
