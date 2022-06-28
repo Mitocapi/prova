@@ -199,8 +199,8 @@ public class Ball {
                 }
             }
             */
-            dx=Math.abs(getComponenteVelocitaX()/100);
-            dy=Math.abs(getComponenteVelocitaY()/100);
+            dx=Math.abs(getComponenteVelocitaX()/150);
+            dy=Math.abs(getComponenteVelocitaY()/150);
         } //rapporto tra i movimenti e direzione;
 
         if (movimentoRimanente>0) {
