@@ -176,6 +176,7 @@ public class Ball {
             if(movimentoRimanente>MAX_VEL){
                 movimentoRimanente=MAX_VEL;
             }
+            /*
             if (getComponenteVelocitaY() > getComponenteVelocitaX()) {
                 if (componenteVelocitaX != 0) {
                     dy = v*Math.abs(getComponenteVelocitaY() / getComponenteVelocitaX());
@@ -197,49 +198,16 @@ public class Ball {
                     dy=0;
                 }
             }
-        } //rapporto tra i movimenti e direzione;*/
+            */
+            dx=Math.abs(getComponenteVelocitaX()/100);
+            dy=Math.abs(getComponenteVelocitaY()/100);
+        } //rapporto tra i movimenti e direzione;
 
-
-        /*if (movimentoRimanente>200) {
-            if (getMovimentoRimanenteX() > 0) {
-                setXposition( (getXposition() + rapportoneX * 2));
-                setMovimentoRimanente(getMovimentoRimanente() - 2);
-                if (movimentoRimanente > 0 && getXposition() + getRadius() >= 877) {
-                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(0);
-                }
-            }
-            if (getMovimentoRimanenteX() < 0) {
-                setXposition(getXposition() - rapportoneX * 2);
-                setMovimentoRimanente(getMovimentoRimanente() - 2);
-                if (movimentoRimanente >0 && getXposition() - getRadius() <= 322) {
-                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(0);
-                }
-            }
-            if (getMovimentoRimanenteY() > 0) {
-                setYposition(getYposition() + rapportoneY * 2);
-                setMovimentoRimanente(getMovimentoRimanente() - 2);
-                if (movimentoRimanente > 0 && getYposition() + getRadius() >= 567) {
-                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(1);
-                }
-            }
-            if (getMovimentoRimanenteY() < 0) {
-                setYposition(getYposition() - rapportoneY * 2);
-                setMovimentoRimanente(movimentoRimanente - 2);
-                if (movimentoRimanente > 0 && getYposition() - getRadius() <= 240) {
-                    //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(1);
-                }
-            }
-            // HO COMMENTATO STA ROBA PERCHè è UGUALE A QUELLO SOTTO MA FA ANDARE LA PALLA PIù VELOCE
-        }*/
         if (movimentoRimanente>0) {
             if (getComponenteVelocitaX() > 0) {
                 setXposition(getXposition() + dx);
                 setMovimentoRimanente(movimentoRimanente- dx - dy);
-                if (getXposition() + getRadius()*2 >= 877) {
+                if (getXposition() + getRadius() >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     hitAWall(0);
                 }

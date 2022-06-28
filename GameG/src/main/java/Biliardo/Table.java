@@ -371,9 +371,11 @@ public class Table extends JPanel implements ActionListener {
         if (whiteBall.movimentoRimanente <= 0) {
             num++;
             whiteBall.movimentoRimanente=1000;
-            //whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
-            //whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
-            angle_shoot=Math.toDegrees(angle_shoot);
+
+            whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
+            whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
+
+            /*angle_shoot=Math.toDegrees(angle_shoot);
             angle_shoot=-angle_shoot+360;
             System.out.println(angle_shoot);
 
@@ -390,7 +392,7 @@ public class Table extends JPanel implements ActionListener {
                 System.out.println(Math.toDegrees(angle_shoot));
                 whiteBall.setComponenteVelocitaX((int) ((whiteBall.getXposition() - poolCue.getX())*5 * Math.cos(angle_shoot)));
                 whiteBall.setComponenteVelocitaY((int) ((whiteBall.getYposition() - poolCue.getY())*5 * Math.sin(angle_shoot)));
-            }
+            }*/
             whiteBall.dx = 0;
             whiteBall.dy = 0;
             //System.out.println("entrato");
