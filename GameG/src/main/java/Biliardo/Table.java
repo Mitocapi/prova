@@ -30,8 +30,8 @@ public class Table extends JPanel implements ActionListener {
 
     public static final int standard_width = 190; //standard dimension of billiard board
     public static final int standard_height = 110;
-    public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //per centrare
-    public static int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2;
+    public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //285 per centrare
+    public static int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2; //
     public final int pit_dim = 40;
 
 
@@ -40,6 +40,7 @@ public class Table extends JPanel implements ActionListener {
     String[][] pack = new String[2][3];
     BufferedImage background;
     BufferedImage prov;
+    Image BilFrame;
 
     BufferedImage wood;
     BufferedImage field;
@@ -235,7 +236,12 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         try {
-            background = ImageIO.read(new File(pack[0][0]));
+            BilFrame = ImageIO.read(new File("GameG/src/main/resources/images/bordoCampoR2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            background = ImageIO.read(new File(pack[1][0]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -259,7 +265,6 @@ public class Table extends JPanel implements ActionListener {
         //floor
         TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
         g2d.setPaint(tpb);
-
         g2d.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
         TexturePaint tp = new TexturePaint(wood, new Rectangle(100, 100));
@@ -267,10 +272,7 @@ public class Table extends JPanel implements ActionListener {
         g2d.setStroke(new BasicStroke(110.0f));
         g2d.drawRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 1, 1);
 
-        g2d.setColor(Color.darkGray);
-
-
-        g2d.setColor(Color.darkGray);
+        //g2d.drawImage(BilFrame,x_board+10,y_board,this);
     }
 
     public void paintComponent(Graphics g) {
