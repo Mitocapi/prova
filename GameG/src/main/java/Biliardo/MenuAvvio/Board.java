@@ -22,6 +22,7 @@ public class Board extends JPanel implements Runnable, MouseListener {
     public Rectangle bottoneAltro = new Rectangle(Table.BOARD_WIDTH/4 - 175,195,250,35);
     public static Color colorBall1;
     public static Color colorBall2;
+    public static int game_mode;
     private final int IMGW=70;
     private final int IMGH=70;
     private JButton start_button=new JButton();
@@ -29,6 +30,8 @@ public class Board extends JPanel implements Runnable, MouseListener {
     private JButton colour=new JButton();
     private JButton colour2=new JButton();
 
+    private JButton pvp=new JButton();
+    private  JButton pvcpu=new JButton();
 
     private int vely=10;
     private int velx=10;
@@ -52,6 +55,22 @@ public class Board extends JPanel implements Runnable, MouseListener {
     private void initBoard(){
         setBackground(new Color(40,70,40));
         addMouseListener(this);
+
+        pvp.setText("player 1 vs player 2");
+        pvp.setPreferredSize(new Dimension(200,20));
+        pvp.setLocation(new Point(500,500));
+        pvp.addActionListener(e -> {
+            game_mode=1;
+        });
+        add(pvp);
+
+        pvcpu.setText("player 1 vs computer");
+        pvcpu.setPreferredSize(new Dimension(200,20));
+        pvcpu.setLocation(new Point(500,500));
+        pvcpu.addActionListener(e -> {
+            game_mode=0;
+        });
+        add(pvcpu);
 
       start_button.setText("start");
         start_button.setLocation(100,100);

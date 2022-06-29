@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.Graphics;
 import java.util.List;
+import java.util.Random;
 
 public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
@@ -48,8 +49,10 @@ public class Table extends JPanel implements ActionListener {
     double angle;
     boolean ballClick=false;
     JButton restart=new JButton();
+
     JLabel shoot_label=new JLabel();
     int num=0;
+    Random random=new Random();
 
     Point initialPos=new Point(x_board+50,BOARD_HEIGHT/2);
 
@@ -372,7 +375,7 @@ public class Table extends JPanel implements ActionListener {
             whiteBall.setComponenteVelocitaY(whiteBall.componenteVelocitaY--);
         }
 
-
+    System.out.println(whiteBall.movimentoRimanente);
 
 
 
@@ -395,18 +398,41 @@ public class Table extends JPanel implements ActionListener {
 
     }
 
+    public void shootRandom(){
+        int xr=random.nextInt(-1500,1500);
+        int yr= random.nextInt(-1500,1500);
+        System.out.println(xr+" "+yr);
+        whiteBall.movimentoRimanente = 3000;
+
+        whiteBall.setComponenteVelocitaX(xr);
+        whiteBall.setComponenteVelocitaY(yr);
+
+        whiteBall.dx = 0;
+        whiteBall.dy = 0;
+
+        whiteBall.MoveBall();
+
+    }
     public void shoot() {
         if (whiteBall.movimentoRimanente <= 0) {
             num++;
-            whiteBall.movimentoRimanente=3000;
+            if (num % 2 == 0 && Board.game_mode==0) {
+                shootRandom();
+            } else {
+                whiteBall.movimentoRimanente = 3000;
 
-            whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
-            whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
+                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
+                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
+                int g=whiteBall.getXposition()-poolCue.getX() * 5;
+                System.out.println(g);
+                g=whiteBall.getYposition() - poolCue.getY() * 5;
+                System.out.println(g);
 
-            whiteBall.dx = 0;
-            whiteBall.dy = 0;
+                whiteBall.dx = 0;
+                whiteBall.dy = 0;
 
-            whiteBall.MoveBall();
+                whiteBall.MoveBall();
+            }
         }
     }
 
