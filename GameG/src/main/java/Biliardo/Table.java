@@ -25,7 +25,7 @@ public class Table extends JPanel implements ActionListener {
     //public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
     public static int BOARD_HEIGHT = 800;
-    public static int DELAY = 1;
+    public static int DELAY = 0;
     static int size_const = 3;
 
     public static final int standard_width = 190; //standard dimension of billiard board
@@ -291,9 +291,11 @@ public class Table extends JPanel implements ActionListener {
             control=0;
         }
 
-        TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
-        g2d.setPaint(tp2);
-        g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+        //TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
+        //g2d.setPaint(tp2);
+        //g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
+        g2d.setColor(new Color(10,90,20));
+        g2d.fillRect(x_board, y_board, standard_width * size_const, standard_height * size_const);
 
         //check collision con i 4 rettagoli
         g2d.setPaint(Color.darkGray);
@@ -309,27 +311,26 @@ public class Table extends JPanel implements ActionListener {
         g2d.fillOval(BOARD_WIDTH / 2 - 5, BOARD_HEIGHT / 2 - 5, 10, 10);
 
 
-
+        Ball.setColore(Color.white);
+        whiteBall.MYpaintComponents(g2d,Color.white);
         if(ColorChooser.selected==1) {
-            int i=0;
-            for ( Ball bilie : palleInGioco){
+
+            for ( int i=0;i<palleInGioco.size();i++){
                 if(i%2==0){
-                    bilie.paintComponents(g2d, Board.colorBall1);
+                    palleInGioco.get(i).MYpaintComponents(g2d, Board.colorBall1);
                 }else {
-                    bilie.paintComponents(g2d,Board.colorBall2);
+                    palleInGioco.get(i).MYpaintComponents(g2d,Board.colorBall2);
                 }
-                i++;
             }
         }
         else {
             for ( Ball bilie : palleInGioco){
-                bilie.paintComponents(g2d, Color.black);
+                bilie.MYpaintComponents(g2d, Color.black);
             }
 
         }
 
-        Ball.setColore(Color.white);
-        whiteBall.paintComponents(g2d,Color.white);
+
         Menu.score(g);
 
         if(whiteBall.movimentoRimanente<=0){
@@ -363,6 +364,12 @@ public class Table extends JPanel implements ActionListener {
                 g2d.drawImage(coin.getImage(),coin.whereCoinX(),coin.whereCoinY(),this);
             }
             coin_trigger=0;
+        }
+        if(whiteBall.dx>0) {
+            whiteBall.setComponenteVelocitaX(whiteBall.componenteVelocitaX--);
+        }
+        if(whiteBall.dy>0){
+            whiteBall.setComponenteVelocitaY(whiteBall.componenteVelocitaY--);
         }
 
 
