@@ -49,6 +49,7 @@ public class Table extends JPanel implements ActionListener {
     double angle;
     boolean ballClick=false;
     JButton restart=new JButton();
+    int ball_num;
 
     JLabel shoot_label=new JLabel();
     int num=0;
@@ -151,6 +152,7 @@ public class Table extends JPanel implements ActionListener {
         pack[0][1] = "GameG/src/main/resources/images/woodA.jpg";
         pack[0][2] = "GameG/src/main/resources/images/campo2.jpg";
         pack[1][0]="GameG/src/main/resources/images/backgroundB.jpg";
+        pack[1][1]="GameG/src/main/resources/images/darkWood.jpg";
     }
 
 
@@ -249,7 +251,7 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         try {
-            wood = ImageIO.read(new File(pack[0][1]));
+            wood = ImageIO.read(new File(pack[1][1]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -294,11 +296,12 @@ public class Table extends JPanel implements ActionListener {
             control=0;
         }
 
-        //TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
-        //g2d.setPaint(tp2);
+        TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
+        g2d.setPaint(tp2);
+        g2d.fillRect(x_board+2,y_board+2,standard_width * size_const, standard_height * size_const);
         //g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
-        g2d.setColor(new Color(10,90,20));
-        g2d.fillRect(x_board, y_board, standard_width * size_const, standard_height * size_const);
+        //g2d.setColor(new Color(10,90,20));
+        //g2d.fillRect(x_board, y_board, standard_width * size_const, standard_height * size_const);
 
         //check collision con i 4 rettagoli
         g2d.setPaint(Color.darkGray);
@@ -315,20 +318,20 @@ public class Table extends JPanel implements ActionListener {
 
 
         Ball.setColore(Color.white);
-        whiteBall.MYpaintComponents(g2d,Color.white);
+        ball_num=0;
+        whiteBall.MYpaintComponents(g2d,Color.white,ball_num++);
         if(ColorChooser.selected==1) {
-
             for ( int i=0;i<palleInGioco.size();i++){
                 if(i%2==0){
-                    palleInGioco.get(i).MYpaintComponents(g2d, Board.colorBall1);
+                    palleInGioco.get(i).MYpaintComponents(g2d, Board.colorBall1,ball_num++);
                 }else {
-                    palleInGioco.get(i).MYpaintComponents(g2d,Board.colorBall2);
+                    palleInGioco.get(i).MYpaintComponents(g2d,Board.colorBall2,ball_num++);
                 }
             }
         }
         else {
             for ( Ball bilie : palleInGioco){
-                bilie.MYpaintComponents(g2d, Color.black);
+                bilie.MYpaintComponents(g2d, Color.black,ball_num++);
             }
 
         }

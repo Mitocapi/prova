@@ -100,17 +100,14 @@ public class Ball {
         movimentoRimanente=1000;
     }
 
-    public void MYpaintComponents(Graphics g, Color col) {
+    public void MYpaintComponents(Graphics g, Color col,int num) {
         g.setColor(col);
         g.fillOval(posizioneX - 10, posizioneY - 10, radius * 2, radius * 2);
-        //if(num!=0){
-        //    g.setColor(Color.white);
-        //    g.drawString(""+num,posizioneX-5,posizioneY+5);
-        //}
-        //num++;
-        //if(num==16){
-        //    num=0;
-        //}
+        if(num!=0){
+            g.setColor(Color.white);
+            g.drawString(""+num,posizioneX-5,posizioneY+5);
+        }
+
     }
 
     public void hitAWall(int direzione) {
@@ -181,36 +178,13 @@ public class Ball {
     public void MoveBall() {
 
         if(dx==0&& dy ==0) {
-            movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY());
+            movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY())*2;
             if(movimentoRimanente>MAX_VEL){
                 movimentoRimanente=MAX_VEL;
             }
-            /*
-            if (getComponenteVelocitaY() > getComponenteVelocitaX()) {
-                if (componenteVelocitaX != 0) {
-                    dy = v*Math.abs(getComponenteVelocitaY() / getComponenteVelocitaX());
-                    if(dy>30)
-                        dy=30;
-                    dx = 1*v;
-                } else {
-                    dy = 1 * v;
-                    dx=0;
-                }
-            } else {
-                if (componenteVelocitaY != 0) {
-                    dx = v*Math.abs(getComponenteVelocitaX() / getComponenteVelocitaY());
-                    if(dx>30)
-                        dx=30;
-                    dy = 1*v;
-                } else{
-                    dx = 1*v;
-                    dy=0;
-                }
-            }
-            */
             dx=Math.abs(getComponenteVelocitaX()/180);
             dy=Math.abs(getComponenteVelocitaY()/180);
-        } //rapporto tra i movimenti e direzione;
+        }
 
         if (movimentoRimanente>0) {
             if (getComponenteVelocitaX() > 0) {
