@@ -90,7 +90,7 @@ public class Ball {
     public Ball(int posx, int posy) {
         ballColor = new Color(0, 0, 0);
 
-        this.radius = 13;
+        this.radius = 12;
         this.posizioneX = posx;
         this.posizioneY = posy;
         this.componenteVelocitaX = 0;
@@ -102,10 +102,37 @@ public class Ball {
 
     public void MYpaintComponents(Graphics g, Color col,int num) {
         g.setColor(col);
-        g.fillOval(posizioneX - 10, posizioneY - 10, radius * 2, radius * 2);
-        if(num!=0){
+        if(num==1 || num==9)
+            g.setColor(new Color(247,217,23));
+        if(num==2 || num==10)
+            g.setColor(new Color(65,105,225));
+        if(num==3 || num==11)
+            g.setColor(new Color(204,0,0));
+        if(num==4 || num==12)
+            g.setColor(new Color(75,0,130));
+        if(num==5 || num==13)
+            g.setColor(new Color(255,69,0));
+        if(num==6 || num==14)
+            g.setColor(new Color(0,102,51));
+        if(num==7|| num==15)
+            g.setColor(new Color(153,0,0));
+        if(num==8)
+            g.setColor(Color.black);
+
+        if(num<=8){
+            g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
+            if(num!=0){
+                g.setColor(Color.white);
+                g.drawString(""+num,posizioneX-5,posizioneY+5);
+            }
+        }else{
+            g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
+
             g.setColor(Color.white);
-            g.drawString(""+num,posizioneX-5,posizioneY+5);
+            g.fillOval(posizioneX-7, posizioneY-7, 14, 14);
+            g.setColor(Color.black);
+            g.drawString(""+num,posizioneX-6,posizioneY+6);
+
         }
 
     }
