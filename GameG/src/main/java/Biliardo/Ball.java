@@ -90,7 +90,7 @@ public class Ball {
     public Ball(int posx, int posy) {
         ballColor = new Color(0, 0, 0);
 
-        this.radius = 10;
+        this.radius = 13;
         this.posizioneX = posx;
         this.posizioneY = posy;
         this.componenteVelocitaX = 0;

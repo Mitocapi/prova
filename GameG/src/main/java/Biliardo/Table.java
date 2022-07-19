@@ -50,6 +50,8 @@ public class Table extends JPanel implements ActionListener {
     boolean ballClick=false;
     JButton restart=new JButton();
     int ball_num;
+    int ball_startX=700;
+    int ball_startY=395;
 
     JLabel shoot_label=new JLabel();
     int num=0;
@@ -84,34 +86,56 @@ public class Table extends JPanel implements ActionListener {
         });
         add(restart);
 
-
+        //provo a mettere le palline piu lontane tra loro
+        //cambio 10 con 15
 
         palleInGioco = new ArrayList<>();
-        for (int i=0; i<5;i++){
+        palleInGioco.add(new Ball(ball_startX, ball_startY));           //1
+        palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));      //2
+        palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
+
+        palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
+        palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
+        palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
+
+        palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
+        palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
+        palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
+        palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
+
+        palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
+        palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
+        palleInGioco.add(new Ball(ball_startX+100,ball_startY));
+        palleInGioco.add(new Ball(ball_startX+100,ball_startY-60));
+        palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
+
+
+
+        /*for (int i=0; i<5;i++){
             if(i==0){
                 palleInGioco.add(new Ball(700, 395));
             }
             else if(i==1){
-                palleInGioco.add(new Ball(700 + 20, 395 - 10));
-                palleInGioco.add(new Ball(700 + 20, 395 + 10));
+                palleInGioco.add(new Ball(700 + 20, 395 - 15));
+                palleInGioco.add(new Ball(700 + 20, 395 + 15));
             }
             else if(i%2==0) {
                 int linee = 0;
                 while(2* linee < i+1) {
-                    palleInGioco.add(new Ball(700 + i * 20, 395 + linee * 20));
-                    palleInGioco.add(new Ball(700 + i * 20, 395 - linee * 20));
+                    palleInGioco.add(new Ball(700 + i * 20, 395 + linee * 20 +5));
+                    palleInGioco.add(new Ball(700 + i * 20, 395 - linee * 20 -5));
                     linee++;
                 }
             }
             else {
                 int linee = 0;
                 while(2* linee < i+1) {
-                    palleInGioco.add(new Ball(700 + i * 20, 395 +10+ linee * 20));
-                    palleInGioco.add(new Ball(700 + i * 20, 395 -10- linee * 20));
+                    palleInGioco.add(new Ball(700 + i * 20, 395 +15+ linee * 20 ));
+                    palleInGioco.add(new Ball(700 + i * 20, 395 -15- linee * 20));
                     linee++;
                 }
             }
-        } //EVOCA LE CABBO DI PALLINE
+        } //EVOCA LE CABBO DI PALLINE */
         whiteBall = new PallaBianca(initialPos.x, initialPos.y);
         Ball.setBallStop(palleInGioco);
         whiteBall.movimentoRimanente=0;
@@ -173,8 +197,8 @@ public class Table extends JPanel implements ActionListener {
         for(int i=0;i<pit.length;i++){
 
             for (Ball b : palleInGioco) {
-                if (b.getXposition() <= 10 + pit[i].x && b.getXposition() >= pit[i].x - 10) {
-                    if (b.getYposition() <= 10 + pit[i].y && b.getYposition() >= pit[i].y - 10) {
+                if (b.getXposition() <= 20 + pit[i].x && b.getXposition() >= pit[i].x - 20) {
+                    if (b.getYposition() <= 20 + pit[i].y && b.getYposition() >= pit[i].y - 20) {
                         System.out.println("buca ok");
                         b.setXposition(0);
                         b.setYposition(0);
