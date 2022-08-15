@@ -270,12 +270,12 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         try {
-            background = ImageIO.read(new File(pack[1][0]));
+            background = ImageIO.read(new File(pack[0][0]));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            wood = ImageIO.read(new File(pack[1][1]));
+            wood = ImageIO.read(new File(pack[0][1]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -307,8 +307,6 @@ public class Table extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         shoot_label.setText("total shoot: "+num);
-
-
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))
@@ -402,7 +400,7 @@ public class Table extends JPanel implements ActionListener {
             whiteBall.setComponenteVelocitaY(whiteBall.componenteVelocitaY--);
         }
 
-    System.out.println(whiteBall.movimentoRimanente);
+        System.out.println(whiteBall.movimentoRimanente);
 
 
 

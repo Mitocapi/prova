@@ -13,6 +13,7 @@ public class Ball {
 
     //prende distanza dal centro e moltiplica per 25
     int movimentoRimanente;
+    double slowFactor;
 
     int componenteVelocitaY;
     int componenteVelocitaX;
@@ -95,6 +96,7 @@ public class Ball {
         this.posizioneY = posy;
         this.componenteVelocitaX = 0;
         this.componenteVelocitaY = 0;
+        this.slowFactor=0.8;
         dx =0;
         dy =0;
         movimentoRimanente=1000;
@@ -105,7 +107,7 @@ public class Ball {
         if(num==1 || num==9)
             g.setColor(new Color(247,217,23));
         if(num==2 || num==10)
-            g.setColor(new Color(65,105,225));
+            g.setColor(new Color(65,175,225));
         if(num==3 || num==11)
             g.setColor(new Color(204,0,0));
         if(num==4 || num==12)
@@ -113,7 +115,7 @@ public class Ball {
         if(num==5 || num==13)
             g.setColor(new Color(255,69,0));
         if(num==6 || num==14)
-            g.setColor(new Color(0,102,51));
+            g.setColor(new Color(0,122,65));
         if(num==7|| num==15)
             g.setColor(new Color(153,0,0));
         if(num==8)
@@ -140,9 +142,9 @@ public class Ball {
     public void hitAWall(int direzione) {
         // 0=x 1=y
         if (direzione == 0) {
-            setComponenteVelocitaX(- getComponenteVelocitaX());
+            setComponenteVelocitaX(- getComponenteVelocitaX()/2);
         } else {
-            setComponenteVelocitaY(- getComponenteVelocitaY());
+            setComponenteVelocitaY(- getComponenteVelocitaY()/2);
         }
 
     }
@@ -204,7 +206,7 @@ public class Ball {
 
     public void MoveBall() {
 
-        if(dx==0&& dy ==0) {
+        if(dx==0 && dy ==0) {
             movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY())*2;
             if(movimentoRimanente>MAX_VEL){
                 movimentoRimanente=MAX_VEL;
@@ -212,6 +214,12 @@ public class Ball {
             dx=Math.abs(getComponenteVelocitaX()/180);
             dy=Math.abs(getComponenteVelocitaY()/180);
         }
+
+        if(dx!=0)
+            System.out.println("dx:"+dx);
+        if(dy!=0)
+            System.out.println("dy:"+dy);
+
 
         if (movimentoRimanente>0) {
             if (getComponenteVelocitaX() > 0) {
@@ -248,7 +256,12 @@ public class Ball {
             }
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
         }
-        else if (componenteVelocitaX ==0 && componenteVelocitaY ==0) {
+        if(componenteVelocitaX!=0)
+            setComponenteVelocitaX(componenteVelocitaX--);
+        if(componenteVelocitaY!=0)
+            setComponenteVelocitaY(componenteVelocitaY--);
+
+        if (componenteVelocitaX ==0 && componenteVelocitaY ==0) {
             dy =0;
             dx =0;
             movimentoRimanente=0;
