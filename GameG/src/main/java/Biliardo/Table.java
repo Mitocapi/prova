@@ -29,6 +29,8 @@ public class Table extends JPanel implements ActionListener,Runnable {
     private static int DELAY = 1;
     static int size_const = 3;
 
+    private int dispose=15; //aumenta se aumenti raggio palline, serve per disporr le palline in buca
+
     public static final int standard_width = 190; //standard dimension of billiard board
     public static final int standard_height = 110;
     public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //285 per centrare
@@ -176,8 +178,9 @@ public class Table extends JPanel implements ActionListener,Runnable {
                 if (b.getXposition() <= 20 + pit[i].x && b.getXposition() >= pit[i].x - 20) {
                     if (b.getYposition() <= 20 + pit[i].y && b.getYposition() >= pit[i].y - 20) {
                         System.out.println("buca ok");
-                        b.setXposition(0);
-                        b.setYposition(0);
+                        b.setXposition(1050);
+                        b.setYposition(485 - dispose);
+                        dispose+=30;
                         b.dx = 0;
                         b.dy = 0;
                         b.setComponenteVelocitaX(0);
@@ -285,7 +288,7 @@ public class Table extends JPanel implements ActionListener,Runnable {
         shoot_label.setText("total shoot: "+num);
 
         cont++;
-        if(cont%2==0)
+        if(cont%3==0)
             timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
