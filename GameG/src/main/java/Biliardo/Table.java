@@ -16,7 +16,7 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.Random;
 
-public class Table extends JPanel implements ActionListener {
+public class Table extends JPanel implements ActionListener,Runnable {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
@@ -26,7 +26,7 @@ public class Table extends JPanel implements ActionListener {
     //public Menu menuGioco;
     public static int BOARD_WIDTH = 1200; //ottimale 1200x800 ma poi è troppo lento
     public static int BOARD_HEIGHT = 800;
-    public static int DELAY = 0;
+    private static int DELAY = 1;
     static int size_const = 3;
 
     public static final int standard_width = 190; //standard dimension of billiard board
@@ -60,6 +60,7 @@ public class Table extends JPanel implements ActionListener {
     Point initialPos=new Point(x_board+50,BOARD_HEIGHT/2);
 
     int control=0;
+    int cont=0; //se è pari aumenta il delay
     int coin_trigger=0;
     double angle_shoot;
 
@@ -110,32 +111,6 @@ public class Table extends JPanel implements ActionListener {
         palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
 
 
-
-        /*for (int i=0; i<5;i++){
-            if(i==0){
-                palleInGioco.add(new Ball(700, 395));
-            }
-            else if(i==1){
-                palleInGioco.add(new Ball(700 + 20, 395 - 15));
-                palleInGioco.add(new Ball(700 + 20, 395 + 15));
-            }
-            else if(i%2==0) {
-                int linee = 0;
-                while(2* linee < i+1) {
-                    palleInGioco.add(new Ball(700 + i * 20, 395 + linee * 20 +5));
-                    palleInGioco.add(new Ball(700 + i * 20, 395 - linee * 20 -5));
-                    linee++;
-                }
-            }
-            else {
-                int linee = 0;
-                while(2* linee < i+1) {
-                    palleInGioco.add(new Ball(700 + i * 20, 395 +15+ linee * 20 ));
-                    palleInGioco.add(new Ball(700 + i * 20, 395 -15- linee * 20));
-                    linee++;
-                }
-            }
-        } //EVOCA LE CABBO DI PALLINE */
         whiteBall = new PallaBianca(initialPos.x, initialPos.y);
         Ball.setBallStop(palleInGioco);
         whiteBall.movimentoRimanente=0;
@@ -188,6 +163,7 @@ public class Table extends JPanel implements ActionListener {
         pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
         pit[5]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
     }
+
 
 
 
@@ -308,6 +284,10 @@ public class Table extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         shoot_label.setText("total shoot: "+num);
 
+        cont++;
+        if(cont%2==0)
+            timer.setDelay(DELAY++);
+
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))
                 setTable(g2d);
@@ -401,9 +381,6 @@ public class Table extends JPanel implements ActionListener {
         }
 
         System.out.println(whiteBall.movimentoRimanente);
-
-
-
     }
 
     public double getAngle(Point p1,Point p2){
@@ -461,6 +438,34 @@ public class Table extends JPanel implements ActionListener {
         }
     }
 
+    @Override
+    public void run() {
+        long bTime,timeDiff,sleep;
+        bTime=System.currentTimeMillis();
+
+        while(true){
+            repaint();
+            timeDiff=System.currentTimeMillis()-bTime;
+            sleep=DELAY-timeDiff;
+            DELAY+=10;
+            if(sleep<0){
+                sleep=2;
+            }
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+
+                String msg = String.format("Thread interrupted: %s", e.getMessage());
+
+                JOptionPane.showMessageDialog(this, msg, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            bTime = System.currentTimeMillis();
+        }
+    }
+
 
     private class Adapt implements MouseMotionListener,MouseListener {
         @Override
@@ -469,6 +474,8 @@ public class Table extends JPanel implements ActionListener {
         }
         @Override
         public void mouseClicked(MouseEvent e){
+            DELAY=1;
+            cont=0;
             control=1;
             coin_trigger=1;
 

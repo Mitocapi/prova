@@ -27,8 +27,8 @@ public class Ball {
     int dy; //quanto si muove sull'asse y rispetto a x
     int v=4;
 
-    public static void setBallStop(List<Ball> palleInGioco) {
-        for(Ball b : palleInGioco){
+    public static void setBallStop(List<Biliardo.Ball> palleInGioco) {
+        for(Biliardo.Ball b : palleInGioco){
             b.movimentoRimanente=0;
             b.dy=0;
             b.dx=0;
@@ -149,7 +149,7 @@ public class Ball {
 
     }
 
-    public void checkHitBall (Ball ball){
+    public void checkHitBall (Biliardo.Ball ball){
 
         // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
         /*int distanzax=getXposition()+getRadius() - altraPalla.getXposition()-getRadius();
@@ -169,7 +169,7 @@ public class Ball {
 
     }
 
-    public void hitABall(Ball uno) {
+    public void hitABall(Biliardo.Ball uno) {
 
         //setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
         //setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
@@ -195,8 +195,8 @@ public class Ball {
         MoveBall();
         uno.MoveBall();
     }
-    public static boolean checkMove(List<Ball> b){
-        for(Ball a : b){
+    public static boolean checkMove(List<Biliardo.Ball> b){
+        for(Biliardo.Ball a : b){
             if(a.movimentoRimanente>1){
                 return false;
             }
@@ -269,3 +269,4 @@ public class Ball {
     }
 
 }
+

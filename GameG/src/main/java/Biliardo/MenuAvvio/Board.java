@@ -15,7 +15,7 @@ public class Board extends JPanel implements Runnable, MouseListener {
     private final int BOARD_HEIGHT=600;
     private final int INITIAL_X=0;
     private final int INITIAL_Y=100;
-    private final int DELAY=1;
+    private int DELAY=1;
 
     public Rectangle bottonePlay = new Rectangle(Table.BOARD_WIDTH/4 - 175,125,250,35);
     public Rectangle bottoneChiudi = new Rectangle(Table.BOARD_WIDTH/4 - 175,265,250,35);
@@ -136,6 +136,7 @@ public class Board extends JPanel implements Runnable, MouseListener {
     }
 
     private void cycle(){
+
         x+=velx;
         y+=vely;
 
