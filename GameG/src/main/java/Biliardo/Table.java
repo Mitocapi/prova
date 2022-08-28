@@ -16,7 +16,7 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.Random;
 
-public class Table extends JPanel implements ActionListener,Runnable {
+public class Table extends JPanel implements ActionListener {
     public int coloreSelezionato;
     private Timer timer;
     private PoolCue poolCue;
@@ -77,6 +77,8 @@ public class Table extends JPanel implements ActionListener,Runnable {
         //this.addMouseListener(menuGioco);
         addMouseMotionListener(new Adapt());
         addMouseListener(new Adapt());
+        addKeyListener(new Adapt());
+
 
         shoot_label.setText("total shoot "+num);
         add(shoot_label);
@@ -212,9 +214,6 @@ public class Table extends JPanel implements ActionListener,Runnable {
 
         }
 
-
-
-
         for(int i=0;i<palleInGioco.size();i++){
             palleInGioco.get(i).checkHitBall(whiteBall);
             for(int j=0;j<palleInGioco.size();j++){
@@ -222,6 +221,7 @@ public class Table extends JPanel implements ActionListener,Runnable {
                     continue;
                 else{
                     palleInGioco.get(i).checkHitBall(palleInGioco.get(j));
+
                 }
             }
         }
@@ -288,7 +288,9 @@ public class Table extends JPanel implements ActionListener,Runnable {
         shoot_label.setText("total shoot: "+num);
 
         cont++;
-        if(cont%3==0)
+        System.out.println(cont);
+
+        if(cont%1==0)  //aumenta %1 per rallentare piu lentamente
             timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
@@ -304,9 +306,7 @@ public class Table extends JPanel implements ActionListener,Runnable {
         TexturePaint tp2 = new TexturePaint(field, new Rectangle(300, 200));
         g2d.setPaint(tp2);
         g2d.fillRect(x_board+2,y_board+2,standard_width * size_const, standard_height * size_const);
-        //g2d.fillRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 50, 50);
-        //g2d.setColor(new Color(10,90,20));
-        //g2d.fillRect(x_board, y_board, standard_width * size_const, standard_height * size_const);
+
 
         //check collision con i 4 rettagoli
         g2d.setPaint(Color.darkGray);
@@ -383,7 +383,7 @@ public class Table extends JPanel implements ActionListener,Runnable {
             whiteBall.setComponenteVelocitaY(whiteBall.componenteVelocitaY--);
         }
 
-        System.out.println(whiteBall.movimentoRimanente);
+        //System.out.println(whiteBall.movimentoRimanente);
     }
 
     public double getAngle(Point p1,Point p2){
@@ -441,36 +441,10 @@ public class Table extends JPanel implements ActionListener,Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        long bTime,timeDiff,sleep;
-        bTime=System.currentTimeMillis();
-
-        while(true){
-            repaint();
-            timeDiff=System.currentTimeMillis()-bTime;
-            sleep=DELAY-timeDiff;
-            DELAY+=10;
-            if(sleep<0){
-                sleep=2;
-            }
-
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-
-                String msg = String.format("Thread interrupted: %s", e.getMessage());
-
-                JOptionPane.showMessageDialog(this, msg, "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-
-            bTime = System.currentTimeMillis();
-        }
-    }
 
 
-    private class Adapt implements MouseMotionListener,MouseListener {
+
+    private class Adapt implements MouseMotionListener,MouseListener,KeyListener {
         @Override
         public void mouseDragged(MouseEvent e) {
             //poolCue.mouseDragged(e);
@@ -508,6 +482,25 @@ public class Table extends JPanel implements ActionListener,Runnable {
         @Override
         public void mouseMoved(MouseEvent e) {
             poolCue.mouseMoved(e);
+
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getKeyCode()==KeyEvent.VK_DOWN){
+                DELAY=1;
+                timer.setDelay(1);
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
 
         }
     }

@@ -4,17 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 
-/*
- * This checks for and handles collisions between the objects
- * It works-ish
- *
- * TODO: Write/Figure out a collision detection that works
- *
- * Shaw Tan
- * 30/08/2012
- */
-
-
 public class CollisionPhysics extends Thread {
 
     final int TICK = 40;
@@ -401,30 +390,6 @@ public class CollisionPhysics extends Thread {
 
         double t = move / velocity.length();
 
-        //Using Cosion rule (this isn't working)
-//		double t;
-//		double move;
-
-//		double a = 1;
-//		double b = 2*displacement.length()*Math.sin(angle);
-//		double c = 4*Ball.RADIUS*Ball.RADIUS-displacement.length()*displacement.length();
-//
-//		if (b*b-4*a*c <= 0.0){
-//			return FLAG;
-//		}
-//
-//		move = (b-Math.sqrt(b*b-4*a*c))/(2*a);
-//
-//		if (move < 0){
-//			System.out.println("neg move");
-//			move = (b+Math.sqrt(b*b-4*a*c))/(2*a);
-//		}
-//
-//		if (move < 0){
-//			return FLAG;
-//		}
-//
-//		t = move / velocity.length();
 
         if (angle <0){
             System.out.println("neg angle");

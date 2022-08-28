@@ -163,6 +163,7 @@ public class Ball {
         double distY=getYposition()- ball.getYposition();
         double radSum=Math.pow(getRadius()*2,2);
         double dist=(distX*distX)+(distY*distY);
+
         if(dist<=radSum){
             hitABall(ball);
         }
@@ -215,10 +216,7 @@ public class Ball {
             dy=Math.abs(getComponenteVelocitaY()/180);
         }
 
-        if(dx!=0)
-            System.out.println("dx:"+dx);
-        if(dy!=0)
-            System.out.println("dy:"+dy);
+
 
 
         if (movimentoRimanente>0) {
