@@ -2,6 +2,7 @@ package Biliardo;
 
 import Biliardo.MenuAvvio.Board;
 import Biliardo.MenuAvvio.ColorChooser;
+import Biliardo.MenuAvvio.ThreadAnimation;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -44,6 +45,8 @@ public class Table extends JPanel implements ActionListener {
     BufferedImage background;
     BufferedImage prov;
     Image BilFrame;
+
+    int pit_cont=0;
 
     BufferedImage wood;
     BufferedImage field;
@@ -188,27 +191,36 @@ public class Table extends JPanel implements ActionListener {
                         b.setComponenteVelocitaX(0);
                         b.setComponenteVelocitaY(0);
                         b.movimentoRimanente = 0;
+                        pit_cont++;
                     }
                 }
             }
 
             if(whiteBall.getXposition()<=10+pit[i].x && whiteBall.getXposition()>=pit[i].x-10){
                 if(whiteBall.getYposition()<=10+pit[i].y && whiteBall.getYposition()>=pit[i].y-10){
-                    JFrame f = new JFrame("game over");
+                    /*JFrame f = new JFrame("game over");
+                    JPanel p=new JPanel();
+                    f.add(p);
                     f.setSize(400,400);
-                    f.add(new JLabel("white ball in pit"));
+                    p.setBackground(Color.GRAY);
+                    p.add(new JLabel("you scored "+pit_cont+" balls"));
+                    p.add(new JLabel("white ball in pit"));
                     restart.setText("restart");
-                    restart.setPreferredSize(new Dimension(40,40));
+                    restart.setSize(new Dimension(40,40));
+                    restart.setLocation(100,100);
                     restart.addActionListener(e -> {
                         f.setVisible(false);
                         new RunGame();
                     });
                     f.setLocationRelativeTo(null);
-                    f.add(restart);
+                    p.add(restart).setLocation(50,50);
+                    p.setVisible(true);
                     f.setVisible(true);
                     whiteBall.movimentoRimanente=0;
                     whiteBall.posizioneX=initialPos.x;
-                    whiteBall.posizioneY=initialPos.y;
+                    whiteBall.posizioneY=initialPos.y;*/
+                    new RunGame();
+
                 }
             }
 
