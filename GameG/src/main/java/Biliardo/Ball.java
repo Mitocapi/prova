@@ -1,15 +1,21 @@
 package Biliardo;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+import static Biliardo.Table.BOARD_HEIGHT;
+import static Biliardo.Table.BOARD_WIDTH;
 
-public class Ball {
+
+public class Ball implements Runnable{
     private static final int MAX_VEL =3000 ;
     int radius;
     static Color ballColor;
     int x_wall_up=Table.x_board;
     int y_wall_up=Table.y_board;
+    int DELAY=1;
+    public Thread animator2;
 
     //prende distanza dal centro e moltiplica per 25
     int movimentoRimanente;
@@ -26,6 +32,11 @@ public class Ball {
     int dx; //quanto si muove sull'asse x rispetto a y
     int dy; //quanto si muove sull'asse y rispetto a x
     int v=4;
+    int velx=1;
+    int vely=1;
+
+    int x; //posizione corrente su x
+    int y;
 
     public static void setBallStop(List<Biliardo.Ball> palleInGioco) {
         for(Biliardo.Ball b : palleInGioco){
@@ -193,8 +204,9 @@ public class Ball {
         //uno.dy =0;
         //uno.dx =0;
 
-        MoveBall();
-        uno.MoveBall();
+        //MoveBall();
+        cycle();
+        //uno.MoveBall();
     }
     public static boolean checkMove(List<Biliardo.Ball> b){
         for(Biliardo.Ball a : b){
@@ -266,5 +278,35 @@ public class Ball {
         }
     }
 
+    public void cycle(){
+        System.out.println("in");
+        MoveBall();
+    }
+
+    @Override
+    public void run() {
+        long bTime,timeDiff,sleep;
+        bTime=System.currentTimeMillis();
+
+        while(true){
+            cycle();
+            //repaint();
+            timeDiff=System.currentTimeMillis()-bTime;
+            sleep=DELAY-timeDiff;
+            if(sleep<0){
+                sleep=2;
+            }
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+
+                String msg = String.format("Thread interrupted: %s", e.getMessage());
+
+            }
+
+            bTime = System.currentTimeMillis();
+        }
+    }
 }
 

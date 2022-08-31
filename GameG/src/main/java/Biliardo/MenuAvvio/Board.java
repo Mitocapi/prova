@@ -4,12 +4,13 @@ import Biliardo.RunGame;
 import Biliardo.Table;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
 
-public class Board extends JPanel implements Runnable, MouseListener {
+public class Board extends JPanel implements Runnable,MouseListener {
 
     private final int BOARD_WIDTH=800;
     private final int BOARD_HEIGHT=600;
@@ -47,21 +48,22 @@ public class Board extends JPanel implements Runnable, MouseListener {
         initBoard();
     }
 
-    public static void run2() {
-        Board ex = new Board();
-        ex.setVisible(true);
-    }
+
 
     private void initBoard(){
+
         setBackground(new Color(40,70,40));
-        addMouseListener(this);
+        //addMouseListener(this);
+
+        setLayout(new FlowLayout());
 
         pvp.setText("player 1 vs player 2");
         pvp.setPreferredSize(new Dimension(200,20));
-        pvp.setLocation(new Point(500,500));
+        pvp.setLocation(10,100);
         pvp.addActionListener(e -> {
             game_mode=1;
         });
+
         add(pvp);
 
         pvcpu.setText("player 1 vs computer");
@@ -101,11 +103,6 @@ public class Board extends JPanel implements Runnable, MouseListener {
         });
         add(colour2);
 
-
-
-
-
-
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         loadImage();
         x=INITIAL_X;
@@ -118,7 +115,6 @@ public class Board extends JPanel implements Runnable, MouseListener {
         ImageIcon ii = new ImageIcon("GameG/src/main/resources/images/whiteBallr.png");
         wball = ii.getImage();
 
-
     }
     public void addNotify(){
         super.addNotify();
@@ -129,6 +125,7 @@ public class Board extends JPanel implements Runnable, MouseListener {
         super.paintComponent(g);
         drawMenu(g);
         drawStar(g);
+
     }
     private void drawStar(Graphics g){
         g.drawImage(wball,x,y,this);

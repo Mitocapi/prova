@@ -138,9 +138,9 @@ public class Table extends JPanel implements ActionListener {
 
     private void moveCue(){
         poolCue.move();
-        whiteBall.MoveBall();
+        whiteBall.cycle();
         for(Ball bilie:palleInGioco){
-            bilie.MoveBall();
+            bilie.cycle();
         }  //questo coso servirebbe a far muovere tutte le altre palle ma al momento le uniche palle che si muovono
         // sono le mie e la sua funzione è quella di regalare del lag ai passanti... provo a risolvere...
 
@@ -302,8 +302,8 @@ public class Table extends JPanel implements ActionListener {
         cont++;
         System.out.println(cont);
 
-        if(cont%1==0)  //aumenta %1 per rallentare piu lentamente
-            timer.setDelay(DELAY++);
+        //if(cont%1==0)  //aumenta %1 per rallentare piu lentamente
+          //  timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))
@@ -436,19 +436,19 @@ public class Table extends JPanel implements ActionListener {
             if (num % 2 == 0 && Board.game_mode==0) {
                 shootRandom();
             } else {
-                whiteBall.movimentoRimanente = 3000;
+                whiteBall.movimentoRimanente = 5000;
 
-                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
-                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
-                int g=whiteBall.getXposition()-poolCue.getX() * 5;
+                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 6);
+                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 6);
+                int g=whiteBall.getXposition()-poolCue.getX() * 6;
                 System.out.println(g);
-                g=whiteBall.getYposition() - poolCue.getY() * 5;
+                g=whiteBall.getYposition() - poolCue.getY() * 6;
                 System.out.println(g);
 
                 whiteBall.dx = 0;
                 whiteBall.dy = 0;
 
-                whiteBall.MoveBall();
+                whiteBall.cycle();
             }
         }
     }
