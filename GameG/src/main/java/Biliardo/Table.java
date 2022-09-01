@@ -138,9 +138,9 @@ public class Table extends JPanel implements ActionListener {
 
     private void moveCue(){
         poolCue.move();
-        whiteBall.cycle();
+        whiteBall.MoveBall();
         for(Ball bilie:palleInGioco){
-            bilie.cycle();
+            bilie.MoveBall();
         }  //questo coso servirebbe a far muovere tutte le altre palle ma al momento le uniche palle che si muovono
         // sono le mie e la sua funzione è quella di regalare del lag ai passanti... provo a risolvere...
 
@@ -303,7 +303,7 @@ public class Table extends JPanel implements ActionListener {
         System.out.println(cont);
 
         //if(cont%1==0)  //aumenta %1 per rallentare piu lentamente
-          //  timer.setDelay(DELAY++);
+         //  timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))
@@ -448,7 +448,7 @@ public class Table extends JPanel implements ActionListener {
                 whiteBall.dx = 0;
                 whiteBall.dy = 0;
 
-                whiteBall.cycle();
+                whiteBall.MoveBall();
             }
         }
     }

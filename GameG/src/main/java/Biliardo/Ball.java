@@ -172,9 +172,12 @@ public class Ball implements Runnable{
 
         double distX=getXposition()-ball.getXposition();
         double distY=getYposition()- ball.getYposition();
+        //double radSum=Math.pow(getRadius()*2,2);
+        //double dist=(distX*distX)+(distY*distY);
+
         //double radSum=Math.pow(getRadius()*2,2);  ORIGINALE
         double radSum=getRadius()*2; //MODIFICATO
-        double dist=Math.sqrt((distX*distX)+(distY*distY)); //HO MESSO UNA SQRT QUA
+        double dist=Math.sqrt((distX*distX)+(distY*distY));
 
         if(dist<=radSum){
             hitABall(ball);
@@ -184,12 +187,12 @@ public class Ball implements Runnable{
 
     public void hitABall(Biliardo.Ball uno) {
 
-        //setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
-        //setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
-        //MoveBall();
-        //MoveBall();
-        //setComponenteVelocitaX( getComponenteVelocitaX());
-        //setComponenteVelocitaY( getComponenteVelocitaY());
+        setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
+        setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
+        MoveBall();
+        MoveBall();
+        setComponenteVelocitaX( getComponenteVelocitaX());
+        setComponenteVelocitaY( getComponenteVelocitaY());
 
 
         int movimentodimezzo= uno.getMovimentoRimanente();
@@ -205,8 +208,8 @@ public class Ball implements Runnable{
         //uno.dy =0;
         //uno.dx =0;
 
-        //MoveBall();
-        cycle();
+        MoveBall();
+        //cycle();
         //uno.MoveBall();
     }
     public static boolean checkMove(List<Biliardo.Ball> b){
@@ -225,6 +228,8 @@ public class Ball implements Runnable{
             if(movimentoRimanente>MAX_VEL){
                 movimentoRimanente=MAX_VEL;
             }
+            //dx=Math.abs(getComponenteVelocitaX()/180);
+            //dy=Math.abs(getComponenteVelocitaY()/180);
             dx=Math.abs(getComponenteVelocitaX()/180);
             dy=Math.abs(getComponenteVelocitaY()/180);
         }
@@ -279,10 +284,10 @@ public class Ball implements Runnable{
         }
     }
 
-    public void cycle(){
+    /*public void cycle(){
         System.out.println("in");
-        MoveBall();
-    }
+        //MoveBall();
+    }*/
 
     @Override
     public void run() {
@@ -290,7 +295,8 @@ public class Ball implements Runnable{
         bTime=System.currentTimeMillis();
 
         while(true){
-            cycle();
+            //cycle();
+            MoveBall();
             //repaint();
             timeDiff=System.currentTimeMillis()-bTime;
             sleep=DELAY-timeDiff;

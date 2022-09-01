@@ -165,6 +165,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
             repaint();
             timeDiff=System.currentTimeMillis()-bTime;
             sleep=DELAY-timeDiff;
+
             if(sleep<0){
                 sleep=2;
             }
