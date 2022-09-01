@@ -172,8 +172,9 @@ public class Ball implements Runnable{
 
         double distX=getXposition()-ball.getXposition();
         double distY=getYposition()- ball.getYposition();
-        double radSum=Math.pow(getRadius()*2,2);
-        double dist=(distX*distX)+(distY*distY);
+        //double radSum=Math.pow(getRadius()*2,2);  ORIGINALE
+        double radSum=getRadius()*2; //MODIFICATO
+        double dist=Math.sqrt((distX*distX)+(distY*distY)); //HO MESSO UNA SQRT QUA
 
         if(dist<=radSum){
             hitABall(ball);
