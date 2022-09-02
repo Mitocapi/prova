@@ -237,6 +237,18 @@ public class Table extends JPanel implements ActionListener {
                 }
             }
         }
+        /*for(int i=palleInGioco.size()-1;i>=0;i--){
+            palleInGioco.get(i).checkHitBall(whiteBall);
+            for(int j=0;j<palleInGioco.size();j++){
+                if(i==j)
+                    continue;
+                else{
+                    palleInGioco.get(i).checkHitBall(palleInGioco.get(j));
+
+                }
+            }
+        }*/
+
 
 
         /*for(Ball dos : palleInGioco){
@@ -248,6 +260,7 @@ public class Table extends JPanel implements ActionListener {
             }
         }*/
     }
+
 
     public void loadImage() {
         try {
@@ -302,8 +315,8 @@ public class Table extends JPanel implements ActionListener {
         cont++;
         System.out.println(cont);
 
-        //if(cont%1==0)  //aumenta %1 per rallentare piu lentamente
-         //  timer.setDelay(DELAY++);
+        if(cont%2==0)  //aumenta %1 per rallentare piu lentamente
+           timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))

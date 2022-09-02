@@ -102,7 +102,7 @@ public class Ball implements Runnable{
     public Ball(int posx, int posy) {
         ballColor = new Color(0, 0, 0);
 
-        this.radius = 12;
+        this.radius = 10;
         this.posizioneX = posx;
         this.posizioneY = posy;
         this.componenteVelocitaX = 0;
@@ -160,6 +160,7 @@ public class Ball implements Runnable{
 
     }
 
+
     public void checkHitBall (Biliardo.Ball ball){
 
         // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
@@ -187,16 +188,19 @@ public class Ball implements Runnable{
 
     public void hitABall(Biliardo.Ball uno) {
 
-        setComponenteVelocitaX(- getComponenteVelocitaX()); //provo a dargli un movimento minimo per vedere di
-        setComponenteVelocitaY(- getComponenteVelocitaY()); //non farle fondere..
-        MoveBall();
-        MoveBall();
+        setComponenteVelocitaX(getComponenteVelocitaX()/2); //provo a dargli un movimento minimo per vedere di
+        setComponenteVelocitaY(getComponenteVelocitaY()/2); //non farle fondere..
+        //MoveBall();
+        //MoveBall();
         setComponenteVelocitaX( getComponenteVelocitaX());
         setComponenteVelocitaY( getComponenteVelocitaY());
 
+        uno.dx=dx;
+        uno.dy=dy;
+
 
         int movimentodimezzo= uno.getMovimentoRimanente();
-        uno.setMovimentoRimanente(getMovimentoRimanente());
+        uno.setMovimentoRimanente(movimentoRimanente);
         setMovimentoRimanente(movimentodimezzo);
         setComponenteVelocitaX(uno.getComponenteVelocitaX());
         setComponenteVelocitaY(uno.getComponenteVelocitaY());
@@ -208,6 +212,7 @@ public class Ball implements Runnable{
         //uno.dy =0;
         //uno.dx =0;
 
+        uno.MoveBall();
         MoveBall();
         //cycle();
         //uno.MoveBall();
