@@ -8,9 +8,10 @@ import static Biliardo.Table.BOARD_HEIGHT;
 import static Biliardo.Table.BOARD_WIDTH;
 
 
-public class Ball implements Runnable{
+public class Ball {
     private static final int MAX_VEL =3000 ;
     int radius;
+    Collision c=new Collision();
     static Color ballColor;
     int x_wall_up=Table.x_board;
     int y_wall_up=Table.y_board;
@@ -150,73 +151,6 @@ public class Ball implements Runnable{
 
     }
 
-    public void hitAWall(int direzione) {
-        // 0=x 1=y
-        if (direzione == 0) {
-            setComponenteVelocitaX(- getComponenteVelocitaX()/2);
-        } else {
-            setComponenteVelocitaY(- getComponenteVelocitaY()/2);
-        }
-
-    }
-
-
-    public void checkHitBall (Biliardo.Ball ball){
-
-        // if(getXposition()!=al traPalla.getXposition()||getYposition()!= altraPalla.getYposition()){
-        /*int distanzax=getXposition()+getRadius() - altraPalla.getXposition()-getRadius();
-        int distanzay=getYposition()+getRadius() - altraPalla.getYposition()-getRadius();
-        if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double) getRadius()*2){
-            hitABall(altraPalla);
-            //}
-        }*/
-
-        double distX=getXposition()-ball.getXposition();
-        double distY=getYposition()- ball.getYposition();
-        //double radSum=Math.pow(getRadius()*2,2);
-        //double dist=(distX*distX)+(distY*distY);
-
-        //double radSum=Math.pow(getRadius()*2,2);  ORIGINALE
-        double radSum=getRadius()*2; //MODIFICATO
-        double dist=Math.sqrt((distX*distX)+(distY*distY));
-
-        if(dist<=radSum){
-            hitABall(ball);
-        }
-
-    }
-
-    public void hitABall(Biliardo.Ball uno) {
-
-        setComponenteVelocitaX(getComponenteVelocitaX()/2); //provo a dargli un movimento minimo per vedere di
-        setComponenteVelocitaY(getComponenteVelocitaY()/2); //non farle fondere..
-        //MoveBall();
-        //MoveBall();
-        setComponenteVelocitaX( getComponenteVelocitaX());
-        setComponenteVelocitaY( getComponenteVelocitaY());
-
-        uno.dx=dx;
-        uno.dy=dy;
-
-
-        int movimentodimezzo= uno.getMovimentoRimanente();
-        uno.setMovimentoRimanente(movimentoRimanente);
-        setMovimentoRimanente(movimentodimezzo);
-        setComponenteVelocitaX(uno.getComponenteVelocitaX());
-        setComponenteVelocitaY(uno.getComponenteVelocitaY());
-        uno.setComponenteVelocitaY(-getComponenteVelocitaY());
-        uno.setComponenteVelocitaX(-getComponenteVelocitaX());
-
-        //dy =0;
-        //dx =0;
-        //uno.dy =0;
-        //uno.dx =0;
-
-        uno.MoveBall();
-        MoveBall();
-        //cycle();
-        //uno.MoveBall();
-    }
     public static boolean checkMove(List<Biliardo.Ball> b){
         for(Biliardo.Ball a : b){
             if(a.movimentoRimanente>1){
@@ -227,20 +161,14 @@ public class Ball implements Runnable{
     }
 
     public void MoveBall() {
-
         if(dx==0 && dy ==0) {
             movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY())*2;
             if(movimentoRimanente>MAX_VEL){
                 movimentoRimanente=MAX_VEL;
             }
-            //dx=Math.abs(getComponenteVelocitaX()/180);
-            //dy=Math.abs(getComponenteVelocitaY()/180);
             dx=Math.abs(getComponenteVelocitaX()/180);
             dy=Math.abs(getComponenteVelocitaY()/180);
         }
-
-
-
 
         if (movimentoRimanente>0) {
             if (getComponenteVelocitaX() > 0) {
@@ -248,7 +176,7 @@ public class Ball implements Runnable{
                 setMovimentoRimanente(movimentoRimanente- dx - dy);
                 if (getXposition() + getRadius() >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(0);
+                    c.hitWall(Ball.this,0);
                 }
             }
             if (getComponenteVelocitaX() < 0) {
@@ -256,7 +184,7 @@ public class Ball implements Runnable{
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
                 if (getXposition() - getRadius()*2 <= 322) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(0);
+                    c.hitWall(Ball.this,0);
                 }
             }
             if (getComponenteVelocitaY() > 0) {
@@ -264,7 +192,7 @@ public class Ball implements Runnable{
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
                 if (getYposition() + getRadius()*2 >= 567) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(1);
+                    c.hitWall(Ball.this,1);
                 }
             }
             if (getComponenteVelocitaY() < 0) {
@@ -272,7 +200,7 @@ public class Ball implements Runnable{
                 setMovimentoRimanente(movimentoRimanente - dx - dy);
                 if (getYposition() - getRadius()*2 <= 240) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
-                    hitAWall(1);
+                    c.hitWall(Ball.this,1);
                 }
             }
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
@@ -287,6 +215,9 @@ public class Ball implements Runnable{
             dx =0;
             movimentoRimanente=0;
         }
+
+        // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
+
     }
 
     /*public void cycle(){
@@ -294,31 +225,6 @@ public class Ball implements Runnable{
         //MoveBall();
     }*/
 
-    @Override
-    public void run() {
-        long bTime,timeDiff,sleep;
-        bTime=System.currentTimeMillis();
 
-        while(true){
-            //cycle();
-            MoveBall();
-            //repaint();
-            timeDiff=System.currentTimeMillis()-bTime;
-            sleep=DELAY-timeDiff;
-            if(sleep<0){
-                sleep=2;
-            }
-
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-
-                String msg = String.format("Thread interrupted: %s", e.getMessage());
-
-            }
-
-            bTime = System.currentTimeMillis();
-        }
-    }
 }
 

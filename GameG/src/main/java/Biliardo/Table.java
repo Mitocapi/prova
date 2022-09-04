@@ -22,6 +22,8 @@ public class Table extends JPanel implements ActionListener {
     private Timer timer;
     private PoolCue poolCue;
     private Coin coin;
+    Collision c=new Collision();
+
     public static PallaBianca whiteBall; //palla bianca che il giocatore colpisce
     public List<Ball> palleInGioco;
     //public Menu menuGioco;
@@ -98,19 +100,16 @@ public class Table extends JPanel implements ActionListener {
         //cambio 10 con 15
 
         palleInGioco = new ArrayList<>();
-        palleInGioco.add(new Ball(ball_startX, ball_startY));           //1
-        palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));      //2
-        palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
-
-        palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
-        palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
-        palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
-
-        palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
-        palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
-        palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
-        palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
-
+      palleInGioco.add(new Ball(ball_startX, ball_startY));
+     palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));
+      palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
+      palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
+      palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
+      palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
+      palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
+      palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
+      palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
+      palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
         palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
         palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
         palleInGioco.add(new Ball(ball_startX+100,ball_startY));
@@ -198,67 +197,14 @@ public class Table extends JPanel implements ActionListener {
 
             if(whiteBall.getXposition()<=10+pit[i].x && whiteBall.getXposition()>=pit[i].x-10){
                 if(whiteBall.getYposition()<=10+pit[i].y && whiteBall.getYposition()>=pit[i].y-10){
-                    /*JFrame f = new JFrame("game over");
-                    JPanel p=new JPanel();
-                    f.add(p);
-                    f.setSize(400,400);
-                    p.setBackground(Color.GRAY);
-                    p.add(new JLabel("you scored "+pit_cont+" balls"));
-                    p.add(new JLabel("white ball in pit"));
-                    restart.setText("restart");
-                    restart.setSize(new Dimension(40,40));
-                    restart.setLocation(100,100);
-                    restart.addActionListener(e -> {
-                        f.setVisible(false);
-                        new RunGame();
-                    });
-                    f.setLocationRelativeTo(null);
-                    p.add(restart).setLocation(50,50);
-                    p.setVisible(true);
-                    f.setVisible(true);
-                    whiteBall.movimentoRimanente=0;
-                    whiteBall.posizioneX=initialPos.x;
-                    whiteBall.posizioneY=initialPos.y;*/
                     new RunGame();
-
                 }
             }
 
         }
 
-        for(int i=0;i<palleInGioco.size();i++){
-            palleInGioco.get(i).checkHitBall(whiteBall);
-            for(int j=0;j<palleInGioco.size();j++){
-                if(i==j)
-                    continue;
-                else{
-                    palleInGioco.get(i).checkHitBall(palleInGioco.get(j));
-
-                }
-            }
-        }
-        /*for(int i=palleInGioco.size()-1;i>=0;i--){
-            palleInGioco.get(i).checkHitBall(whiteBall);
-            for(int j=0;j<palleInGioco.size();j++){
-                if(i==j)
-                    continue;
-                else{
-                    palleInGioco.get(i).checkHitBall(palleInGioco.get(j));
-
-                }
-            }
-        }*/
 
 
-
-        /*for(Ball dos : palleInGioco){
-                int distanzax = whiteBall.getXposition()-dos.getXposition();
-                int distanzay = whiteBall.getYposition()-dos.getYposition();
-                if(Math.sqrt(Math.pow(distanzax,2)+Math.pow(distanzay,2))<=(double)whiteBall.getRadius()+5){
-                    whiteBall.hitABall(dos);
-
-            }
-        }*/
     }
 
 
@@ -313,7 +259,7 @@ public class Table extends JPanel implements ActionListener {
         shoot_label.setText("total shoot: "+num);
 
         cont++;
-        System.out.println(cont);
+        //System.out.println(cont);
 
         if(cont%2==0)  //aumenta %1 per rallentare piu lentamente
            timer.setDelay(DELAY++);
@@ -391,24 +337,11 @@ public class Table extends JPanel implements ActionListener {
             }
         }
 
+        c.checkCollision(palleInGioco,whiteBall);
         checkCollision();
 
-        //spawn moneta
-        if(coin_trigger==1){
-            if(coin.spawnCoin()){
 
-                g2d.drawImage(coin.getImage(),coin.whereCoinX(),coin.whereCoinY(),this);
-            }
-            coin_trigger=0;
-        }
-        if(whiteBall.dx>0) {
-            whiteBall.setComponenteVelocitaX(whiteBall.componenteVelocitaX--);
-        }
-        if(whiteBall.dy>0){
-            whiteBall.setComponenteVelocitaY(whiteBall.componenteVelocitaY--);
-        }
 
-        //System.out.println(whiteBall.movimentoRimanente);
     }
 
     public double getAngle(Point p1,Point p2){
@@ -449,18 +382,12 @@ public class Table extends JPanel implements ActionListener {
             if (num % 2 == 0 && Board.game_mode==0) {
                 shootRandom();
             } else {
-                whiteBall.movimentoRimanente = 5000;
+                whiteBall.movimentoRimanente = 3000;
 
-                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 6);
-                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 6);
-                int g=whiteBall.getXposition()-poolCue.getX() * 6;
-                System.out.println(g);
-                g=whiteBall.getYposition() - poolCue.getY() * 6;
-                System.out.println(g);
-
+                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
+                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
                 whiteBall.dx = 0;
                 whiteBall.dy = 0;
-
                 whiteBall.MoveBall();
             }
         }
@@ -481,6 +408,7 @@ public class Table extends JPanel implements ActionListener {
             control=1;
             coin_trigger=1;
 
+            c.stopBall(palleInGioco);
             shoot();
         }
 
