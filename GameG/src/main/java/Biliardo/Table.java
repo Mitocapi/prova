@@ -137,22 +137,17 @@ public class Table extends JPanel implements ActionListener {
 
     private void moveCue(){
         poolCue.move();
+
         whiteBall.MoveBall();
         for(Ball bilie:palleInGioco){
             bilie.MoveBall();
-        }  //questo coso servirebbe a far muovere tutte le altre palle ma al momento le uniche palle che si muovono
-        // sono le mie e la sua funzione è quella di regalare del lag ai passanti... provo a risolvere...
+        }
 
         repaint();
 
     }
     private void setPakage(String[][] pack) {
-        /*pacchetti grafici
-        0->background
-        1->cornice
-        2->campo
-        3-buche (da mettere!)
-        4->spondine (da mettere forse)*/
+
         pack[0][0] = "GameG/src/main/resources/images/backgroundA.jpg";
         pack[0][1] = "GameG/src/main/resources/images/woodA.jpg";
         pack[0][2] = "GameG/src/main/resources/images/campo2.jpg";
@@ -251,7 +246,6 @@ public class Table extends JPanel implements ActionListener {
         g2d.setStroke(new BasicStroke(110.0f));
         g2d.drawRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 1, 1);
 
-        //g2d.drawImage(BilFrame,x_board+10,y_board,this);
     }
 
     public void paintComponent(Graphics g) {
@@ -337,8 +331,7 @@ public class Table extends JPanel implements ActionListener {
             }
         }
 
-        c.checkCollision(palleInGioco,whiteBall);
-        checkCollision();
+
 
 
 
@@ -461,6 +454,7 @@ public class Table extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         moveCue();
-
+        repaint();
+        c.checkCollision(palleInGioco,whiteBall);
     }
 }

@@ -161,19 +161,21 @@ public class Ball {
     }
 
     public void MoveBall() {
-        if(dx==0 && dy ==0) {
-            movimentoRimanente=Math.abs(getComponenteVelocitaX())+Math.abs(getComponenteVelocitaY())*2;
-            if(movimentoRimanente>MAX_VEL){
-                movimentoRimanente=MAX_VEL;
+        if(dx==0 && dy==0) {
+            movimentoRimanente = Math.abs(getComponenteVelocitaX()) + Math.abs(getComponenteVelocitaY()) * 2;
+            if (movimentoRimanente > MAX_VEL) {
+                movimentoRimanente = MAX_VEL;
             }
-            dx=Math.abs(getComponenteVelocitaX()/180);
-            dy=Math.abs(getComponenteVelocitaY()/180);
-        }
+            if (componenteVelocitaX != 0)
+                dx = Math.abs(getComponenteVelocitaX() / 200);
+            if (componenteVelocitaY != 0)
+                dy = Math.abs(getComponenteVelocitaY() / 200);
 
+        }
         if (movimentoRimanente>0) {
             if (getComponenteVelocitaX() > 0) {
                 setXposition(getXposition() + dx);
-                setMovimentoRimanente(movimentoRimanente- dx - dy);
+                setMovimentoRimanente(movimentoRimanente- Math.abs(dx) - Math.abs(dy));
                 if (getXposition() + getRadius() >= 877) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     c.hitWall(Ball.this,0);
@@ -181,7 +183,7 @@ public class Ball {
             }
             if (getComponenteVelocitaX() < 0) {
                 setXposition(getXposition() - dx);
-                setMovimentoRimanente(movimentoRimanente - dx - dy);
+                setMovimentoRimanente(movimentoRimanente - Math.abs(dx) - Math.abs(dy));
                 if (getXposition() - getRadius()*2 <= 322) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     c.hitWall(Ball.this,0);
@@ -189,7 +191,7 @@ public class Ball {
             }
             if (getComponenteVelocitaY() > 0) {
                 setYposition(getYposition() + dy);
-                setMovimentoRimanente(movimentoRimanente - dx - dy);
+                setMovimentoRimanente(movimentoRimanente - Math.abs(dx) - Math.abs(dy));
                 if (getYposition() + getRadius()*2 >= 567) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     c.hitWall(Ball.this,1);
@@ -197,7 +199,7 @@ public class Ball {
             }
             if (getComponenteVelocitaY() < 0) {
                 setYposition(getYposition() - dy);
-                setMovimentoRimanente(movimentoRimanente - dx - dy);
+                setMovimentoRimanente(movimentoRimanente - Math.abs(dx) - Math.abs(dy));
                 if (getYposition() - getRadius()*2 <= 240) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     c.hitWall(Ball.this,1);
