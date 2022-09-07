@@ -69,9 +69,8 @@ public class Collision {
 
         velx=Math.abs(b.getComponenteVelocitaX())+Math.abs(b2.getComponenteVelocitaX());
         vely=Math.abs(b.getComponenteVelocitaY())+ Math.abs(b2.getComponenteVelocitaY());
-        mov=(b.getMovimentoRimanente()+b.getMovimentoRimanente())/2;
-        velx=velx/2;
-        vely=vely/2;
+        mov=(b.getMovimentoRimanente()+b2.getMovimentoRimanente());
+
 
         if(b.getComponenteVelocitaY()>=0)
             sign1y=1;
