@@ -104,17 +104,17 @@ public class Table extends JPanel implements ActionListener {
      palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));
       palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
       palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
-     // palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
-     // palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
-     // palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
-     // palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
-     // palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
-     // palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
-     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
-     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
-     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY));
-     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY-60));
-     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
+     palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
+     palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
+     palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
+     palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
+     palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
+     palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY-60));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
 
 
         whiteBall = new PallaBianca(initialPos.x, initialPos.y);
@@ -255,7 +255,7 @@ public class Table extends JPanel implements ActionListener {
         cont++;
         //System.out.println(cont);
 
-        if(cont%100==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(cont%1==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
            timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
@@ -377,8 +377,8 @@ public class Table extends JPanel implements ActionListener {
             } else {
                 whiteBall.movimentoRimanente = 3000;
 
-                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
-                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
+                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 6);
+                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 6);
                 System.out.println("tiro x "+whiteBall.getComponenteVelocitaX());
                 System.out.println("tiro y "+whiteBall.getComponenteVelocitaY());
                 whiteBall.dx = 0;

@@ -183,6 +183,14 @@ public class Ball {
             movimentoRimanente = MAX_VEL;
         }
         if (movimentoRimanente>0) {
+            if (componenteVelocitaX != 0)
+                dx = Math.abs(getComponenteVelocitaX() / 200);
+            else
+                dx=0;
+            if (componenteVelocitaY != 0)
+                dy = Math.abs(getComponenteVelocitaY() / 200);
+            else dy=0;
+
             if (getComponenteVelocitaX() > 0) {
                 setXposition(getXposition() + dx);
                 setMovimentoRimanente(movimentoRimanente- Math.abs(dx) - Math.abs(dy));

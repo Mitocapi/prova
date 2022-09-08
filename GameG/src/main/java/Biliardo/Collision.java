@@ -69,7 +69,9 @@ public class Collision {
         //b2.dy=b.dy;
 
         velx=Math.abs(b.getComponenteVelocitaX())+Math.abs(b2.getComponenteVelocitaX());
+        velx= (int) (velx/1.6);
         vely=Math.abs(b.getComponenteVelocitaY())+ Math.abs(b2.getComponenteVelocitaY());
+        vely= (int) (vely/1.6);
         mov=((b.getMovimentoRimanente()+b2.getMovimentoRimanente())/2);
 
 
@@ -108,12 +110,12 @@ public class Collision {
         System.out.println("vel y: "+b2.getComponenteVelocitaY());
         System.out.println("num pallina: "+b2.num);
 
-        b.setComponenteVelocitaY((b2.getComponenteVelocitaY())*sign1y);
-        b.setComponenteVelocitaX((b2.getComponenteVelocitaX())*sign1x);
+        b.setComponenteVelocitaY(vely*sign1y);
+        b.setComponenteVelocitaX(velx*sign1x);
         b.setMovimentoRimanente(mov);
 
-        b2.setComponenteVelocitaY((b2.getComponenteVelocitaY())*sign2y);
-        b2.setComponenteVelocitaX((b2.getComponenteVelocitaX()*(sign2x)));
+        b2.setComponenteVelocitaY(vely*sign2y);
+        b2.setComponenteVelocitaX(velx*sign2x);
         b2.setMovimentoRimanente(mov);
 
         System.out.println("FINE COLLISIONE");
