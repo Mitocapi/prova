@@ -12,6 +12,7 @@ public class Collision {
     int sign1x;
     int sign2y;
     int sign2x;
+    double vris;
     public void hitWall(Ball b,int direction){
         if (direction == 0) {
             b.setComponenteVelocitaX(- b.getComponenteVelocitaX()/2);
@@ -94,35 +95,41 @@ public class Collision {
 
 
 
-        System.out.println("INIZIO COLLISIONE");
-        System.out.println("B1 collisione\n"+b.movimentoRimanente);
-        System.out.println(b.getComponenteVelocitaX());
-        System.out.println(b.getComponenteVelocitaY());
-        System.out.println("B1 fine rev");
-
-        System.out.println("B2 collisione\n"+b2.movimentoRimanente);
-        System.out.println(b2.getComponenteVelocitaX());
-        System.out.println(b2.getComponenteVelocitaY());
-        System.out.println("B2 fine rev");
+        System.out.println("INIZIO COLLISIONE tra b1 e b2");
+        System.out.println("B1");
+        System.out.println("movimento rimanente: "+b.movimentoRimanente);
+        System.out.println("vel x: "+b.getComponenteVelocitaX());
+        System.out.println("vel y: "+b.getComponenteVelocitaY());
+        System.out.println("num pallina: "+b.num);
+        System.out.println("---------------");
+        System.out.println("B2");
+        System.out.println("movimento rimanente: "+b2.movimentoRimanente);
+        System.out.println("vel x: "+b2.getComponenteVelocitaX());
+        System.out.println("vel y: "+b2.getComponenteVelocitaY());
+        System.out.println("num pallina: "+b2.num);
 
         b.setComponenteVelocitaY((b2.getComponenteVelocitaY())*sign1y);
         b.setComponenteVelocitaX((b2.getComponenteVelocitaX())*sign1x);
         b.setMovimentoRimanente(mov);
 
         b2.setComponenteVelocitaY((b2.getComponenteVelocitaY())*sign2y);
-        b2.setComponenteVelocitaX((b2.getComponenteVelocitaX()*sign2x));
+        b2.setComponenteVelocitaX((b2.getComponenteVelocitaX()*(sign2x)));
         b2.setMovimentoRimanente(mov);
 
         System.out.println("FINE COLLISIONE");
-        System.out.println("B1 collisione"+b.movimentoRimanente);
-        System.out.println(b.getComponenteVelocitaX());
-        System.out.println(b.getComponenteVelocitaY());
-        System.out.println("B1 fine rev");
-
-        System.out.println("B2 collisione"+b2.movimentoRimanente);
-        System.out.println(b2.getComponenteVelocitaX());
-        System.out.println(b2.getComponenteVelocitaY());
-        System.out.println("B2 fine rev\n\n");
+        System.out.println("B1");
+        System.out.println("movimento rimanente: "+b.movimentoRimanente);
+        System.out.println("vel x: "+b.getComponenteVelocitaX());
+        System.out.println("vel y: "+b.getComponenteVelocitaY());
+        System.out.println("num pallina: "+b.num);
+        System.out.println("---------------");
+        System.out.println("B2");
+        System.out.println("movimento rimanente: "+b2.movimentoRimanente);
+        System.out.println("vel x: "+b2.getComponenteVelocitaX());
+        System.out.println("vel y: "+b2.getComponenteVelocitaY());
+        System.out.println("num pallina: "+b2.num);
+        System.out.println("\n\n");
+        System.out.println("++++++++++++++++++++++++++++++++++");
 
 
 

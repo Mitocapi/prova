@@ -104,17 +104,17 @@ public class Table extends JPanel implements ActionListener {
      palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));
       palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
       palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
-      palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
-      palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
-      palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
-      palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
-      palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
-      palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
-        palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
-        palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
-        palleInGioco.add(new Ball(ball_startX+100,ball_startY));
-        palleInGioco.add(new Ball(ball_startX+100,ball_startY-60));
-        palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
+     // palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
+     // palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
+     // palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
+     // palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
+     // palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
+     // palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
+     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
+     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
+     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY));
+     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY-60));
+     //   palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
 
 
         whiteBall = new PallaBianca(initialPos.x, initialPos.y);
