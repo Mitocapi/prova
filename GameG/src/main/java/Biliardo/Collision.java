@@ -70,7 +70,7 @@ public class Collision {
 
         velx=Math.abs(b.getComponenteVelocitaX())+Math.abs(b2.getComponenteVelocitaX());
         vely=Math.abs(b.getComponenteVelocitaY())+ Math.abs(b2.getComponenteVelocitaY());
-        mov=(b.getMovimentoRimanente()+b2.getMovimentoRimanente());
+        mov=((b.getMovimentoRimanente()+b2.getMovimentoRimanente())/2);
 
 
         if(b.getComponenteVelocitaY()>=0)

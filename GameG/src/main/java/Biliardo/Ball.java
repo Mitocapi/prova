@@ -59,6 +59,9 @@ public class Ball {
     public int getMovimentoRimanente() {
         return movimentoRimanente;
     }
+    public int getNum() {
+        return num;
+    }
 
     public Color getColor() {
         return ballColor;
@@ -66,6 +69,9 @@ public class Ball {
 
     public static void setColore(Color colore) {
         ballColor = colore;
+    }
+    public void setNum(int Num){
+        this.num=Num;
     }
 
     public int getComponenteVelocitaY() {
@@ -116,6 +122,7 @@ public class Ball {
 
     public void MYpaintComponents(Graphics g, Color col,int num) {
         g.setColor(col);
+        setNum(num);
         if(num==1 || num==9)
             g.setColor(new Color(247,217,23));
         if(num==2 || num==10)
@@ -171,6 +178,9 @@ public class Ball {
             if (componenteVelocitaY != 0)
                 dy = Math.abs(getComponenteVelocitaY() / 200);
 
+        }
+        if (movimentoRimanente > MAX_VEL) {
+            movimentoRimanente = MAX_VEL;
         }
         if (movimentoRimanente>0) {
             if (getComponenteVelocitaX() > 0) {
