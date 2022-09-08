@@ -1,10 +1,13 @@
 package Biliardo;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 public class Collision {
+
     int velx;
     int vely;
     int mov;
@@ -74,6 +77,12 @@ public class Collision {
         vely= (int) (vely/1.6);
         mov=((b.getMovimentoRimanente()+b2.getMovimentoRimanente())/2);
 
+        vris=Math.sqrt(Math.pow(velx,2)+Math.pow(vely,2));
+        velx= (int) (vris*Math.sin(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
+        vely= (int) (vris*Math.cos(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
+
+
+
 
         if(b.getComponenteVelocitaY()>=0)
             sign1y=1;
@@ -95,9 +104,33 @@ public class Collision {
         else
             sign2y=-1;
 
+        if(b.getComponenteVelocitaX()==0){
+            sign1x=sign2x;
+            sign2x=-sign2x;
+        }
+        else if(b2.getComponenteVelocitaX()==0){
+            sign2x=sign1x;
+            sign1x=-sign1x;
+        }
+        if(b.getComponenteVelocitaY()==0){
+            sign1y=sign2y;
+            sign2y=-sign2y;
+        }
+        else if(b2.getComponenteVelocitaY()==0){
+            sign2y=sign1y;
+            sign1y=-sign1y;
+        }
+
+        double an=getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()));
+
+
+
+
+
 
 
         System.out.println("INIZIO COLLISIONE tra b1 e b2");
+        System.out.println("la collisione ha un angolo di "+an);
         System.out.println("B1");
         System.out.println("movimento rimanente: "+b.movimentoRimanente);
         System.out.println("vel x: "+b.getComponenteVelocitaX());
@@ -140,6 +173,17 @@ public class Collision {
         b2.MoveBall();
 
     }
+    public double getAngle(Point p1,Point p2){
+        int angle = (int) Math.toDegrees(Math.atan2(p1.y - p2.x, p1.x - p2.x));
 
+        if(angle < 0){
+            angle += 360;
+        }
+        while (angle>360)
+            angle-=360;
+
+        return angle;
+
+    }
 
 }

@@ -11,22 +11,12 @@ import java.awt.geom.Point2D;
  */
 public class Vector extends Point2D.Double{
 
-//	private double magnitude;	//The length/speed
-//	private double direction;	//The angle it is going
-
     public Vector(double x, double y){
 
         super(x,y);
 
     }
 
-//	public Vector(double magnitude, double direction){
-//
-//		this.magnitude = magnitude;
-//		this.direction = direction;
-//
-//		this.x = magnitude *
-//	}
 
     public Vector(Point2D p1, Point2D p2) {
         //Creates a vector between the two points

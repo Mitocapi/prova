@@ -100,16 +100,16 @@ public class Table extends JPanel implements ActionListener {
         //cambio 10 con 15
 
         palleInGioco = new ArrayList<>();
-      palleInGioco.add(new Ball(ball_startX, ball_startY));
-     palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));
-      palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
-      palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
-     palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
-     palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
-     palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
-     palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
-     palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
-     palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
+        palleInGioco.add(new Ball(ball_startX, ball_startY));
+        palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));
+       palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
+       palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
+       palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
+       palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
        palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
        palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
        palleInGioco.add(new Ball(ball_startX+100,ball_startY));
@@ -256,7 +256,7 @@ public class Table extends JPanel implements ActionListener {
         //System.out.println(cont);
 
         if(cont%1==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-           timer.setDelay(DELAY++);
+            timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))
@@ -350,7 +350,6 @@ public class Table extends JPanel implements ActionListener {
             return -an;
         else
             return -(Math.PI-an);
-
 
     }
 
