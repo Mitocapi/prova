@@ -255,8 +255,8 @@ public class Table extends JPanel implements ActionListener {
         cont++;
         //System.out.println(cont);
 
-        if(cont%1==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            timer.setDelay(DELAY++);
+        //if(cont%1==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //    timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))

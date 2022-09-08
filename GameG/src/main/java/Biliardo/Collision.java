@@ -77,6 +77,11 @@ public class Collision {
         vely= (int) (vely/1.6);
         mov=((b.getMovimentoRimanente()+b2.getMovimentoRimanente())/2);
 
+        while(Math.abs(velx)>5000)
+            velx=velx/100;
+        while(Math.abs(vely)>5000)
+            vely=vely/100;
+
         vris=Math.sqrt(Math.pow(velx,2)+Math.pow(vely,2));
         velx= (int) (vris*Math.sin(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
         vely= (int) (vris*Math.cos(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));

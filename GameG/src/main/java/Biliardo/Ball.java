@@ -225,11 +225,6 @@ public class Ball {
             }
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
         }
-        if(componenteVelocitaX!=0)
-            setComponenteVelocitaX(componenteVelocitaX--);
-        if(componenteVelocitaY!=0)
-            setComponenteVelocitaY(componenteVelocitaY--);
-
         if (componenteVelocitaX ==0 && componenteVelocitaY ==0) {
             dy =0;
             dx =0;
