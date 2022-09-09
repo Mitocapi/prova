@@ -158,11 +158,11 @@ public class Table extends JPanel implements ActionListener {
 
     private void setPit(Point[] pit) {
         pit[0]=(new Point(x_board-pit_dim/2 +10, y_board-pit_dim/2 +10));
-        pit[1]=(new Point(BOARD_WIDTH/2 -pit_dim/2,y_board -pit_dim/2 +5 ));
+        pit[1]=(new Point(BOARD_WIDTH/2 -pit_dim/2,y_board -pit_dim/2 +10 ));
         pit[2]=(new Point(BOARD_WIDTH-x_board -pit_dim/2 -10,y_board-pit_dim/2 +10));
-        pit[3]=(new Point(x_board-pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
-        pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
-        pit[5]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
+        pit[3]=(new Point(x_board-pit_dim/2 +10,BOARD_HEIGHT-y_board-pit_dim/2 ));
+        pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2));
+        pit[5]=(new Point(BOARD_WIDTH-x_board -pit_dim/2 -10,BOARD_HEIGHT-y_board-pit_dim/2));
     }
 
 
@@ -275,8 +275,8 @@ public class Table extends JPanel implements ActionListener {
 
         //check collision con i 4 rettagoli
         g2d.setPaint(Color.darkGray);
-        g2d.fillRect(x_board, y_board + 20, 10, 285);
-        g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 285);
+        g2d.fillRect(x_board, y_board + 20, 10, 300);
+        g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 300);
         g2d.fillRect(x_board,y_board,560,10);
         g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
         //buche
