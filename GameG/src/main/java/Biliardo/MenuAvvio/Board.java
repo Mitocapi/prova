@@ -18,11 +18,11 @@ public class Board extends JPanel implements Runnable,MouseListener {
     private final int INITIAL_Y=100;
     private int DELAY=1;
 
-    public Rectangle bottonePlay = new Rectangle(225,142,350,60);
-    public Rectangle bottoneAltro = new Rectangle(225,212,350,60);
-    public Rectangle bottoneColori = new Rectangle(225,282,350,60 );
-    public Rectangle bottoneColoriP2 = new Rectangle(225,352,350,60 );
-    public Rectangle bottoneChiudi = new Rectangle(225,422,350,60);
+    public Rectangle bottonePlay = new Rectangle(255,152,290,40);
+    public Rectangle bottoneAltro = new Rectangle(255,222,290,40);
+    public Rectangle bottoneColori = new Rectangle(255,292,290,40 );
+    public Rectangle bottoneColoriP2 = new Rectangle(255,362,290,40 );
+    public Rectangle bottoneChiudi = new Rectangle(255,432,290,40);
 
     public static Color colorBall1;
     public static Color colorBall2;
@@ -217,11 +217,11 @@ public class Board extends JPanel implements Runnable,MouseListener {
         Font fontbottoni = new Font("arial", Font.BOLD, 30);
         g.setFont(fontbottoni);
         g.setColor(Color.white);
-        g.drawString("SINGLE PLAYER", bottonePlay.x+53, bottonePlay.y+42);
-        g.drawString("P1 vs P2", bottoneAltro.x+113, bottoneAltro.y+42);
-        g.drawString("COLORE P1", bottoneColori.x + 88, bottoneColori.y + 42);
-        g.drawString("COLORE P2 / COM", bottoneColoriP2.x + 40, bottoneColoriP2.y + 42);
-        g.drawString("CHIUDI", bottoneChiudi.x+123, bottoneChiudi.y+42);
+        g.drawString("SINGLE PLAYER", bottonePlay.x+20, bottonePlay.y+30);
+        g.drawString("P1 vs P2", bottoneAltro.x+80, bottoneAltro.y+30);
+        g.drawString("COLORE P1", bottoneColori.x + 60, bottoneColori.y + 30);
+        g.drawString("COLORE P2 / COM", bottoneColoriP2.x + 10, bottoneColoriP2.y + 30);
+        g.drawString("CHIUDI", bottoneChiudi.x+93, bottoneChiudi.y + 30);
     }
 
     public void mousePressed (MouseEvent e){
