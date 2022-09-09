@@ -18,9 +18,9 @@ public class Collision {
     double vris;
     public void hitWall(Ball b,int direction){
         if (direction == 0) {
-            b.setComponenteVelocitaX(- b.getComponenteVelocitaX()/2);
+            b.setComponenteVelocitaX(- b.getComponenteVelocitaX());
         } else {
-            b.setComponenteVelocitaY(- b.getComponenteVelocitaY()/2);
+            b.setComponenteVelocitaY(- b.getComponenteVelocitaY());
         }
     }
 

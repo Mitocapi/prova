@@ -38,7 +38,7 @@ public class Table extends JPanel implements ActionListener {
     public static final int standard_height = 110;
     public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //285 per centrare
     public static int y_board = (BOARD_HEIGHT / 2) - (standard_height * size_const) / 2; //
-    public final int pit_dim = 40;
+    public final int pit_dim = 30;
 
 
     Point p_shoot=new Point();
@@ -157,9 +157,9 @@ public class Table extends JPanel implements ActionListener {
 
 
     private void setPit(Point[] pit) {
-        pit[0] = (new Point(x_board-pit_dim/2, y_board-pit_dim/2));
-        pit[1] = (new Point(BOARD_WIDTH/2 -pit_dim/2,y_board -pit_dim/2 ));
-        pit[2]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,y_board-pit_dim/2));
+        pit[0]=(new Point(x_board-pit_dim/2 +10, y_board-pit_dim/2 +10));
+        pit[1]=(new Point(BOARD_WIDTH/2 -pit_dim/2,y_board -pit_dim/2 +5 ));
+        pit[2]=(new Point(BOARD_WIDTH-x_board -pit_dim/2 -10,y_board-pit_dim/2 +10));
         pit[3]=(new Point(x_board-pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
         pit[4]=(new Point(BOARD_WIDTH/2 -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));
         pit[5]=(new Point(BOARD_WIDTH-x_board -pit_dim/2,BOARD_HEIGHT-y_board-pit_dim/2-7));

@@ -169,14 +169,14 @@ public class Ball {
 
     public void MoveBall() {
         if(dx==0 && dy==0) {
-            movimentoRimanente = Math.abs(getComponenteVelocitaX()) + Math.abs(getComponenteVelocitaY()) * 2;
+            movimentoRimanente = Math.abs(getComponenteVelocitaX()) + Math.abs(getComponenteVelocitaY())*2;
             if (movimentoRimanente > MAX_VEL) {
                 movimentoRimanente = MAX_VEL;
             }
             if (componenteVelocitaX != 0)
-                dx = Math.abs(getComponenteVelocitaX() / 200);
+                dx = Math.abs(getComponenteVelocitaX() / 100);
             if (componenteVelocitaY != 0)
-                dy = Math.abs(getComponenteVelocitaY() / 200);
+                dy = Math.abs(getComponenteVelocitaY() / 100);
 
         }
         if (movimentoRimanente > MAX_VEL) {
@@ -184,11 +184,11 @@ public class Ball {
         }
         if (movimentoRimanente>0) {
             if (componenteVelocitaX != 0)
-                dx = Math.abs(getComponenteVelocitaX() / 200);
+                dx = Math.abs(getComponenteVelocitaX() / 100);
             else
                 dx=0;
             if (componenteVelocitaY != 0)
-                dy = Math.abs(getComponenteVelocitaY() / 200);
+                dy = Math.abs(getComponenteVelocitaY() / 100);
             else dy=0;
 
             if (getComponenteVelocitaX() > 0) {
@@ -224,6 +224,7 @@ public class Ball {
                 }
             }
             // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
+
         }
         if (componenteVelocitaX ==0 && componenteVelocitaY ==0) {
             dy =0;
