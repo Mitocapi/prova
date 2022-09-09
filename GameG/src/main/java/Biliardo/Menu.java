@@ -1,10 +1,15 @@
 package Biliardo;
 
+import Biliardo.MenuAvvio.Board;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Graphics;
+
+//QUESTA CLASSE è ABBASTANZA INUTILE, IL SUO CONTENUTO è STATO SPOSTATO IN BOARD!!!
+
 
 public class Menu extends JPanel implements MouseListener {
     public Table tavolo;
@@ -15,7 +20,7 @@ public class Menu extends JPanel implements MouseListener {
     public static Color colorPalle;
 
 
-    /*public void drawMenu(Graphics g){
+    public void drawMenu(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -40,11 +45,11 @@ public class Menu extends JPanel implements MouseListener {
         Font fontbottoni = new Font ("arial", Font.BOLD, 30);
         g.setFont(fontbottoni);
         g.setColor(Color.white);
-        g.drawString("Gioca", bottonePlay.x+110, bottonePlay.y+35);
+        g.drawString("P1 vs P2", bottonePlay.x+110, bottonePlay.y+35);
         g.drawString("Chiudi", bottoneChiudi.x+110, bottoneChiudi.y+35 );
-        g.drawString("Seleziona Colore", bottoneAltro.x+25, bottoneAltro.y+35 );
+        g.drawString("SINGLE PLAYER", bottoneAltro.x+25, bottoneAltro.y+35 );
 
-    }*/ //OBSOLETO
+    }
 
     public static void score(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
@@ -62,7 +67,7 @@ public class Menu extends JPanel implements MouseListener {
         g.clearRect(0,0,Table.BOARD_WIDTH,Table.BOARD_HEIGHT);
 
     }
-    public void optionColor(Graphics g){
+    /*public void optionColor(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
 
         Color coloreSfondo = new Color(10,100,1);
@@ -85,17 +90,18 @@ public class Menu extends JPanel implements MouseListener {
         g2d.draw(bottoneAltro);
         g2d.draw(bottoneChiudi);
 
-    }
+    } NON SERVE PIù SCEGLIERE COSI MALE I COLORI*/
+
     public void mousePressed (MouseEvent e){
         int mouseX = e.getX();
         int mouseY = e.getY();
         if(mouseX>=Table.BOARD_WIDTH/4 + 150 && mouseX <= Table.BOARD_WIDTH/4 + 450 ){
             if(RunGame.statoAttuale== RunGame.STATO.MENU) {
                 if (mouseY >= 240 && mouseY <= 290) {
+                    Board.game_mode=1;
                     RunGame.statoAttuale = RunGame.STATO.GIOCO;
                     System.out.println(RunGame.statoAttuale);
-                    tavolo = new Table();
-                    //tavolo.initBoard();
+
                 }
                 else if (mouseY >= 540 && mouseY <= 590) {
                     System.exit(1);

@@ -18,9 +18,12 @@ public class Board extends JPanel implements Runnable,MouseListener {
     private final int INITIAL_Y=100;
     private int DELAY=1;
 
-    public Rectangle bottonePlay = new Rectangle(Table.BOARD_WIDTH/4 - 175,125,250,35);
-    public Rectangle bottoneChiudi = new Rectangle(Table.BOARD_WIDTH/4 - 175,265,250,35);
-    public Rectangle bottoneAltro = new Rectangle(Table.BOARD_WIDTH/4 - 175,195,250,35);
+    public Rectangle bottonePlay = new Rectangle(225,142,350,60);
+    public Rectangle bottoneAltro = new Rectangle(225,212,350,60);
+    public Rectangle bottoneColori = new Rectangle(225,282,350,60 );
+    public Rectangle bottoneColoriP2 = new Rectangle(225,352,350,60 );
+    public Rectangle bottoneChiudi = new Rectangle(225,422,350,60);
+
     public static Color colorBall1;
     public static Color colorBall2;
     public static int game_mode;
@@ -53,10 +56,10 @@ public class Board extends JPanel implements Runnable,MouseListener {
     private void initBoard(){
 
         setBackground(new Color(40,70,40));
-        //addMouseListener(this);
+        addMouseListener(this);
 
         setLayout(new FlowLayout());
-
+/*
         pvp.setText("player 1 vs player 2");
         pvp.setPreferredSize(new Dimension(200,20));
         pvp.setLocation(10,100);
@@ -101,7 +104,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
             new ColorChooser();
             colorBall2=ColorChooser.colorePalle;
         });
-        add(colour2);
+        add(colour2); */
 
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         loadImage();
@@ -156,9 +159,10 @@ public class Board extends JPanel implements Runnable,MouseListener {
 
 
     @Override
-    public void run() {
+    public void run()  {
         long bTime,timeDiff,sleep;
         bTime=System.currentTimeMillis();
+
 
         while(true){
             cycle();
@@ -194,40 +198,58 @@ public class Board extends JPanel implements Runnable,MouseListener {
         g.setColor(coloreSfondo);
         g.fillRect(0, 0, Table.BOARD_WIDTH, Table.BOARD_HEIGHT);
         g.setColor(Color.black);
-        g.fillOval(75, 40, 350, 350);
+        g.fillOval(150, 60, 500, 500);
         Font fontTitoloMenu = new Font("titolo", Font.BOLD, 35);
         g.setFont(fontTitoloMenu);
         g.setColor(Color.RED);
-        g.drawString("title", 125, 35);
+        g.drawString("Biliardo", 325, 35);
         g.setColor(Color.darkGray);
         g2d.draw(bottonePlay);
         g2d.draw(bottoneAltro);
+        g2d.draw(bottoneColori);
+        g2d.draw(bottoneColoriP2);
         g2d.draw(bottoneChiudi);
-        g.fillRect(Table.BOARD_WIDTH / 4 -175 , 125, 250, 35);
-        g.fillRect(Table.BOARD_WIDTH / 4 -175, 195, 250, 35);
-        g.fillRect(Table.BOARD_WIDTH / 4 -175, 265, 250, 35);
+        g.fillRect(bottonePlay.x, bottonePlay.y, bottonePlay.width, bottonePlay.height);
+        g.fillRect(bottoneAltro.x, bottoneAltro.y, bottoneAltro.width, bottoneAltro.height);
+        g.fillRect(bottoneColori.x, bottoneColori.y, bottoneColori.width, bottoneColori.height);
+        g.fillRect(bottoneColoriP2.x, bottoneColoriP2.y, bottoneColoriP2.width, bottoneColoriP2.height);
+        g.fillRect(bottoneChiudi.x, bottoneChiudi.y, bottoneChiudi.width, bottoneChiudi.height);
         Font fontbottoni = new Font("arial", Font.BOLD, 30);
         g.setFont(fontbottoni);
         g.setColor(Color.white);
-        g.drawString("Gioca", bottonePlay.x+80, bottonePlay.y+30);
-        g.drawString("Chiudi", bottoneChiudi.x+80, bottoneChiudi.y+30);
-        g.drawString("Seleziona Colore", bottoneAltro.x+5, bottoneAltro.y+30);
+        g.drawString("SINGLE PLAYER", bottonePlay.x+53, bottonePlay.y+42);
+        g.drawString("P1 vs P2", bottoneAltro.x+113, bottoneAltro.y+42);
+        g.drawString("COLORE P1", bottoneColori.x + 88, bottoneColori.y + 42);
+        g.drawString("COLORE P2 / COM", bottoneColoriP2.x + 40, bottoneColoriP2.y + 42);
+        g.drawString("CHIUDI", bottoneChiudi.x+123, bottoneChiudi.y+42);
     }
 
     public void mousePressed (MouseEvent e){
         int mouseX = e.getX();
         int mouseY = e.getY();
-        if(mouseX>=Table.BOARD_WIDTH/4 -175 && mouseX <= Table.BOARD_WIDTH/4 -175+250 ){
-                if (mouseY >= 125 && mouseY <= 160) {
+        if(mouseX>=bottonePlay.x && mouseX <= bottonePlay.x + bottonePlay.width ){
+                if (mouseY >= bottonePlay.y && mouseY <= bottonePlay.y+bottonePlay.height) {
                     removeMouseListener(this);
+                    game_mode=1;
                     new RunGame();
                     setVisible(false);
                 }
-                else if (mouseY >= 265 && mouseY <= 265+35) {
-                    System.exit(1);
+                else if (mouseY >= bottoneAltro.y && mouseY <= bottoneAltro.y+bottoneAltro.height) {
+                    removeMouseListener(this);
+                    game_mode=0;
+                    new RunGame();
+                    setVisible(false);
                 }
-                else if (mouseY >= 195 && mouseY <= 195+35) {
+                else if (mouseY>= bottoneColori.y && mouseY <= bottoneColori.y+ bottoneColori.height){
                     new ColorChooser();
+                    colorBall1=ColorChooser.colorePalle;
+                }
+                else if (mouseY>= bottoneColoriP2.y && mouseY <= bottoneColoriP2.y+ bottoneColoriP2.height){
+                    new ColorChooser();
+                    colorBall2=ColorChooser.colorePalle;
+                }
+                else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y+ bottonePlay.height) {
+                    System.exit(1);
                 }
         }
 
