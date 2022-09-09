@@ -11,6 +11,7 @@ import static Biliardo.Table.BOARD_WIDTH;
 public class Ball {
     private static final int MAX_VEL =3000 ;
     int radius;
+
     Collision c=new Collision();
     static Color ballColor;
     int x_wall_up=Table.x_board;
@@ -231,6 +232,8 @@ public class Ball {
             dx =0;
             movimentoRimanente=0;
         }
+
+
 
         // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
 

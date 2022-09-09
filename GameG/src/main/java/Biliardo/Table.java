@@ -169,7 +169,7 @@ public class Table extends JPanel implements ActionListener {
 
 
 
-    public void checkCollision() {
+    public void checkPit() {
 
         for(int i=0;i<pit.length;i++){
 
@@ -456,6 +456,7 @@ public class Table extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         moveCue();
         repaint();
+        checkPit();
         c.checkCollision(palleInGioco,whiteBall);
     }
 }
