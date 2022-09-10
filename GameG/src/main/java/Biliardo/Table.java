@@ -373,7 +373,17 @@ public class Table extends JPanel implements ActionListener {
 
     }
     public void shoot() {
-        if (whiteBall.movimentoRimanente <= 0) {
+        int permit=1;
+
+        /*for(Ball b: palleInGioco){
+            if(b.isMoving())
+                permit=0;
+        }*/
+        if (whiteBall.movimentoRimanente <= 0 && permit==1) {
+
+            for(Ball b : palleInGioco)
+                if(b.isMoving())
+
             num++;
             if (num % 2 == 0 && Board.game_mode==0) {
                 shootRandom();

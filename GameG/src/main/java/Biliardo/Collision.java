@@ -52,7 +52,7 @@ public class Collision {
     public void checkCol2(Ball b,Ball b2){
         double distX=b.getXposition()-b2.getXposition();
         double distY=b.getYposition()- b2.getYposition();
-        double radSum=b.getRadius()*2;
+        double radSum=b.getRadius()*2 +3;
         double dist=Math.sqrt((distX*distX)+(distY*distY));
         if(dist<=radSum){
             if(b.getComponenteVelocitaX()>0 || b.getComponenteVelocitaY()>0 || b2.getComponenteVelocitaX()>0 || b2.getComponenteVelocitaY()>0)
@@ -127,13 +127,6 @@ public class Collision {
         }
 
         double an=getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()));
-
-
-
-
-
-
-
         System.out.println("INIZIO COLLISIONE tra b1 e b2");
         System.out.println("la collisione ha un angolo di "+an);
         System.out.println("B1");

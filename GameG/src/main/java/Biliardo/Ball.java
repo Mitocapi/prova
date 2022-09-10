@@ -49,6 +49,12 @@ public class Ball {
         }
     }
 
+    public boolean isMoving(){
+        if(getComponenteVelocitaX()!=0 || getComponenteVelocitaY() !=0)
+            return true;
+        return false;
+    }
+
 
     public int getRadius() {
         return radius;
@@ -213,7 +219,7 @@ public class Ball {
             if (getComponenteVelocitaY() > 0) {
                 setYposition(getYposition() + dy);
                 setMovimentoRimanente(movimentoRimanente - Math.abs(dx) - Math.abs(dy));
-                if (getYposition() + getRadius()*2 >= 567) {
+                if (getYposition() + getRadius()*2 >= 580) {
                     //MODIFICA QUELLO 0 CON LA POSIZIONE DEI BORDI DEL CAMPO
                     c.hitWall(Ball.this,1);
                 }
