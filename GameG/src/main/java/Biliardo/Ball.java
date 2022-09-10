@@ -191,7 +191,7 @@ public class Ball {
         if (movimentoRimanente > MAX_VEL) {
             movimentoRimanente = MAX_VEL;
         }
-        if (movimentoRimanente>0) {
+        if (getMovimentoRimanente()>0) {
             if (componenteVelocitaX != 0)
                 dx = Math.abs(getComponenteVelocitaX() / 100);
             else
@@ -240,9 +240,6 @@ public class Ball {
             dx =0;
             movimentoRimanente=0;
         }
-
-
-
         // CONTROLLA LE COLLISIONI CON L'ARRAY DI PALLE
 
     }

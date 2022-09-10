@@ -259,8 +259,8 @@ public class Table extends JPanel implements ActionListener {
         cont++;
         //System.out.println(cont);
 
-        //if(cont%1==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //    timer.setDelay(DELAY++);
+        if(cont%2==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            timer.setDelay(DELAY++);
 
         if(whiteBall.movimentoRimanente<=0) {
             if(Ball.checkMove(palleInGioco))
@@ -390,8 +390,8 @@ public class Table extends JPanel implements ActionListener {
             } else {
                 whiteBall.movimentoRimanente = 3000;
 
-                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 6);
-                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 6);
+                whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
+                whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
                 System.out.println("tiro x "+whiteBall.getComponenteVelocitaX());
                 System.out.println("tiro y "+whiteBall.getComponenteVelocitaY());
                 whiteBall.dx = 0;

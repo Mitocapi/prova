@@ -75,7 +75,7 @@ public class Collision {
         velx= (int) (velx/1.6);
         vely=Math.abs(b.getComponenteVelocitaY())+ Math.abs(b2.getComponenteVelocitaY());
         vely= (int) (vely/1.6);
-        mov=((b.getMovimentoRimanente()+b2.getMovimentoRimanente())/2);
+        mov= (int) ((b.getMovimentoRimanente()+b2.getMovimentoRimanente())/2);
 
         while(Math.abs(velx)>5000)
             velx=velx/100;
