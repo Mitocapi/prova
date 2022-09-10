@@ -32,8 +32,8 @@ public class Table extends JPanel implements ActionListener {
     private static int DELAY = 1;
     static int size_const = 3;
 
-    private int dispose=15; //aumenta se aumenti raggio palline, serve per disporr le palline in buca
-
+    private int dispose1=15; //aumenta se aumenti raggio palline, serve per disporr le palline in buca
+    private int dispose2=15;
     public static final int standard_width = 190; //standard dimension of billiard board
     public static final int standard_height = 110;
     public static int x_board = (BOARD_WIDTH / 2) - (standard_width * size_const) / 2; //285 per centrare
@@ -63,6 +63,7 @@ public class Table extends JPanel implements ActionListener {
     JLabel shoot_label=new JLabel();
     int num=0;
     Random random=new Random();
+    int turno=0;
 
     Point initialPos=new Point(x_board+50,BOARD_HEIGHT/2);
 
@@ -181,9 +182,16 @@ public class Table extends JPanel implements ActionListener {
                 if (b.getXposition() <= 20 + pit[i].x && b.getXposition() >= pit[i].x - 20) {
                     if (b.getYposition() <= 20 + pit[i].y && b.getYposition() >= pit[i].y - 20) {
                         System.out.println("buca ok");
-                        b.setXposition(1050);
-                        b.setYposition(485 - dispose);
-                        dispose+=30;
+                        if(turno%2==0){
+                            b.setXposition(1050);
+                            b.setYposition(485 - dispose1);
+                            dispose1+=30;
+                        }
+                        else{
+                            b.setXposition(1080);
+                            b.setYposition(485 - dispose2);
+                            dispose2+=30;
+                        }
                         b.dx = 0;
                         b.dy = 0;
                         b.setComponenteVelocitaX(0);
@@ -415,6 +423,8 @@ public class Table extends JPanel implements ActionListener {
             cont=0;
             control=1;
             coin_trigger=1;
+            turno++;
+
 
             c.stopBall(palleInGioco);
             shoot();
