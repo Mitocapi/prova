@@ -1,5 +1,8 @@
 package Biliardo;
 
+import Biliardo.MenuAvvio.Board;
+import Biliardo.MenuAvvio.ColorChooser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -132,6 +135,24 @@ public class Ball {
     public void MYpaintComponents(Graphics g, Color col,int num) {
         g.setColor(col);
 
+        if(ColorChooser.selected==1){
+
+            if(this.number<=8){
+                g.setColor(Board.colorBall1);
+                g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
+                if(this.number==0){
+                    g.setColor(Color.white);
+                    g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
+
+                }
+            }else{
+                g.setColor(Board.colorBall2);
+                g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
+            }
+
+
+
+        }else{
         if(this.number==1 || this.number==9)
             g.setColor(new Color(247,217,23));
         if(this.number==2 || this.number==10)
@@ -163,6 +184,7 @@ public class Ball {
             g.setColor(Color.black);
             g.drawString(""+this.number,posizioneX-6,posizioneY+6);
 
+        }
         }
 
     }
