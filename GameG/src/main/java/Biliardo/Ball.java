@@ -11,6 +11,7 @@ import static Biliardo.Table.BOARD_WIDTH;
 public class Ball {
     private static final int MAX_VEL =3000 ;
     int radius;
+    int number;
 
     Collision c=new Collision();
     static Color ballColor;
@@ -107,10 +108,11 @@ public class Ball {
         this.posizioneY = posizioneY;
     }
 
-    public Ball(int posx, int posy) {
+    public Ball(int posx, int posy,int number) {
         ballColor = new Color(0, 0, 0);
 
         this.radius = 10;
+        this.number=number;
         this.posizioneX = posx;
         this.posizioneY = posy;
         this.componenteVelocitaX = 0;
@@ -123,29 +125,29 @@ public class Ball {
 
     public void MYpaintComponents(Graphics g, Color col,int num) {
         g.setColor(col);
-        setNum(num);
-        if(num==1 || num==9)
+
+        if(this.number==1 || this.number==9)
             g.setColor(new Color(247,217,23));
-        if(num==2 || num==10)
+        if(this.number==2 || this.number==10)
             g.setColor(new Color(65,175,225));
-        if(num==3 || num==11)
+        if(this.number==3 || this.number==11)
             g.setColor(new Color(204,0,0));
-        if(num==4 || num==12)
+        if(this.number==4 || this.number==12)
             g.setColor(new Color(75,0,130));
-        if(num==5 || num==13)
+        if(this.number==5 || this.number==13)
             g.setColor(new Color(255,69,0));
-        if(num==6 || num==14)
+        if(this.number==6 || this.number==14)
             g.setColor(new Color(0,122,65));
-        if(num==7|| num==15)
+        if(this.number==7|| this.number==15)
             g.setColor(new Color(153,0,0));
-        if(num==8)
+        if(this.number==8)
             g.setColor(Color.black);
 
-        if(num<=8){
+        if(this.number<=8){
             g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
             if(num!=0){
                 g.setColor(Color.white);
-                g.drawString(""+num,posizioneX-5,posizioneY+5);
+                g.drawString(""+this.number,posizioneX-5,posizioneY+5);
             }
         }else{
             g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
@@ -153,7 +155,7 @@ public class Ball {
             g.setColor(Color.white);
             g.fillOval(posizioneX-7, posizioneY-7, 14, 14);
             g.setColor(Color.black);
-            g.drawString(""+num,posizioneX-6,posizioneY+6);
+            g.drawString(""+this.number,posizioneX-6,posizioneY+6);
 
         }
 

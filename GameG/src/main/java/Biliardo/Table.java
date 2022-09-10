@@ -100,24 +100,28 @@ public class Table extends JPanel implements ActionListener {
         //cambio 10 con 15
 
         palleInGioco = new ArrayList<>();
-        palleInGioco.add(new Ball(ball_startX, ball_startY));
-        palleInGioco.add(new Ball(ball_startX+25,ball_startY+15));
-       palleInGioco.add(new Ball(ball_startX+25,ball_startY-15));      //3
-       palleInGioco.add(new Ball(ball_startX+50,ball_startY+30));      //4
-       palleInGioco.add(new Ball(ball_startX+50,ball_startY));              //5
-       palleInGioco.add(new Ball(ball_startX+50,ball_startY-30));      //6
-       palleInGioco.add(new Ball(ball_startX+75,ball_startY+45));
-       palleInGioco.add(new Ball(ball_startX+75,ball_startY+15));
-       palleInGioco.add(new Ball(ball_startX+75,ball_startY-15));
-       palleInGioco.add(new Ball(ball_startX+75,ball_startY-45));
-       palleInGioco.add(new Ball(ball_startX+100,ball_startY+60));
-       palleInGioco.add(new Ball(ball_startX+100,ball_startY+30));
-       palleInGioco.add(new Ball(ball_startX+100,ball_startY));
-       palleInGioco.add(new Ball(ball_startX+100,ball_startY-60));
-       palleInGioco.add(new Ball(ball_startX+100,ball_startY-30));
+        palleInGioco.add(new Ball(ball_startX, ball_startY,1));                   //1
+        palleInGioco.add(new Ball(ball_startX+25,ball_startY+15,14));
+        palleInGioco.add(new Ball(ball_startX+25,ball_startY-15,3));
 
 
-        whiteBall = new PallaBianca(initialPos.x, initialPos.y);
+
+       palleInGioco.add(new Ball(ball_startX+50,ball_startY+30,5));      //4
+       palleInGioco.add(new Ball(ball_startX+50,ball_startY,8));              //5
+       palleInGioco.add(new Ball(ball_startX+50,ball_startY-30,12));      //6
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY+45,10));
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY+15,6));
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY-15,9));
+       palleInGioco.add(new Ball(ball_startX+75,ball_startY-45,7));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY+60,4));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY+30,15));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY,11));
+        palleInGioco.add(new Ball(ball_startX+100,ball_startY-30,2));
+       palleInGioco.add(new Ball(ball_startX+100,ball_startY-60,13));
+
+
+
+        whiteBall = new PallaBianca(initialPos.x, initialPos.y,0);
         Ball.setBallStop(palleInGioco);
         whiteBall.movimentoRimanente=0;
 
