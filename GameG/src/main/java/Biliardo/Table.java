@@ -1,9 +1,6 @@
 package Biliardo;
 
-import Biliardo.MenuAvvio.Board;
-import Biliardo.MenuAvvio.ColorChooser;
-import Biliardo.MenuAvvio.ThreadAnimation;
-import Biliardo.MenuAvvio.fieldChooser;
+import Biliardo.MenuAvvio.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -159,8 +156,10 @@ public class Table extends JPanel implements ActionListener {
         pack[0][2]="GameG/src/main/resources/images/darkWood.jpg";
         pack[0][3]="GameG/src/main/resources/images/textureLegno.jpg";
         pack[0][4]="GameG/src/main/resources/images/metalTexture.jpg";
-        pack[1][2] = "GameG/src/main/resources/images/campo2.jpg";
-        pack[1][0]="GameG/src/main/resources/images/backgroundB.jpg";
+        pack[1][1]="GameG/src/main/resources/images/backgroundA.jpg";
+        pack[1][2] = "GameG/src/main/resources/images/backgroundB.jpg";
+        pack[1][3]="GameG/src/main/resources/images/tilesB.jpg";
+        pack[1][4]="GameG/src/main/resources/images/outsideTiles.jpg";
 
     }
 
@@ -231,7 +230,7 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         try {
-            background = ImageIO.read(new File(pack[0][0]));
+            background = ImageIO.read(new File(pack[1][backgroundChooser.set_background]));
         } catch (IOException e) {
             e.printStackTrace();
         }
