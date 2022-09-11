@@ -17,7 +17,7 @@ public class ThreadAnimation extends JFrame {
         setResizable(false);
         pack();
 
-        setTitle("Star");
+        setTitle("pool");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

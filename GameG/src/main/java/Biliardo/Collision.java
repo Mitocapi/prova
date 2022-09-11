@@ -83,8 +83,8 @@ public class Collision {
             vely=vely/100;
 
         vris=Math.sqrt(Math.pow(velx,2)+Math.pow(vely,2));
-        velx= (int) (vris*Math.sin(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
-        vely= (int) (vris*Math.cos(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
+        velx= (int) (vris*Math.cos(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
+        vely= (int) (vris*Math.sin(getAngle(new Point(b.getXposition(),b.getYposition()),new Point(b2.getXposition(),b2.getYposition()))));
 
 
 
