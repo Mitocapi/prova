@@ -1,5 +1,7 @@
 package Biliardo;
 
+import Biliardo.MenuAvvio.cueChooser;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +24,13 @@ public class PoolCue  {
 
     public void loadImage(){
         try {
-            poolCueImg = ImageIO.read(new File("GameG/src/main/resources/images/stecca.png"));
+            if(cueChooser.set_cue==1){
+                poolCueImg = ImageIO.read(new File("GameG/src/main/resources/images/stecca.png"));
+            }
+            if(cueChooser.set_cue==2){
+                poolCueImg=ImageIO.read(new File("GameG/src/main/resources/images/stecca2.png"));
+            }
+
             poolCueImg=poolCueImg.getScaledInstance(300,40,0);
         } catch (IOException e) {
             e.printStackTrace();

@@ -41,7 +41,7 @@ public class Table extends JPanel implements ActionListener {
 
     Point p_shoot=new Point();
     Point[] pit = new Point[6]; //array per le buche
-    String[][] pack = new String[2][5];
+    public static String[][] pack = new String[4][5];
     BufferedImage background;
     BufferedImage prov;
     Image BilFrame;
@@ -160,6 +160,12 @@ public class Table extends JPanel implements ActionListener {
         pack[1][2] = "GameG/src/main/resources/images/backgroundB.jpg";
         pack[1][3]="GameG/src/main/resources/images/tilesB.jpg";
         pack[1][4]="GameG/src/main/resources/images/outsideTiles.jpg";
+        pack[2][1]="GameG/src/main/resources/images/campo2.jpg";
+        pack[2][2]="GameG/src/main/resources/images/red.jpg";
+        pack[2][3]="GameG/src/main/resources/images/blue.jpg";
+        pack[2][4]="GameG/src/main/resources/images/ice.jpg";
+        pack[3][1]="GameG/src/main/resources/images/stecca.png";
+        pack[3][2]="GameG/src/main/resources/images/stecca2.png";
 
     }
 
@@ -240,7 +246,7 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         try {
-            field = ImageIO.read(new File(pack[1][2]));
+            field = ImageIO.read(new File(pack[2][carpetChooser.set_carpet]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -341,7 +347,11 @@ public class Table extends JPanel implements ActionListener {
                 angle_shoot=angle;
                 g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
                 g2d.setStroke(new BasicStroke(2));
-                g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80, whiteBall.posizioneY);
+
+                int accuracy=0;
+                if(cueChooser.set_cue==2)
+                    accuracy=40;
+                g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80+accuracy, whiteBall.posizioneY);
                 g2d.setTransform(old2);
             }
         }

@@ -250,7 +250,9 @@ public class Board extends JPanel implements Runnable,MouseListener {
                 }
                 else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y+ bottonePlay.height) {
                     //new backgroundChooser();
-                    new fieldChooser();
+                    //new fieldChooser();
+                    //new carpetChooser();
+                    new cueChooser();
                     //System.exit(1);
                 }
         }
