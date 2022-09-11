@@ -65,6 +65,8 @@ public class fieldChooser extends JFrame {
         setSize(500,500);
         setContentPane(chPanel);
         setResizable(false);
+        setLocationRelativeTo(null);
+
 
         lightWoodButton.addActionListener(e -> {
             set_board=1;
