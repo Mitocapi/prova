@@ -1,5 +1,6 @@
 package Biliardo;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -169,6 +170,21 @@ public class Collision {
 
         b.MoveBall();
         b2.MoveBall();
+
+    }
+    public void checkOut(List<Ball> ball,Ball whiteB){
+
+        for(Ball b : ball){
+            if(b.getXposition()<Table.x_board || b.getXposition()>Table.BOARD_WIDTH-Table.x_board){
+                b.setComponenteVelocitaY(0);
+                b.setComponenteVelocitaX(0);
+                b.setMovimentoRimanente(0);
+                b.setXposition(100);
+                b.setYposition(100);
+
+            }
+        }
+
 
     }
     public double getAngle(Point p1,Point p2){

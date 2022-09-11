@@ -249,7 +249,8 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     colorBall2=ColorChooser.colorePalle;
                 }
                 else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y+ bottonePlay.height) {
-                    System.exit(1);
+                    new fieldChooser();
+                    //System.exit(1);
                 }
         }
 

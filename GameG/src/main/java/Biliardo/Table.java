@@ -3,6 +3,7 @@ package Biliardo;
 import Biliardo.MenuAvvio.Board;
 import Biliardo.MenuAvvio.ColorChooser;
 import Biliardo.MenuAvvio.ThreadAnimation;
+import Biliardo.MenuAvvio.fieldChooser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class Table extends JPanel implements ActionListener {
 
     Point p_shoot=new Point();
     Point[] pit = new Point[6]; //array per le buche
-    String[][] pack = new String[2][3];
+    String[][] pack = new String[2][5];
     BufferedImage background;
     BufferedImage prov;
     Image BilFrame;
@@ -155,9 +156,12 @@ public class Table extends JPanel implements ActionListener {
 
         pack[0][0] = "GameG/src/main/resources/images/backgroundA.jpg";
         pack[0][1] = "GameG/src/main/resources/images/woodA.jpg";
-        pack[0][2] = "GameG/src/main/resources/images/campo2.jpg";
+        pack[0][2]="GameG/src/main/resources/images/darkWood.jpg";
+        pack[0][3]="GameG/src/main/resources/images/textureLegno.jpg";
+        pack[0][4]="GameG/src/main/resources/images/metalTexture.jpg";
+        pack[1][2] = "GameG/src/main/resources/images/campo2.jpg";
         pack[1][0]="GameG/src/main/resources/images/backgroundB.jpg";
-        pack[1][1]="GameG/src/main/resources/images/darkWood.jpg";
+
     }
 
 
@@ -232,12 +236,12 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         try {
-            wood = ImageIO.read(new File(pack[0][1]));
+            wood = ImageIO.read(new File(pack[0][fieldChooser.set_board]));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            field = ImageIO.read(new File(pack[0][2]));
+            field = ImageIO.read(new File(pack[1][2]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -481,6 +485,7 @@ public class Table extends JPanel implements ActionListener {
         moveCue();
         repaint();
         checkPit();
+
         c.checkCollision(palleInGioco,whiteBall);
     }
 }
