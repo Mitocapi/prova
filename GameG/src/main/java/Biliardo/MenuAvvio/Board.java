@@ -2,6 +2,7 @@ package Biliardo.MenuAvvio;
 
 import Biliardo.RunGame;
 import Biliardo.Table;
+import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.DefaultMenuLayout;
@@ -241,18 +242,27 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     setVisible(false);
                 }
                 else if (mouseY>= bottoneColori.y && mouseY <= bottoneColori.y+ bottoneColori.height){
-                    new ColorChooser();
+                    //new ColorChooser();
+                    new fieldChooser();
                     colorBall1=ColorChooser.colorePalle;
                 }
                 else if (mouseY>= bottoneColoriP2.y && mouseY <= bottoneColoriP2.y+ bottoneColoriP2.height){
-                    new ColorChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(backgroundChooser::new);
+
+
+                    //new ColorChooser();
                     colorBall2=ColorChooser.colorePalle;
                 }
                 else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y+ bottonePlay.height) {
                     //new backgroundChooser();
                     //new fieldChooser();
-                    //new carpetChooser();
-                    new cueChooser();
+                    new carpetChooser();
+                    //new cueChooser();
                     //System.exit(1);
                 }
         }
