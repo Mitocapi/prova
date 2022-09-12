@@ -297,7 +297,7 @@ public class Table extends JPanel implements ActionListener {
         //check collision con i 4 rettagoli
         g2d.setPaint(Color.darkGray);
         g2d.fillRect(x_board, y_board + 20, 10, 300);
-        g2d.fillRect(BOARD_WIDTH - x_board - 10, y_board + 20, 10, 300);
+        g2d.fillRect(BOARD_WIDTH - x_board - 8, y_board + 20, 10, 300);
         g2d.fillRect(x_board,y_board,560,10);
         g2d.fillRect(x_board,BOARD_HEIGHT-y_board,560,10);
         //buche
@@ -400,12 +400,9 @@ public class Table extends JPanel implements ActionListener {
             if(b.isMoving())
                 permit=0;
         }*/
+        num++;
         if (whiteBall.movimentoRimanente <= 0 && permit==1) {
 
-            for(Ball b : palleInGioco)
-                if(b.isMoving())
-
-            num++;
             if (num % 2 == 0 && Board.game_mode==0) {
                 shootRandom();
             } else {
