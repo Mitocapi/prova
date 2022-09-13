@@ -21,6 +21,8 @@ public class Table extends JPanel implements ActionListener {
     private PoolCue poolCue;
     private Coin coin;
     Collision c=new Collision();
+    JDialog jd=new JDialog();
+    JLabel jl=new JLabel();
 
     public static PallaBianca whiteBall; //palla bianca che il giocatore colpisce
     public List<Ball> palleInGioco;
@@ -256,6 +258,7 @@ public class Table extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
+
     public void setTable(Graphics2D g2d) {
         //floor
         TexturePaint tpb = new TexturePaint(background, new Rectangle(300, 300));
@@ -266,6 +269,7 @@ public class Table extends JPanel implements ActionListener {
         g2d.setPaint(tp);
         g2d.setStroke(new BasicStroke(110.0f));
         g2d.drawRoundRect(x_board, y_board, standard_width * size_const, standard_height * size_const, 1, 1);
+
 
     }
 
@@ -419,6 +423,30 @@ public class Table extends JPanel implements ActionListener {
         }
     }
 
+    public void helper(){
+        Random r=new Random();
+        String [] msg=new String[9];
+        msg[0]="ball initial velocity is calculated between the distance of the cue and the ball";
+        msg[1]="click when the cue is far from the white ball to increase shoot strength";
+        msg[2]="click when the cue is near the white ball to a weak shoot";
+        msg[3]="try to hit the side of a coloured ball to give them direction";
+        msg[4]="hit the wall if the white ball is clutched";
+        msg[5]="don't pool the white ball";
+        msg[6]="before the shoot you can see the preview of the direction";
+        msg[7]="sometimes you need to shoot stronger";
+        msg[8]="take your time to take the perfect direction";
+        jl.setText(msg[r.nextInt(msg.length)]);
+        jd.add(jl);
+        jd.setVisible(true);
+        jd.setLocation(300,100);
+
+        jd.setSize(new Dimension(500,100));
+
+
+
+        jd.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+    }
 
 
 
@@ -427,6 +455,7 @@ public class Table extends JPanel implements ActionListener {
         public void mouseDragged(MouseEvent e) {
             //poolCue.mouseDragged(e);
         }
+
         @Override
         public void mouseClicked(MouseEvent e){
             DELAY=1;
@@ -437,6 +466,10 @@ public class Table extends JPanel implements ActionListener {
 
 
             c.stopBall(palleInGioco);
+
+
+            jd.setVisible(false);
+            helper();
             shoot();
         }
 
