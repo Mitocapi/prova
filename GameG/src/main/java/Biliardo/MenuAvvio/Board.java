@@ -249,19 +249,21 @@ public class Board extends JPanel implements Runnable,MouseListener {
                 if (mouseY >= bottoneP1VSP2.y && mouseY <= bottoneP1VSP2.y + bottoneP1VSP2.height) {
                     removeMouseListener(this);
                     game_mode = 1;
-                    new RunGame();
                     setVisible(false);
+                    new cueChooser();
+
                 } else if (mouseY >= bottoneP1VSCOM.y && mouseY <= bottoneP1VSCOM.y + bottoneP1VSCOM.height) {
                     removeMouseListener(this);
                     game_mode = 0;
-                    new RunGame();
                     setVisible(false);
+                    new cueChooser();
+
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
 
                     removeMouseListener(this);
                     game_mode = 1;
-                    new RunGame();
                     setVisible(false);
+                    new cueChooser();
 
 
                 } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {

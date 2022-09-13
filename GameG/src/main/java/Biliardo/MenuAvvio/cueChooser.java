@@ -1,5 +1,7 @@
 package Biliardo.MenuAvvio;
 
+import Biliardo.RunGame;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -44,10 +46,12 @@ public class cueChooser extends JFrame {
         button1.addActionListener(e -> {
             set_cue=1;
             setVisible(false);
+            new RunGame();
         });
         button2.addActionListener(e -> {
             set_cue=2;
             setVisible(false);
+            new RunGame();
         });
 
 
