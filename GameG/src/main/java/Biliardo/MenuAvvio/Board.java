@@ -221,11 +221,11 @@ public class Board extends JPanel implements Runnable,MouseListener {
         g.setFont(fontbottoni);
         g.setColor(Color.white);
         if(chosenMenu==0) {
-            g.drawString("P1 VS P2", bottoneP1VSP2.x + 75, bottoneP1VSP2.y + 30);
-            g.drawString("P1 VS COM", bottoneP1VSCOM.x + 70, bottoneP1VSCOM.y + 30);
-            g.drawString("ALLENAMENTO", bottoneAllenamento.x + 30, bottoneAllenamento.y + 30);
-            g.drawString("PERSONALIZZA", bottonePersonalizza.x + 30, bottonePersonalizza.y + 30);
-            g.drawString("CHIUDI", bottoneChiudi.x + 93, bottoneChiudi.y + 30);
+            g.drawString("P1 VS P2", bottoneP1VSP2.x + 30, bottoneP1VSP2.y + 30); //75
+            g.drawString("P1 VS E", bottoneP1VSCOM.x + 30, bottoneP1VSCOM.y + 30); //70
+            g.drawString("TUTORIAL", bottoneAllenamento.x + 30, bottoneAllenamento.y + 30); //30
+            g.drawString("CUSTOM", bottonePersonalizza.x + 30, bottonePersonalizza.y + 30); //30
+            g.drawString("CLOSE", bottoneChiudi.x + 30, bottoneChiudi.y + 30); //93 30
         }
         else{
             g.setColor(Color.darkGray);
@@ -233,11 +233,11 @@ public class Board extends JPanel implements Runnable,MouseListener {
             g.fillRect(bottoneIndietro.x, bottoneIndietro.y, bottoneIndietro.width, bottoneIndietro.height);
             g.setColor(Color.white);
             g.drawString("< ", bottoneIndietro.x+3, bottoneIndietro.y+22);
-            g.drawString("SELEZ. TAPPETO", bottoneP1VSP2.x + 20, bottoneP1VSP2.y + 30);
-            g.drawString("SELEZ. SFONDO", bottoneP1VSCOM.x + 25, bottoneP1VSCOM.y + 30);
-            g.drawString("SELEZ. TAVOLO", bottoneAllenamento.x + 25, bottoneAllenamento.y + 30);
-            g.drawString("COLORE P1", bottonePersonalizza.x + 55, bottonePersonalizza.y + 30);
-            g.drawString("COLORE P2/COM", bottoneChiudi.x + 20, bottoneChiudi.y + 30);
+            g.drawString("RUG", bottoneP1VSP2.x + 30, bottoneP1VSP2.y + 30); //20
+            g.drawString("BACKGROUND", bottoneP1VSCOM.x + 30, bottoneP1VSCOM.y + 30); //25
+            g.drawString("TABLE", bottoneAllenamento.x + 30, bottoneAllenamento.y + 30); //25
+            g.drawString("COLOR P1", bottonePersonalizza.x + 30, bottonePersonalizza.y + 30); //55
+            g.drawString("COLOR P2/E", bottoneChiudi.x + 30, bottoneChiudi.y + 30); //20
         }
     }
 
@@ -250,20 +250,35 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     removeMouseListener(this);
                     game_mode = 1;
                     setVisible(false);
-                    new cueChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(cueChooser::new);
 
                 } else if (mouseY >= bottoneP1VSCOM.y && mouseY <= bottoneP1VSCOM.y + bottoneP1VSCOM.height) {
                     removeMouseListener(this);
                     game_mode = 0;
                     setVisible(false);
-                    new cueChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(backgroundChooser::new);
 
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
 
                     removeMouseListener(this);
                     game_mode=3;
                     setVisible(false);
-                    new cueChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(backgroundChooser::new);
 
 
                 } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {
@@ -281,7 +296,12 @@ public class Board extends JPanel implements Runnable,MouseListener {
             if (mouseX >= bottoneP1VSP2.x && mouseX <= bottoneP1VSP2.x + bottoneP1VSP2.width) {
                 if (mouseY >= bottoneP1VSP2.y && mouseY <= bottoneP1VSP2.y + bottoneP1VSP2.height) {
 
-                    new carpetChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(carpetChooser::new);
 
                 } else if (mouseY >= bottoneP1VSCOM.y && mouseY <= bottoneP1VSCOM.y + bottoneP1VSCOM.height) {
                     game_mode=0;
@@ -296,17 +316,33 @@ public class Board extends JPanel implements Runnable,MouseListener {
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
 
 
-                    new fieldChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(fieldChooser::new);
 
                 } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {
 
-                    new ColorChooser();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(ColorChooser::new);
                     colorBall1=ColorChooser.colorePalle;
 
                 } else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y + bottoneChiudi.height) {
 
-                    new ColorChooser();
-                    colorBall1=ColorChooser.colorePalle;
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarkLaf());
+                    } catch (Exception ex) {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                    SwingUtilities.invokeLater(ColorChooser::new);
+
+                    colorBall2=ColorChooser.colorePalle;
 
                 }
             }

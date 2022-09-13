@@ -89,13 +89,13 @@ public class Table extends JPanel implements ActionListener {
         shoot_label.setText("total shoot "+num);
         add(shoot_label);
 
-        restart.setText("restart");
-        restart.setLocation(new Point(500,100));
-        restart.addActionListener(e -> {
-            setVisible(false);
-            new RunGame();
-        });
-        add(restart);
+        //restart.setText("restart");
+        //restart.setLocation(new Point(500,100));
+        //restart.addActionListener(e -> {
+        //    setVisible(false);
+        //    new RunGame();
+        //});
+        //add(restart);
 
         //provo a mettere le palline piu lontane tra loro
         //cambio 10 con 15
@@ -104,8 +104,6 @@ public class Table extends JPanel implements ActionListener {
         palleInGioco.add(new Ball(ball_startX, ball_startY,1));                   //1
         palleInGioco.add(new Ball(ball_startX+25,ball_startY+15,14));
         palleInGioco.add(new Ball(ball_startX+25,ball_startY-15,3));
-
-
 
        palleInGioco.add(new Ball(ball_startX+50,ball_startY+30,5));      //4
        palleInGioco.add(new Ball(ball_startX+50,ball_startY,8));              //5
@@ -127,7 +125,7 @@ public class Table extends JPanel implements ActionListener {
         whiteBall.movimentoRimanente=0;
 
         poolCue = new PoolCue();
-        coin=new Coin();
+
 
         setPakage(pack);
         setPit(pit);
@@ -142,12 +140,10 @@ public class Table extends JPanel implements ActionListener {
 
     private void moveCue(){
         poolCue.move();
-
         whiteBall.MoveBall();
         for(Ball bilie:palleInGioco){
             bilie.MoveBall();
         }
-
         repaint();
 
     }
@@ -279,7 +275,6 @@ public class Table extends JPanel implements ActionListener {
 
         cont++;
         //System.out.println(cont);
-
         if(cont%2==0)  //aumenta %1 per rallentare piu lentamente !!!!!!!!!!!!!!!!!!!!!!!!!!!!
             timer.setDelay(DELAY++);
 
@@ -332,7 +327,7 @@ public class Table extends JPanel implements ActionListener {
         }
 
 
-        Menu.score(g);
+
 
         if(whiteBall.movimentoRimanente<=0){
             if (Ball.checkMove(palleInGioco)) {
@@ -429,23 +424,29 @@ public class Table extends JPanel implements ActionListener {
             }
         }
     }
-
+    int msg_index=0;
     public void helper(){
         Random r=new Random();
-        String [] msg=new String[9];
+        String [] msg=new String[10];
         msg[0]="ball initial velocity is calculated between the distance of the cue and the ball";
         msg[1]="click when the cue is far from the white ball to increase shoot strength";
-        msg[2]="click when the cue is near the white ball to a weak shoot";
-        msg[3]="try to hit the side of a coloured ball to give them direction";
+        msg[2]="click when the cue is near the white ball for a weak shot";
+        msg[3]="try to hit the side of a coloured ball to give it direction";
         msg[4]="hit the wall if the white ball is clutched";
         msg[5]="don't pool the white ball";
         msg[6]="before the shoot you can see the preview of the direction";
         msg[7]="sometimes you need to shoot stronger";
         msg[8]="take your time to take the perfect direction";
-        jl.setText(msg[r.nextInt(msg.length)]);
+        msg[9]="now you know everything about this game";
+        jl.setText(msg[msg_index]);
+        msg_index++;
+
+        if(msg_index>9)
+            msg_index=0;
+
         jd.add(jl);
         jd.setVisible(true);
-        jd.setLocation(300,100);
+        jd.setLocation(100,100);
 
         jd.setSize(new Dimension(500,100));
 
@@ -477,7 +478,10 @@ public class Table extends JPanel implements ActionListener {
             if(Board.game_mode==3){
                 jd.setVisible(false);
                 helper();
+                control=1;
             }
+
+
             shoot();
             //
         }

@@ -53,10 +53,9 @@ public class Collision {
     public void checkCol2(Ball b,Ball b2){
         double distX=b.getXposition()-b2.getXposition();
         double distY=b.getYposition()- b2.getYposition();
-        double radSum=b.getRadius()*2 +3;
+        double radSum=b.getRadius()*2 ;
         double dist=Math.sqrt((distX*distX)+(distY*distY));
-        if(dist<=radSum){
-            if(b.getComponenteVelocitaX()>0 || b.getComponenteVelocitaY()>0 || b2.getComponenteVelocitaX()>0 || b2.getComponenteVelocitaY()>0)
+        if(dist<=radSum +2){
                 collision(b,b2);
         }
     }
