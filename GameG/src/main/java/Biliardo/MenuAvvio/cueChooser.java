@@ -1,6 +1,7 @@
 package Biliardo.MenuAvvio;
 
 import Biliardo.RunGame;
+import Biliardo.Table;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -56,7 +57,10 @@ public class cueChooser extends JFrame {
 
 
         setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+
 
     public static void main(String[] args) {
         new cueChooser();
