@@ -19,12 +19,14 @@ public class Board extends JPanel implements Runnable,MouseListener {
     private final int INITIAL_Y=100;
     private int DELAY=1;
 
-    public Rectangle bottonePlay = new Rectangle(255,152,290,40);
-    public Rectangle bottoneAltro = new Rectangle(255,222,290,40);
-    public Rectangle bottoneColori = new Rectangle(255,292,290,40 );
-    public Rectangle bottoneColoriP2 = new Rectangle(255,362,290,40 );
+    public Rectangle bottoneP1VSP2 = new Rectangle(255,152,290,40);
+    public Rectangle bottoneP1VSCOM = new Rectangle(255,222,290,40);
+    public Rectangle bottoneAllenamento = new Rectangle(255,292,290,40 );
+    public Rectangle bottonePersonalizza = new Rectangle(255,362,290,40 );
     public Rectangle bottoneChiudi = new Rectangle(255,432,290,40);
+    public Rectangle bottoneIndietro = new Rectangle(x=50,10,25,25);
 
+    public static int chosenMenu = 0;
     public static Color colorBall1;
     public static Color colorBall2;
     public static int game_mode;
@@ -205,48 +207,82 @@ public class Board extends JPanel implements Runnable,MouseListener {
         g.setColor(Color.RED);
         g.drawString("Biliardo", 325, 35);
         g.setColor(Color.darkGray);
-        g2d.draw(bottonePlay);
-        g2d.draw(bottoneAltro);
-        g2d.draw(bottoneColori);
-        g2d.draw(bottoneColoriP2);
+        g2d.draw(bottoneP1VSP2);
+        g2d.draw(bottoneP1VSCOM);
+        g2d.draw(bottoneAllenamento);
+        g2d.draw(bottonePersonalizza);
         g2d.draw(bottoneChiudi);
-        g.fillRect(bottonePlay.x, bottonePlay.y, bottonePlay.width, bottonePlay.height);
-        g.fillRect(bottoneAltro.x, bottoneAltro.y, bottoneAltro.width, bottoneAltro.height);
-        g.fillRect(bottoneColori.x, bottoneColori.y, bottoneColori.width, bottoneColori.height);
-        g.fillRect(bottoneColoriP2.x, bottoneColoriP2.y, bottoneColoriP2.width, bottoneColoriP2.height);
+        g.fillRect(bottoneP1VSP2.x, bottoneP1VSP2.y, bottoneP1VSP2.width, bottoneP1VSP2.height);
+        g.fillRect(bottoneP1VSCOM.x, bottoneP1VSCOM.y, bottoneP1VSCOM.width, bottoneP1VSCOM.height);
+        g.fillRect(bottoneAllenamento.x, bottoneAllenamento.y, bottoneAllenamento.width, bottoneAllenamento.height);
+        g.fillRect(bottonePersonalizza.x, bottonePersonalizza.y, bottonePersonalizza.width, bottonePersonalizza.height);
         g.fillRect(bottoneChiudi.x, bottoneChiudi.y, bottoneChiudi.width, bottoneChiudi.height);
         Font fontbottoni = new Font("arial", Font.BOLD, 30);
         g.setFont(fontbottoni);
         g.setColor(Color.white);
-        g.drawString("SINGLE PLAYER", bottonePlay.x+20, bottonePlay.y+30);
-        g.drawString("P1 vs P2", bottoneAltro.x+80, bottoneAltro.y+30);
-        g.drawString("COLORE P1", bottoneColori.x + 60, bottoneColori.y + 30);
-        g.drawString("COLORE P2 / COM", bottoneColoriP2.x + 10, bottoneColoriP2.y + 30);
-        g.drawString("CHIUDI", bottoneChiudi.x+93, bottoneChiudi.y + 30);
+        if(chosenMenu==0) {
+            g.drawString("P1 VS P2", bottoneP1VSP2.x + 75, bottoneP1VSP2.y + 30);
+            g.drawString("P1 VS COM", bottoneP1VSCOM.x + 70, bottoneP1VSCOM.y + 30);
+            g.drawString("ALLENAMENTO", bottoneAllenamento.x + 30, bottoneAllenamento.y + 30);
+            g.drawString("PERSONALIZZA", bottonePersonalizza.x + 30, bottonePersonalizza.y + 30);
+            g.drawString("CHIUDI", bottoneChiudi.x + 93, bottoneChiudi.y + 30);
+        }
+        else{
+            g.setColor(Color.darkGray);
+            g2d.draw(bottoneIndietro);
+            g.fillRect(bottoneIndietro.x, bottoneIndietro.y, bottoneIndietro.width, bottoneIndietro.height);
+            g.setColor(Color.white);
+            g.drawString("< ", bottoneIndietro.x+3, bottoneIndietro.y+22);
+            g.drawString("SELEZ. TAPPETO", bottoneP1VSP2.x + 20, bottoneP1VSP2.y + 30);
+            g.drawString("SELEZ. SFONDO", bottoneP1VSCOM.x + 25, bottoneP1VSCOM.y + 30);
+            g.drawString("SELEZ. TAVOLO", bottoneAllenamento.x + 25, bottoneAllenamento.y + 30);
+            g.drawString("COLORE P1", bottonePersonalizza.x + 55, bottonePersonalizza.y + 30);
+            g.drawString("COLORE P2/COM", bottoneChiudi.x + 20, bottoneChiudi.y + 30);
+        }
     }
 
     public void mousePressed (MouseEvent e){
         int mouseX = e.getX();
         int mouseY = e.getY();
-        if(mouseX>=bottonePlay.x && mouseX <= bottonePlay.x + bottonePlay.width ){
-                if (mouseY >= bottonePlay.y && mouseY <= bottonePlay.y+bottonePlay.height) {
+        if(chosenMenu==0) {
+            if (mouseX >= bottoneP1VSP2.x && mouseX <= bottoneP1VSP2.x + bottoneP1VSP2.width) {
+                if (mouseY >= bottoneP1VSP2.y && mouseY <= bottoneP1VSP2.y + bottoneP1VSP2.height) {
                     removeMouseListener(this);
-                    game_mode=1;
+                    game_mode = 1;
                     new RunGame();
                     setVisible(false);
-                }
-                else if (mouseY >= bottoneAltro.y && mouseY <= bottoneAltro.y+bottoneAltro.height) {
+                } else if (mouseY >= bottoneP1VSCOM.y && mouseY <= bottoneP1VSCOM.y + bottoneP1VSCOM.height) {
                     removeMouseListener(this);
-                    game_mode=0;
+                    game_mode = 0;
                     new RunGame();
                     setVisible(false);
+                } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
+
+                    removeMouseListener(this);
+                    game_mode = 1;
+                    new RunGame();
+                    setVisible(false);
+
+
+                } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {
+
+                    chosenMenu = 1;
+                    repaint();
+
+                } else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y + bottoneChiudi.height) {
+
+                    System.exit(1);
                 }
-                else if (mouseY>= bottoneColori.y && mouseY <= bottoneColori.y+ bottoneColori.height){
-                    //new ColorChooser();
-                    new fieldChooser();
-                    colorBall1=ColorChooser.colorePalle;
-                }
-                else if (mouseY>= bottoneColoriP2.y && mouseY <= bottoneColoriP2.y+ bottoneColoriP2.height){
+            }
+        }
+        else {
+            if (mouseX >= bottoneP1VSP2.x && mouseX <= bottoneP1VSP2.x + bottoneP1VSP2.width) {
+                if (mouseY >= bottoneP1VSP2.y && mouseY <= bottoneP1VSP2.y + bottoneP1VSP2.height) {
+
+                    new carpetChooser();
+
+                } else if (mouseY >= bottoneP1VSCOM.y && mouseY <= bottoneP1VSCOM.y + bottoneP1VSCOM.height) {
+
                     try {
                         UIManager.setLookAndFeel(new FlatDarkLaf());
                     } catch (Exception ex) {
@@ -254,17 +290,28 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     }
                     SwingUtilities.invokeLater(backgroundChooser::new);
 
+                } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
 
-                    //new ColorChooser();
-                    colorBall2=ColorChooser.colorePalle;
+                    new fieldChooser();
+
+                } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {
+
+                    new ColorChooser();
+                    colorBall1=ColorChooser.colorePalle;
+
+                } else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y + bottoneChiudi.height) {
+
+                    new ColorChooser();
+                    colorBall1=ColorChooser.colorePalle;
+
                 }
-                else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y+ bottonePlay.height) {
-                    //new backgroundChooser();
-                    //new fieldChooser();
-                    new carpetChooser();
-                    //new cueChooser();
-                    //System.exit(1);
+            }
+            else if (mouseX >= bottoneIndietro.x && mouseX <= bottoneIndietro.x + bottoneIndietro.width){
+                if (mouseY >= bottoneIndietro.y && mouseY <= bottoneIndietro.y+ bottoneIndietro.height){
+                    chosenMenu = 0;
+                    repaint();
                 }
+            }
         }
 
     }
