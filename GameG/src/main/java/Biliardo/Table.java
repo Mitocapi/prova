@@ -339,24 +339,31 @@ public class Table extends JPanel implements ActionListener {
                 //System.out.println("entrat");
                 AffineTransform old = g2d.getTransform();
                 angle = getAngle(new Point(poolCue.getX(), poolCue.getY()), new Point(whiteBall.posizioneX, whiteBall.posizioneY));
-                g2d.rotate(angle, poolCue.getX(), poolCue.getY());
-                g2d.drawImage(poolCue.poolCueImg, poolCue.getX() - 150, poolCue.getY() - 15, this);
-                g2d.setTransform(old);
 
-                AffineTransform old2 = g2d.getTransform();
-                g2d.setColor(Color.white);
+                if(Board.game_mode==0 && num%2!=0){
+                    //non disegna
+                }
+                else{
+                    g2d.rotate(angle, poolCue.getX(), poolCue.getY());
+                    g2d.drawImage(poolCue.poolCueImg, poolCue.getX() - 150, poolCue.getY() - 15, this);
+                    g2d.setTransform(old);
+                    AffineTransform old2 = g2d.getTransform();
+                    g2d.setColor(Color.white);
 
-                angle = Math.toDegrees(angle) + 360;
-                angle = Math.toRadians(angle);
-                angle_shoot=angle;
-                g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
-                g2d.setStroke(new BasicStroke(2));
+                    angle = Math.toDegrees(angle) + 360;
+                    angle = Math.toRadians(angle);
+                    angle_shoot=angle;
+                    g2d.rotate(angle, whiteBall.posizioneX, whiteBall.posizioneY);
+                    g2d.setStroke(new BasicStroke(2));
 
-                int accuracy=0;
-                if(cueChooser.set_cue==2)
-                    accuracy=40;
-                g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80+accuracy, whiteBall.posizioneY);
-                g2d.setTransform(old2);
+                    int accuracy=0;
+                    if(cueChooser.set_cue==2)
+                        accuracy=40;
+                    g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80+accuracy, whiteBall.posizioneY);
+                    g2d.setTransform(old2)
+                }
+
+
             }
         }
 
