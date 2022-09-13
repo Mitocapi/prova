@@ -261,7 +261,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
 
                     removeMouseListener(this);
-                    game_mode = 1;
+                    game_mode=3;
                     setVisible(false);
                     new cueChooser();
 
@@ -294,7 +294,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     SwingUtilities.invokeLater(backgroundChooser::new);
 
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
-                    game_mode=3;
+
 
                     new fieldChooser();
 
