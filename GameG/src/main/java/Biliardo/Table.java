@@ -360,7 +360,7 @@ public class Table extends JPanel implements ActionListener {
                     if(cueChooser.set_cue==2)
                         accuracy=40;
                     g2d.drawLine(whiteBall.posizioneX, whiteBall.posizioneY, whiteBall.posizioneX + 80+accuracy, whiteBall.posizioneY);
-                    g2d.setTransform(old2)
+                    g2d.setTransform(old2);
                 }
 
 
