@@ -472,6 +472,7 @@ public class Table extends JPanel implements ActionListener {
                 helper();
             }
             shoot();
+            //
         }
 
         @Override
