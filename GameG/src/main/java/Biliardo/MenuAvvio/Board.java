@@ -284,6 +284,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     new carpetChooser();
 
                 } else if (mouseY >= bottoneP1VSCOM.y && mouseY <= bottoneP1VSCOM.y + bottoneP1VSCOM.height) {
+                    game_mode=0;
 
                     try {
                         UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -293,6 +294,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     SwingUtilities.invokeLater(backgroundChooser::new);
 
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
+                    game_mode=3;
 
                     new fieldChooser();
 

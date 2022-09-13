@@ -467,9 +467,10 @@ public class Table extends JPanel implements ActionListener {
 
             c.stopBall(palleInGioco);
 
-
-            jd.setVisible(false);
-            helper();
+            if(Board.game_mode==3){
+                jd.setVisible(false);
+                helper();
+            }
             shoot();
         }
 
