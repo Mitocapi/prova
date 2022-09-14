@@ -221,11 +221,11 @@ public class Board extends JPanel implements Runnable,MouseListener {
         g.setFont(fontbottoni);
         g.setColor(Color.white);
         if(chosenMenu==0) {
-            g.drawString("P1 VS P2", bottoneP1VSP2.x + 30, bottoneP1VSP2.y + 30); //75
-            g.drawString("P1 VS E", bottoneP1VSCOM.x + 30, bottoneP1VSCOM.y + 30); //70
-            g.drawString("TUTORIAL", bottoneAllenamento.x + 30, bottoneAllenamento.y + 30); //30
-            g.drawString("CUSTOM", bottonePersonalizza.x + 30, bottonePersonalizza.y + 30); //30
-            g.drawString("CLOSE", bottoneChiudi.x + 30, bottoneChiudi.y + 30); //93 30
+            g.drawString("P1 VS P2", bottoneP1VSP2.x + 80, bottoneP1VSP2.y + 30); //75
+            g.drawString("P1 VS E", bottoneP1VSCOM.x + 85, bottoneP1VSCOM.y + 30); //70
+            g.drawString("TUTORIAL", bottoneAllenamento.x + 70, bottoneAllenamento.y + 30); //30
+            g.drawString("CUSTOM", bottonePersonalizza.x + 80, bottonePersonalizza.y + 30); //30
+            g.drawString("CLOSE", bottoneChiudi.x + 90, bottoneChiudi.y + 30); //93 30
         }
         else{
             g.setColor(Color.darkGray);
@@ -233,11 +233,11 @@ public class Board extends JPanel implements Runnable,MouseListener {
             g.fillRect(bottoneIndietro.x, bottoneIndietro.y, bottoneIndietro.width, bottoneIndietro.height);
             g.setColor(Color.white);
             g.drawString("< ", bottoneIndietro.x+3, bottoneIndietro.y+22);
-            g.drawString("RUG", bottoneP1VSP2.x + 30, bottoneP1VSP2.y + 30); //20
-            g.drawString("BACKGROUND", bottoneP1VSCOM.x + 30, bottoneP1VSCOM.y + 30); //25
-            g.drawString("TABLE", bottoneAllenamento.x + 30, bottoneAllenamento.y + 30); //25
-            g.drawString("COLOR P1", bottonePersonalizza.x + 30, bottonePersonalizza.y + 30); //55
-            g.drawString("COLOR P2/E", bottoneChiudi.x + 30, bottoneChiudi.y + 30); //20
+            g.drawString("RUG", bottoneP1VSP2.x + 110, bottoneP1VSP2.y + 30); //20
+            g.drawString("BACKGROUND", bottoneP1VSCOM.x + 40, bottoneP1VSCOM.y + 30); //25
+            g.drawString("TABLE", bottoneAllenamento.x + 90, bottoneAllenamento.y + 30); //25
+            g.drawString("COLOR P1", bottonePersonalizza.x + 65, bottonePersonalizza.y + 30); //55
+            g.drawString("COLOR P2/E", bottoneChiudi.x + 50, bottoneChiudi.y + 30); //20
         }
     }
 
