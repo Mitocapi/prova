@@ -266,7 +266,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     } catch (Exception ex) {
                         System.err.println("Failed to initialize LaF");
                     }
-                    SwingUtilities.invokeLater(backgroundChooser::new);
+                    SwingUtilities.invokeLater(cueChooser::new);
 
                 } else if (mouseY >= bottoneAllenamento.y && mouseY <= bottoneAllenamento.y + bottoneAllenamento.height) {
 
@@ -278,7 +278,7 @@ public class Board extends JPanel implements Runnable,MouseListener {
                     } catch (Exception ex) {
                         System.err.println("Failed to initialize LaF");
                     }
-                    SwingUtilities.invokeLater(backgroundChooser::new);
+                    SwingUtilities.invokeLater(cueChooser::new);
 
 
                 } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {
