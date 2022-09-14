@@ -14,7 +14,14 @@ public class shootSound {
         clip.open(a);
         clip.start();
 
-
+    }
+    public static void holeSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        Scanner s=new Scanner(System.in);
+        File f=new File("GameG/src/main/resources/audio/crowd.wav");
+        AudioInputStream a= AudioSystem.getAudioInputStream(f);
+        Clip clip=AudioSystem.getClip();
+        clip.open(a);
+        clip.start();
     }
 
 

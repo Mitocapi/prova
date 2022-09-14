@@ -191,6 +191,15 @@ public class Table extends JPanel implements ActionListener {
             for (Ball b : palleInGioco) {
                 if (b.getXposition() <= 20 + pit[i].x && b.getXposition() >= pit[i].x - 20) {
                     if (b.getYposition() <= 20 + pit[i].y && b.getYposition() >= pit[i].y - 20) {
+                        try {
+                            shootSound.holeSound();
+                        } catch (UnsupportedAudioFileException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (LineUnavailableException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("buca ok");
                         if(turno%2==0){
                             b.setXposition(1050);
