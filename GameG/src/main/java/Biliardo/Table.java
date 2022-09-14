@@ -190,8 +190,8 @@ public class Table extends JPanel implements ActionListener {
         for(int i=0;i<pit.length;i++){
 
             for (Ball b : palleInGioco) {
-                if (b.getXposition() <= 25 + pit[i].x && b.getXposition() >= pit[i].x - 25) {
-                    if (b.getYposition() <= 25 + pit[i].y && b.getYposition() >= pit[i].y - 25) {
+                if (b.getXposition() <= 25 + pit[i].x && b.getXposition() >= pit[i].x - 8) {
+                    if (b.getYposition() <= 25 + pit[i].y && b.getYposition() >= pit[i].y - 8) {
                         try {
                             shootSound.holeSound();
                         } catch (UnsupportedAudioFileException e) {
