@@ -24,6 +24,7 @@ public class Table extends JPanel implements ActionListener {
     JDialog jd=new JDialog();
     JLabel jl=new JLabel();
 
+
     public static PallaBianca whiteBall; //palla bianca che il giocatore colpisce
     public List<Ball> palleInGioco;
     //public Menu menuGioco;
@@ -403,6 +404,7 @@ public class Table extends JPanel implements ActionListener {
         whiteBall.MoveBall();
 
     }
+    int pot=0;
     public void shoot() {
         int permit=1;
 
@@ -416,7 +418,10 @@ public class Table extends JPanel implements ActionListener {
             if (num % 2 == 0 && Board.game_mode==0) {
                 shootRandom();
             } else {
-                whiteBall.movimentoRimanente = 4000;
+                if(cueChooser.set_cue==1){
+                    pot=500;
+                }
+                whiteBall.movimentoRimanente = 4000+pot;
 
                 whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
                 whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
