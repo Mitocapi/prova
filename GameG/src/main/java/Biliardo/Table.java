@@ -3,6 +3,8 @@ package Biliardo;
 import Biliardo.MenuAvvio.*;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -490,6 +492,16 @@ public class Table extends JPanel implements ActionListener {
                 jd.setVisible(false);
                 helper();
                 control=1;
+            }
+
+            try {
+                shootSound.shSound();
+            } catch (UnsupportedAudioFileException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (LineUnavailableException ex) {
+                ex.printStackTrace();
             }
 
 
