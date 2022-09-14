@@ -388,6 +388,10 @@ public class Table extends JPanel implements ActionListener {
         int xr=random.nextInt(-1500,1500);
         int yr= random.nextInt(-1500,1500);
         System.out.println(xr+" "+yr);
+        if(xr<100 && xr>-100)
+            xr=100;
+        if(yr<100 && yr>-100)
+            yr=100;
         whiteBall.movimentoRimanente = 3000;
 
         whiteBall.setComponenteVelocitaX(xr);
@@ -412,7 +416,7 @@ public class Table extends JPanel implements ActionListener {
             if (num % 2 == 0 && Board.game_mode==0) {
                 shootRandom();
             } else {
-                whiteBall.movimentoRimanente = 3000;
+                whiteBall.movimentoRimanente = 4000;
 
                 whiteBall.setComponenteVelocitaX((whiteBall.getXposition() - poolCue.getX()) * 5);
                 whiteBall.setComponenteVelocitaY((whiteBall.getYposition() - poolCue.getY()) * 5);
@@ -426,6 +430,7 @@ public class Table extends JPanel implements ActionListener {
     }
     int msg_index=0;
     public void helper(){
+        jd.setTitle("helper");
         Random r=new Random();
         String [] msg=new String[10];
         msg[0]="ball initial velocity is calculated between the distance of the cue and the ball";
@@ -439,6 +444,7 @@ public class Table extends JPanel implements ActionListener {
         msg[8]="take your time to take the perfect direction";
         msg[9]="now you know everything about this game";
         jl.setText(msg[msg_index]);
+
         msg_index++;
 
         if(msg_index>9)
@@ -446,7 +452,7 @@ public class Table extends JPanel implements ActionListener {
 
         jd.add(jl);
         jd.setVisible(true);
-        jd.setLocation(100,100);
+        jd.setLocation(170,40);
 
         jd.setSize(new Dimension(500,100));
 
