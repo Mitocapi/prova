@@ -18,6 +18,7 @@ public class ThreadAnimation extends JFrame {
         pack();
 
         setTitle("pool");
+        //mod
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
