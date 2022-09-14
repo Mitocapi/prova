@@ -143,7 +143,6 @@ public class Ball {
                 if(this.number==0){
                     g.setColor(Color.white);
                     g.fillOval(posizioneX - 12, posizioneY - 12, radius * 2, radius * 2);
-
                 }
             }else{
                 g.setColor(Board.colorBall2);

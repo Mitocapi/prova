@@ -325,24 +325,14 @@ public class Board extends JPanel implements Runnable,MouseListener {
 
                 } else if (mouseY >= bottonePersonalizza.y && mouseY <= bottonePersonalizza.y + bottonePersonalizza.height) {
 
-                    try {
-                        UIManager.setLookAndFeel(new FlatDarkLaf());
-                    } catch (Exception ex) {
-                        System.err.println("Failed to initialize LaF");
-                    }
-                    SwingUtilities.invokeLater(ColorChooser::new);
+                    new ColorChooser();
                     colorBall1=ColorChooser.colorePalle;
 
                 } else if (mouseY >= bottoneChiudi.y && mouseY <= bottoneChiudi.y + bottoneChiudi.height) {
 
-                    try {
-                        UIManager.setLookAndFeel(new FlatDarkLaf());
-                    } catch (Exception ex) {
-                        System.err.println("Failed to initialize LaF");
-                    }
-                    SwingUtilities.invokeLater(ColorChooser::new);
+                    new ColorChooser2();
 
-                    colorBall2=ColorChooser.colorePalle;
+                    colorBall2=ColorChooser2.colorePalle2;
 
                 }
             }
