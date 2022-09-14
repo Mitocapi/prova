@@ -25,6 +25,7 @@ public class Table extends JPanel implements ActionListener {
     Collision c=new Collision();
     JDialog jd=new JDialog();
     JLabel jl=new JLabel();
+    int whiteBall_state=1;
 
 
     public static PallaBianca whiteBall; //palla bianca che il giocatore colpisce
@@ -189,8 +190,8 @@ public class Table extends JPanel implements ActionListener {
         for(int i=0;i<pit.length;i++){
 
             for (Ball b : palleInGioco) {
-                if (b.getXposition() <= 25 + pit[i].x && b.getXposition() >= pit[i].x - 8) {
-                    if (b.getYposition() <= 25 + pit[i].y && b.getYposition() >= pit[i].y - 8) {
+                if (b.getXposition() <= 25 + pit[i].x && b.getXposition() >= pit[i].x - 25) {
+                    if (b.getYposition() <= 25 + pit[i].y && b.getYposition() >= pit[i].y - 25) {
                         try {
                             shootSound.holeSound();
                         } catch (UnsupportedAudioFileException e) {
@@ -223,7 +224,19 @@ public class Table extends JPanel implements ActionListener {
 
             if(whiteBall.getXposition()<=22+pit[i].x && whiteBall.getXposition()>=pit[i].x-4){
                 if(whiteBall.getYposition()<=22+pit[i].y && whiteBall.getYposition()>=pit[i].y-4){
-                    new RunGame();
+                    JDialog jj=new JDialog();
+                    jj.setLocationRelativeTo(null);
+                    jj.setSize(400,80);
+                    JLabel jjl=new JLabel("foul: white ball in pit click inside the field to dispose the ball");
+                    jj.add(jjl);
+                    jj.setVisible(true);
+                    jj.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    whiteBall_state=0;
+                    whiteBall.setComponenteVelocitaX(0);
+                    whiteBall.setComponenteVelocitaY(0);
+                    whiteBall.setMovimentoRimanente(0);
+                    whiteBall.setYposition(-20);
+                    whiteBall.setXposition(-20);
                 }
             }
 
@@ -396,6 +409,7 @@ public class Table extends JPanel implements ActionListener {
 
     }
 
+
     public void shootRandom(){
         int xr=random.nextInt(-1500,1500);
         int yr= random.nextInt(-1500,1500);
@@ -488,6 +502,7 @@ public class Table extends JPanel implements ActionListener {
 
         @Override
         public void mouseClicked(MouseEvent e){
+            if(whiteBall_state==1){
             DELAY=1;
             cont=0;
             control=1;
@@ -511,6 +526,14 @@ public class Table extends JPanel implements ActionListener {
                 ex.printStackTrace();
             } catch (LineUnavailableException ex) {
                 ex.printStackTrace();
+            }
+            }else{
+
+                whiteBall.setXposition(e.getX());
+                whiteBall.setYposition(e.getY());
+
+                whiteBall_state=1;
+
             }
 
 
